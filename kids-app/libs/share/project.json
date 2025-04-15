@@ -1,0 +1,19 @@
+{
+  "name": "share",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/share/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/share",
+        "main": "libs/share/src/index.ts",
+        "tsConfig": "libs/share/tsconfig.lib.json",
+        "assets": ["libs/share/*.md"]
+      }
+    }
+  }
+}
