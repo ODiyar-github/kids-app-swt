@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class EventInformationDTO {
 
-  String UUID;
+  String uuid;
   String eventAdress;
   String title;
   Point gpsLocation;

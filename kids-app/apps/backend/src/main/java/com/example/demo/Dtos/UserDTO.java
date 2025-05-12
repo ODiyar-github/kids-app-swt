@@ -1,7 +1,7 @@
 package com.example.demo.Dtos;
 
 public class UserDTO {
-  String UUID;
+  String uuid ;
   String name;
   String password;
   String verify;
@@ -9,6 +9,6 @@ public class UserDTO {
   Integer age;
   UserDTO[] friends;
   OrganisationDTO organisation;
-  String[] Interests;
+  String[] interests;
 
 }
