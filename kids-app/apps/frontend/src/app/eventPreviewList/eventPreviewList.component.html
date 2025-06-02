@@ -1,0 +1,4 @@
+
+<app-eventPreview-component
+*ngFor="let event of events" [data]="event" (click)="onEventPreviewClick(event.titleURL)">
+</app-eventPreview-component>

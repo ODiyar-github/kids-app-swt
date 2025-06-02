@@ -1,2 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+:root {
+    --kopfHintergrund: linear-gradient(to right, #f0a980, rgb(200, 255, 250));
+    --contrastColour: rgb(152, 33, 33);
+    --areaBackgroundColour: rgba(255, 220, 160, 0.674);
+    --backgroundColour: rgb(255, 220, 160);
+    --outerMargin: 10%;
+    --defaultBoxShadow: 0px 0px 4px black;
+    font-family: sans-serif;
+}
+.mat-divider {
+    color: var(--contrastColour);
+}
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}

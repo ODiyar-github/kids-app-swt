@@ -1,0 +1,9 @@
+.kopf_navigation {
+    top: 0;
+    position: sticky;
+    background-image: var(--kopfHintergrund);
+}
+a {
+    font-size: 150%;
+    font-weight: 500;
+}
