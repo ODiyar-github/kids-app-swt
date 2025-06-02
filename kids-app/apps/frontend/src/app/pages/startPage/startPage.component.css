@@ -1,0 +1,41 @@
+
+.startPage {
+    background-image: url("/images/background_startseite.png");
+    background-attachment: fixed;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+}
+.startPageGrid {
+    min-height: 100vh;
+    width: auto;
+    margin-left: var(--outerMargin);
+    margin-right: var(--outerMargin);
+    display: grid;
+    grid-template-columns: 60% minmax(0%, var(--outerMargin)) 30%;
+}
+.c1, .c3 {
+    height: 100%;
+    background-color: var(--areaBackgroundColour);
+    box-shadow: var(--defaultBoxShadow);
+}
+.c1 > *{
+    margin-top: 2rem;
+}
+.titel {
+    color: var(--contrastColour);
+    text-align: center;
+    text-wrap: wrap;
+}
+.photo {
+    width: 90%;
+    margin: 0% 5% 0% 5%;
+    border-radius: 10px;;
+    box-shadow: var(--defaultBoxShadow);
+}
+.liste > * {
+    height: 1.5rem;
+}
+
+
+
