@@ -4,11 +4,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 @Component({
   standalone: true,
-  selector: 'app-startseite-component',
-  templateUrl: './startPage.component.html',
-  styleUrl: './startPage.component.css',
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css',
   imports: [MatGridListModule, MatListModule],
 })
-export class StartPageComponent {
+export class DashbardComponent {
   readonly path = 'startseite';
 }

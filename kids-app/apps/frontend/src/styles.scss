@@ -1,0 +1,55 @@
+@use '@angular/material' as mat;
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@include mat.core();
+
+$my-theme: mat.define-theme((
+    color: (
+        primary: mat.$cyan-palette
+    )
+));
+
+:root {
+    --kopfHintergrund: linear-gradient(to right, #f0a980, rgb(200, 255, 250));
+    --contrastColour: rgb(152, 33, 33);
+    --areaBackgroundColour: rgba(255, 220, 160, 0.674);
+    --backgroundColour: rgb(255, 220, 160);
+    --outerMargin: 10%;
+    --defaultBoxShadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+
+    @include mat.all-component-themes($my-theme);
+}
+
+body{
+    margin: 0;
+    font-family: roboto, 'Helvetica Neue', sans-serif;
+    height: 100%;
+}
+
+h1 {
+    font-weight: 300;
+    font-size: x-large;
+}
+
+.container {
+    height: 80vh;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.card{
+    background-color: white;
+    border-radius: 1em;
+    padding: 1em;
+    box-shadow: var(--defaultBoxShadow);
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

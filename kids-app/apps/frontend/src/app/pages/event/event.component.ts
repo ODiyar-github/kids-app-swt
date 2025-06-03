@@ -3,18 +3,17 @@ import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { EventDTO } from '../shared/dto/event.dto';
+import { EventDTO } from '../../shared/dto/event.dto';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
-  selector: 'app-eventPreview-component',
-  templateUrl: './eventPreview.component.html',
-  styleUrl: './eventPreview.component.css',
-  imports: [CommonModule, FormsModule, MatCardModule, MatDividerModule, MatIconModule, FlexLayoutModule],
+  selector: 'app-event-component',
+  templateUrl: './event.component.html',
+  styleUrl: './event.component.css',
+  imports: [CommonModule, FormsModule, MatCardModule, MatDividerModule, MatIconModule],
 })
-export class EventPreviewComponent {
+export class EventComponent {
   @Input() data!: EventDTO;
 }

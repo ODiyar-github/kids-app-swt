@@ -1,0 +1,20 @@
+<mat-toolbar>
+    <div [routerLink]="['/', RoutingEnum.DASHBOARD]" routerLinkActive="active">
+        <mat-icon>home</mat-icon>
+    </div>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav-content>
+        <ng-content></ng-content>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<footer class="footer">
+    <div>
+        <img src ="images/stadt_herne_logo_footer.svg" alt="Stadt Herne Logo" class="footer-logo">
+    </div>
+    <div class="footer-text">
+        <p>© 2023 Stadt Herne</p>
+    </div>
+</footer>

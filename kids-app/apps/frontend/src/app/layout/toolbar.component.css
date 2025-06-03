@@ -1,0 +1,26 @@
+mat-toolbar {
+  box-shadow: 2px ß 5px 0 rgba(0, 0, 0, 0.1);
+  border: none;
+  background-color: white;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+}
+mat-sidenav-content {
+  background-color: white;
+}
+.footer-logo {
+  width: 100%;
+  background-color: grey;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1em 0 1em;
+}
+
+.footer-text {
+    background-color: #292a2c;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 75px;
+}

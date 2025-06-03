@@ -1,34 +1,25 @@
 import { Routes } from '@angular/router';
-import { StartPageComponent } from './pages/startPage/startPage.component';
-import { EventsPageComponent } from './pages/eventsPage/eventsPage.component';
-import { CommunityPageComponent } from './pages/communityPage/communityPage.component';
-import { EventComponent } from './event/event.component';
+import { DashbardComponent } from './pages/dashboard/dashboard.component';
+import { CommunityPageComponent } from './pages/community/communityPage.component';
+import { EventComponent } from './pages/event/event.component';
+import { RoutingEnum } from './shared/enums/routing.enum';
 
 export const routes: Routes = [
-    {
-        path: '',
-        redirectTo: 'startseite',
-        pathMatch: 'full',
-    },
-    {
-        path: 'startseite',
-        component: StartPageComponent
-    },
-    {
-        path: 'angebote',
-        component: EventsPageComponent
-    },
-    {
-        path: 'angebote/:uuid',
-        component: EventComponent
-    },
-    {
-        path: 'community',
-        component: CommunityPageComponent
-    },
-    {
-        path: '**',
-        redirectTo: 'startseite',
-        pathMatch: 'full',
-    },
+  {
+    path: '',
+    redirectTo: RoutingEnum.HOME,
+    pathMatch: 'full',
+  },
+  {
+    path: RoutingEnum.DASHBOARD,
+    component: DashbardComponent,
+  },
+  {
+    path: RoutingEnum.events + '/:eventId',
+    component: EventComponent,
+  },
+  {
+    path: RoutingEnum.COMMUNITY,
+    component: CommunityPageComponent,
+  },
 ];
