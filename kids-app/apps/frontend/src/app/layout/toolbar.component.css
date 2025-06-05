@@ -1,26 +1,102 @@
-mat-toolbar {
-  box-shadow: 2px ß 5px 0 rgba(0, 0, 0, 0.1);
-  border: none;
-  background-color: white;
-  position: fixed;
-  z-index: 2;
-  top: 0;
-}
-mat-sidenav-content {
-  background-color: white;
-}
-.footer-logo {
+.wrapper{
   width: 100%;
-  background-color: grey;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 1em 0 1em;
+  height: 100%;
+}
+.divider {
+  height: 32px;
+  width: 1px;
+  background-color: black;
+  margin: 0 1rem;
+}
+.divider.small {
+  height: 24px;
+  margin: 0 0.5rem;
+  background-color: black;
 }
 
-.footer-text {
-    background-color: #292a2c;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 75px;
+.toolbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  box-shadow: var(--defaultBoxShadow);
+  background-color: var(--areaBackgroundColor);
+  overflow: none;
+}
+
+.icon{
+  transition: scale(2);
+  color: black;
+  cursor: pointer;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.nav-buttons {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+}
+
+.main-container {
+  margin-top: 64px;
+  height: calc(100vh - 64px);
+  background-color: var(--sub-color);
+}
+
+.footer{
+  background-color: black;
+  height: 100px;
+  width: 100%;
+}
+
+.mobile-left {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+}
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.mobile-left {
+  display: none;
+}
+@media (max-width: 40rem) {
+  .nav-buttons {
+    display: none;
+  }
+  .mobile-left {
+    display: flex;
+  }
+  .divider {
+    display: none;
+  }
+  .logo-section{
+    display: none;
+  }
+  .toolbar{
+    flex-direction: row-reverse;
+  }
 }

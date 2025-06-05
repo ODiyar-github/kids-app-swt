@@ -1,20 +1,54 @@
-<mat-toolbar>
-    <div [routerLink]="['/', RoutingEnum.DASHBOARD]" routerLinkActive="active">
-        <mat-icon>home</mat-icon>
+<div class="wrapper">
+  <mat-toolbar class="toolbar" >
+    <div class="logo-section">
+      <mat-icon class="icon">home</mat-icon>
     </div>
-</mat-toolbar>
+    <div class="divider"></div>
+    <div class="nav-buttons">
+      <button mat-button [routerLink]="['/', RoutingEnum.DASHBOARD]" routerLinkActive="active">Home</button>
+      <div class="divider small"></div>
+      <button mat-button [routerLink]="['/', RoutingEnum.EVENT]" routerLinkActive="active">Veranstaltungen</button>
+      <div class="divider small"></div>
+      <button mat-button [routerLink]="['/', RoutingEnum.ORGANISATION]" routerLinkActive="active">Organisation</button>
+    </div>
+    <span class="spacer"></span>
+    <div class="divider"></div>
+    <div class="user-section">
+      <button mat-icon-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+    <div class="mobile-left">
+      <div class="logo-section">
+        <mat-icon class="icon">home</mat-icon>
+      </div>
+    
+      <div class="mobile-nav">
+        <button mat-icon-button [matMenuTriggerFor]="mobileMenu">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-toolbar>
+  
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item>Profil</button>
+    <button mat-menu-item>Einstellungen</button>
+    <button mat-menu-item>Logout</button>
+  </mat-menu>
 
-<mat-sidenav-container>
+  <mat-menu #mobileMenu="matMenu">
+    <button mat-menu-item [routerLink]="['/', RoutingEnum.DASHBOARD]">Home</button>
+    <button mat-menu-item [routerLink]="['/', RoutingEnum.EVENT]">Veranstaltungen</button>
+    <button mat-menu-item [routerLink]="['/', RoutingEnum.ORGANISATION]">Organisation</button>
+  </mat-menu>  
+
+  <mat-sidenav-container class="main-container">
     <mat-sidenav-content>
-        <ng-content></ng-content>
+      <ng-content></ng-content>
+      <footer class="footer">
+        <app-footer></app-footer>
+      </footer>
     </mat-sidenav-content>
-</mat-sidenav-container>
-
-<footer class="footer">
-    <div>
-        <img src ="images/stadt_herne_logo_footer.svg" alt="Stadt Herne Logo" class="footer-logo">
-    </div>
-    <div class="footer-text">
-        <p>© 2023 Stadt Herne</p>
-    </div>
-</footer>
+  </mat-sidenav-container>
+</div>

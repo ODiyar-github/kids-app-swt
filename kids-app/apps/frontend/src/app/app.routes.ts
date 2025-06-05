@@ -7,7 +7,7 @@ import { RoutingEnum } from './shared/enums/routing.enum';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: RoutingEnum.HOME,
+    redirectTo: RoutingEnum.DASHBOARD,
     pathMatch: 'full',
   },
   {
@@ -15,11 +15,11 @@ export const routes: Routes = [
     component: DashbardComponent,
   },
   {
-    path: RoutingEnum.events + '/:eventId',
+    path: RoutingEnum.EVENT,
     component: EventComponent,
   },
   {
-    path: RoutingEnum.COMMUNITY,
+    path: RoutingEnum.ORGANISATION,
     component: CommunityPageComponent,
   },
 ];

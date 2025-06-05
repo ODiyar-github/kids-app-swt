@@ -1,21 +1,35 @@
 @use '@angular/material' as mat;
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @include mat.core();
 
 $my-theme: mat.define-theme((
     color: (
-        primary: mat.$cyan-palette
+        primary: mat.$orange-palette
     )
 ));
 
 :root {
+    --primary-background-color: white;
+    --button-background-color: #729fcf;
+    --box-shadow-color: #8690a3;
+    --main-color: #3A7D78;
+    --sub-color: #e6f0ef;
+    --grey-color: #444;
+    --darker-grey-color: #2f2f2f;
+    --hover-grey-color: #f3f3f3;
+    --green-color: #32ff7f;
+    --red-color: #ff4317;
+
+
     --kopfHintergrund: linear-gradient(to right, #f0a980, rgb(200, 255, 250));
-    --contrastColour: rgb(152, 33, 33);
-    --areaBackgroundColour: rgba(255, 220, 160, 0.674);
-    --backgroundColour: rgb(255, 220, 160);
+    --contrastColor: rgb(152, 33, 33);
+    --areaBackgroundColor: rgba(255, 220, 160, 0.674);
+    --backgroundColor: rgb(255, 220, 160);
     --outerMargin: 10%;
     --defaultBoxShadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
+    
+    --dashboardImage: url('/images/background_startseite.png'):
 
     @include mat.all-component-themes($my-theme);
 }

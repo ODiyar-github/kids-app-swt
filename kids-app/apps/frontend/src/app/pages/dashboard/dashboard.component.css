@@ -3,8 +3,8 @@
     background-image: url("/images/background_startseite.png");
     background-attachment: fixed;
     background-size: cover;
-    min-height: 100vh;
     width: 100%;
+    height: fit-content;
 }
 .startPageGrid {
     min-height: 100vh;
@@ -16,7 +16,7 @@
 }
 .c1, .c3 {
     height: 100%;
-    background-color: var(--areaBackgroundColour);
+    background-color: var(--areaBackgroundColor);
     box-shadow: var(--defaultBoxShadow);
 }
 .c1 > *{
