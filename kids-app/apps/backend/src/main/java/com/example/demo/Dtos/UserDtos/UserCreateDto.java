@@ -3,12 +3,12 @@ package com.example.demo.Dtos.UserDtos;
 import java.util.List;
 
 public class UserCreateDto {
-  private String email;
-  private String password;
-  private String firstName;
-  private String lastName;
-  private int age;
-  private String gender;
-  private String address;
-  private List<String> interests;
+  public String email;
+  public String password;
+  public String firstName;
+  public String lastName;
+  public int age;
+  public String gender;
+  public String address;
+  public List<String> interests;
 }

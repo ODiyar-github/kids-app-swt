@@ -5,14 +5,14 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class EventCreateDto {
-  private String title;
-  private String description;
-  private List<String> category;
-  private LocalDate date;
-  private String location;
-  private double price;
-  private int minAge;
-  private int maxAge;
-  private LocalTime startTime;
-  private LocalTime endTime;
+  public String title;
+  public String description;
+  public List<String> category;
+  public LocalDate date;
+  public String location;
+  public double price;
+  public int minAge;
+  public int maxAge;
+  public LocalTime startTime;
+  public LocalTime endTime;
 }
