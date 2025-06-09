@@ -28,16 +28,20 @@ $my-theme: mat.define-theme((
     --backgroundColor: rgb(255, 220, 160);
     --outerMargin: 10%;
     --defaultBoxShadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --strongBoxShadow: 0 4px 6px rgba(0, 0, 0, 0.5);
     
     --dashboardImage: url('/images/background_startseite.png'):
+    --dashboardStartImage: url('/images/startpage_photo.jpeg');
 
+    
     @include mat.all-component-themes($my-theme);
 }
 
-body{
+body {
     margin: 0;
     font-family: roboto, 'Helvetica Neue', sans-serif;
-    height: 100%;
+    height: 100vh;
+    overflow: hidden;
 }
 
 h1 {

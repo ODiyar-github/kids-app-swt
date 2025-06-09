@@ -15,11 +15,13 @@
         "browser": "apps/frontend/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/frontend/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/frontend/public"
-          }
+            "input": "apps/frontend/src/assets"
+          },
+          "apps/frontend/src/assets"
         ],
         "styles": ["apps/frontend/src/styles.scss"],
         "scripts": []
@@ -36,6 +38,12 @@
               "type": "anyComponentStyle",
               "maximumWarning": "4kb",
               "maximumError": "8kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/frontend/src/environments/environment.ts",
+              "with": "apps/frontend/src/environments/environment.prod.ts"
             }
           ],
           "outputHashing": "all"

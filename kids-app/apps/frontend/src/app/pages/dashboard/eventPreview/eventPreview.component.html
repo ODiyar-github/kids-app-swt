@@ -1,29 +1,33 @@
-<mat-card class = "eventPreviewCard" appearance="raised">
-    <mat-card-header class = "eventPreviewCardHeader">
-        <img mat-card-image [src]="data.image" alt="">
-        <mat-divider class = "eventPreviewCardDivider"></mat-divider>
-        <p>{{data.title}}</p>
-        <mat-divider class = "eventPreviewCardDivider"></mat-divider>
+<div class="wrapper">
+  <mat-card class="card">
+    <mat-card-header class="cardHeader">
+        <img mat-card-image class="cardImage" [src]="data.image" alt="" />
+        <div class="cardHeaderContent">
+            <mat-divider class="cardDivider"></mat-divider>
+            <p class="cardTitel">{{ data.title }}</p>
+            <mat-divider class="cardDivider"></mat-divider>
+        </div>
     </mat-card-header>
-    <mat-card-content class = "eventPreviewCardContent">
-        <p>{{data.desc}}</p>
+    <mat-card-content class="cardContent">
+      <p>{{ data.desc }}</p>
     </mat-card-content>
-    <mat-divider class = "eventPreviewCardDivider"></mat-divider>
-    <mat-card-footer class = "eventPreviewCardFooter"  fxLayout="column" fxLayoutGap="0.2rem">
-        <div class = "eventPreviewCardDetails" fxLayout="row">
-            <mat-icon>place</mat-icon>
-            <p>{{data.location}}</p>
-        </div>
-        <div class = "eventPreviewCardDetails">
-            <mat-icon>access_time</mat-icon>
-            <p>{{data.date}}<br>{{data.time}}</p>
-        </div>
-        <div class = "eventPreviewCardDetails">
-            <mat-icon>cake</mat-icon>
-            <p>{{data.age}}</p>
-        </div>
+    <mat-divider class="cardDivider"></mat-divider>
+    <mat-card-footer class="cardFooter" >
+      <div class="cardDetails">
+        <mat-icon>place</mat-icon>
+        <p>{{ data.location }}</p>
+      </div>
+      <div class="cardDetails">
+        <mat-icon>access_time</mat-icon>
+        <p>{{ data.date }}<br />{{ data.time }}</p>
+      </div>
+      <div class="cardDetails">
+        <mat-icon>cake</mat-icon>
+        <p>{{ data.age }}</p>
+      </div>
     </mat-card-footer>
-    <button mat-icon-button class = "eventPreviewCardButton eventPreviewCardButtonChecked">
+    <button mat-icon-button class="cardButton cardButtonChecked">
         <mat-icon>star</mat-icon>
     </button>
-</mat-card>
+  </mat-card>
+</div>
