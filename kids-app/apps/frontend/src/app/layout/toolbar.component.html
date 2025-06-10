@@ -34,7 +34,12 @@
   <mat-menu #userMenu="matMenu">
     <button mat-menu-item>Profil</button>
     <button mat-menu-item>Einstellungen</button>
-    <button mat-menu-item>Logout</button>
+    @if(this.isLoggedIn){
+      <button mat-menu-item [routerLink]="['/', RoutingEnum.DASHBOARD]">Logout</button>
+    }
+    @else {
+      <button mat-menu-item [routerLink]="['/', RoutingEnum.LOGIN]">Login</button>
+    }
   </mat-menu>
 
   <mat-menu #mobileMenu="matMenu">

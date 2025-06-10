@@ -1,0 +1,38 @@
+<div class="login-wrapper">
+    <mat-card>
+      <mat-card-header class="header">
+        <mat-card-title>Login</mat-card-title>
+      </mat-card-header>
+  
+      <mat-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <mat-form-field class="full-width">
+            <mat-label>Benutzername</mat-label>
+            <input matInput formControlName="username" required autocomplete="username" />
+            <mat-error *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched">
+              Benutzername ist erforderlich
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field  class="full-width">
+            <mat-label>Passwort</mat-label>
+            <input
+              matInput
+              formControlName="password"
+              required
+              autocomplete="current-password"
+              type="password"
+            />
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+              Passwort ist erforderlich
+            </mat-error>
+          </mat-form-field>
+  
+          <button mat-raised-button class="full-width" type="submit">
+            Anmelden
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

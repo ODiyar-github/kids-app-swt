@@ -8,5 +8,8 @@ export const environment = {
     },
     ORGANISATION: {
       URL: `${BASE_URL}/organisations`,
+    },
+    USER:{
+      URL: `${BASE_URL}/user`,
     }
 };

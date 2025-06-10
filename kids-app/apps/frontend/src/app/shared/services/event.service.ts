@@ -18,6 +18,6 @@ export class EventService {
           console.error('API fehlgeschlagen, keine Events:', error);
           return of(EventMockups);
         })
-      );;
+      );
   }
 }
