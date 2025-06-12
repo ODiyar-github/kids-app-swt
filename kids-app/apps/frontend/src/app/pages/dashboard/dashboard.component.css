@@ -1,0 +1,32 @@
+.wrapper {
+  width: 100%;
+}
+.viewer {
+  background-color: var(--areaBackgroundColor);
+  box-shadow: var(--defaultBoxShadow);
+  padding: 1rem;
+}
+.titel {
+  color: var(--contrastColour);
+  text-align: center;
+  text-wrap: wrap;
+}
+.photo {
+  width: 70%;
+  height: auto;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: var(--defaultBoxShadow);
+}
+.dataList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  justify-items: center;
+}
+
+.eachList {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}

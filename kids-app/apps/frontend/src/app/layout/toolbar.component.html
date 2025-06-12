@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <mat-toolbar class="toolbar" >
+    <div class="logo-section">
+      <mat-icon class="icon">home</mat-icon>
+    </div>
+    <div class="divider"></div>
+    <div class="nav-buttons">
+      <button mat-button [routerLink]="['/', RoutingEnum.DASHBOARD]" routerLinkActive="active">Home</button>
+      <div class="divider small"></div>
+      <button mat-button [routerLink]="['/', RoutingEnum.EVENT]" routerLinkActive="active">Veranstaltungen</button>
+      <div class="divider small"></div>
+      <button mat-button [routerLink]="['/', RoutingEnum.ORGANISATION]" routerLinkActive="active">Organisation</button>
+    </div>
+    <span class="spacer"></span>
+    <div class="divider"></div>
+    <div class="user-section">
+      <button mat-icon-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+    <div class="mobile-left">
+      <div class="logo-section">
+        <mat-icon class="icon">home</mat-icon>
+      </div>
+    
+      <div class="mobile-nav">
+        <button mat-icon-button [matMenuTriggerFor]="mobileMenu">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-toolbar>
+  
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item>Profil</button>
+    <button mat-menu-item>Einstellungen</button>
+    @if(this.isLoggedIn){
+      <button mat-menu-item [routerLink]="['/', RoutingEnum.DASHBOARD]">Logout</button>
+    }
+    @else {
+      <button mat-menu-item [routerLink]="['/', RoutingEnum.LOGIN]">Login</button>
+    }
+  </mat-menu>
+
+  <mat-menu #mobileMenu="matMenu">
+    <button mat-menu-item [routerLink]="['/', RoutingEnum.DASHBOARD]">Home</button>
+    <button mat-menu-item [routerLink]="['/', RoutingEnum.EVENT]">Veranstaltungen</button>
+    <button mat-menu-item [routerLink]="['/', RoutingEnum.ORGANISATION]">Organisation</button>
+  </mat-menu>  
+
+  <mat-sidenav-container class="main-container">
+    <mat-sidenav-content>
+      <div class="content-scrollable">
+        <ng-content></ng-content>
+      </div>
+      <footer class="footer">
+        <app-footer></app-footer>
+      </footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

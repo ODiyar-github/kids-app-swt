@@ -1,25 +1,3 @@
-
-<app-head-toolbar-component></app-head-toolbar-component>
-<nav class = "kopf_navigation" style="z-index: 50;"
-  mat-tab-nav-bar
-  mat-stretch-tabs="true"
-  mat-align-tabs="start"
-  [tabPanel]="tabPanel"
->
-  @for (link of links; track link) {
-  <a
-    mat-tab-link
-    (click)="activePath = link.path"
-    [active]="link.path == activePath"
-    [routerLink]="link.path"
-    style="color: black;"
-  >
-    {{ link.label }}
-  </a>
-  }
-</nav>
-<mat-tab-nav-panel #tabPanel>
-  <router-outlet (activate)="onActivate($event.path)"></router-outlet>
-</mat-tab-nav-panel>
-<app-footer-component></app-footer-component>
-  
+<app-toolbar>
+  <router-outlet></router-outlet>
+</app-toolbar>
