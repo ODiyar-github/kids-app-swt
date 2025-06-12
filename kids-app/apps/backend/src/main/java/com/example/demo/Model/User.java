@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-@NoArgsConstructor
+
 @Entity
 public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long userId;
+  private String userId;
 
   private String email;
   private String password;
@@ -53,11 +53,11 @@ public class User {
     this.interests = interests;
   }
 
-  public Long getUserId() {
+  public String getUserId() {
     return userId;
   }
 
-  public void setUserId(Long userId) {
+  public void setUserId(String userId) {
     this.userId = userId;
   }
 
