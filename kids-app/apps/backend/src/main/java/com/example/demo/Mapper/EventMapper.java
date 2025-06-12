@@ -1,4 +1,7 @@
 package com.example.demo.Mapper;
 
-public class EventMapper {
+import org.mapstruct.Mapper;
+
+@Mapper
+public interface EventMapper {
 }
