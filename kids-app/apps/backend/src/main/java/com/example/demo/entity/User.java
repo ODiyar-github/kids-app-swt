@@ -1,7 +1,6 @@
-package com.example.demo.Model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
