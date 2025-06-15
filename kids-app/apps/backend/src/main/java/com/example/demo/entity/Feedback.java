@@ -1,4 +1,4 @@
-package com.example.demo.Model;
+package com.example.demo.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -8,7 +8,7 @@ public class Feedback {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long feedbackId;
+  private String feedbackId;
 
   private String title;
   private String review;
@@ -33,11 +33,11 @@ public class Feedback {
     this.user = user;
   }
 
-  public Long getFeedbackId() {
+  public String getFeedbackId() {
     return feedbackId;
   }
 
-  public void setFeedbackId(Long feedbackId) {
+  public void setFeedbackId(String feedbackId) {
     this.feedbackId = feedbackId;
   }
 

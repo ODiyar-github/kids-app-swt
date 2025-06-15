@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class SurveyResponseDto {
-  public Long surveyId;
+  public String surveyId;
   public String title;
   public String description;
   public List<String> questions;
