@@ -1,4 +1,4 @@
-package com.example.demo.Model;
+package com.example.demo.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -9,7 +9,7 @@ public class Survey {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long surveyId;
+  private String surveyId;
 
   private String title;
   private String description;
@@ -29,11 +29,11 @@ public class Survey {
     this.createdAt = createdAt;
   }
 
-  public Long getSurveyId() {
+  public String getSurveyId() {
     return surveyId;
   }
 
-  public void setSurveyId(Long surveyId) {
+  public void setSurveyId(String surveyId) {
     this.surveyId = surveyId;
   }
 

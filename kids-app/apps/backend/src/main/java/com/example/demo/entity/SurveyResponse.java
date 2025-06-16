@@ -1,4 +1,4 @@
-package com.example.demo.Model;
+package com.example.demo.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -9,7 +9,7 @@ public class SurveyResponse {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long responseId;
+  private String responseId;
 
   @ElementCollection
   private List<String> answers;
@@ -24,11 +24,11 @@ public class SurveyResponse {
     this.answers = answers;
   }
 
-  public Long getResponseId() {
+  public String getResponseId() {
     return responseId;
   }
 
-  public void setResponseId(Long responseId) {
+  public void setResponseId(String responseId) {
     this.responseId = responseId;
   }
 
