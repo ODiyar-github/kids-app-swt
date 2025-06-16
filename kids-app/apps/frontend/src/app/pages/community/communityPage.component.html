@@ -1,1 +1,44 @@
-<h1>Community</h1>
+<div class="community-container">
+  <mat-card class="events-card">
+    <mat-card-header>
+      <mat-card-title>Deine letzten besuchten Events</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+
+    <div class="dataList">
+      <div class="eachList" *ngFor="let event of eventList">
+        <app-event-preview [data]="event"></app-event-preview>
+      </div>
+    </div>
+
+    <p *ngIf="eventList.length === 0" class="empty-text">
+      Du hast noch keine Events besucht.
+    </p>
+  </mat-card>
+
+  <mat-card class="activities-card">
+    <mat-card-header>
+      <mat-card-title>Neuigkeiten deiner Freunde</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+
+    <mat-list *ngIf="activities.length > 0">
+      <mat-list-item *ngFor="let activity of activities">
+        <mat-icon matListIcon>person</mat-icon>
+        <div matLine class="friend-name">{{ activity.friendName }}</div>
+        <div matLine class="activity-text">
+          <span *ngIf="activity.action === 'JOINED_EVENT'">hat an <strong>{{ activity.eventName }}</strong> teilgenommen.</span>
+          <span *ngIf="activity.action === 'CREATED_EVENT'">hat das Event <strong>{{ activity.eventName }}</strong> erstellt.</span>
+          <span *ngIf="activity.action === 'LEFT_EVENT'">hat <strong>{{ activity.eventName }}</strong> verlassen.</span>
+        </div>
+        <div class="timestamp">{{ activity.timestamp | date:'short' }}</div>
+      </mat-list-item>
+    </mat-list>
+
+    <p *ngIf="activities.length === 0" class="empty-text">
+      Deine Freunde haben noch keine Aktivitäten.
+    </p>
+  </mat-card>
+</div>
+
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="spinner"></mat-progress-spinner>

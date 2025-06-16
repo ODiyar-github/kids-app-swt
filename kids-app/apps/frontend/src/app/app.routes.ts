@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { DashbardComponent } from './pages/dashboard/dashboard.component';
-import { CommunityPageComponent } from './pages/community/communityPage.component';
 import { EventComponent } from './pages/event/event.component';
 import { RoutingEnum } from './shared/enums/routing.enum';
 import { LoginComponent } from './pages/login/login.component';
+import { CommunityComponent } from './pages/community/communityPage.component';
 
 export const routes: Routes = [
   {
@@ -20,8 +20,8 @@ export const routes: Routes = [
     component: EventComponent,
   },
   {
-    path: RoutingEnum.ORGANISATION,
-    component: CommunityPageComponent,
+    path: RoutingEnum.COMMUNITY,
+    component: CommunityComponent,
   },
   {
     path: RoutingEnum.LOGIN,

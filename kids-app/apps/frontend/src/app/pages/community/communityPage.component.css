@@ -1,0 +1,58 @@
+.community-container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.events-card, .activities-card {
+  flex: 1 1 45%; 
+  min-width: 320px;
+  background-color: #fafafa;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  padding: 1rem;
+}
+
+.dataList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding-top: 1rem;
+  justify-items: center;
+}
+
+.eachList {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.friend-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.activity-text {
+  color: #555;
+}
+
+.timestamp {
+  font-size: 0.8rem;
+  color: #888;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.spinner {
+  display: block;
+  margin: 50px auto;
+}
+
+.empty-text {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  color: #888;
+}
