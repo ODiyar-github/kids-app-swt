@@ -1,18 +1,25 @@
+import { InterestEnum } from "../enums/interest.enum";
+import { Point } from "../shared/point";
+
 export class EventDTO {
     uuid: string;
     title: string;
-    desc: string;
-    location: string;
+    description: string;
+    address: string;
+    location: Point;
+    category: InterestEnum[];
     time: string;
     date: string;
     age: string;
     image: string;
 
-    constructor(uuid: string, title:string, titleURL: string, desc: string, location:string, date:string, time:string, age: string, image:string) {
+    constructor(uuid: string, title:string, description: string, address:string, location: Point, category: InterestEnum[] , date:string, time:string, age: string, image:string) {
         this.uuid = uuid;
         this.title = title;
-        this.desc = desc;
+        this.description = description;
+        this.address = address;
         this.location = location;
+        this.category = category;
         this.time = time;
         this.date = date;
         this.age = age;

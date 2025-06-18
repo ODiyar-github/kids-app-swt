@@ -34,11 +34,11 @@
         <div class="timestamp">{{ activity.timestamp | date:'short' }}</div>
       </mat-list-item>
     </mat-list>
-
     <p *ngIf="activities.length === 0" class="empty-text">
       Deine Freunde haben noch keine Aktivitäten.
     </p>
   </mat-card>
 </div>
+
 
 <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="spinner"></mat-progress-spinner>

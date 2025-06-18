@@ -23,7 +23,7 @@
           },
           "apps/frontend/src/assets"
         ],
-        "styles": ["apps/frontend/src/styles.scss"],
+        "styles": ["apps/frontend/src/styles.scss", "node_modules/leaflet/dist/leaflet.css"],
         "scripts": []
       },
       "configurations": {

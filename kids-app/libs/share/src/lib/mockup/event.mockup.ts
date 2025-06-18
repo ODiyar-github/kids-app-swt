@@ -1,82 +1,125 @@
+import { InterestEnum } from "../enums/interest.enum";
 import { EventDTO } from "../event/event.dto";
 
 export const EventMockups: EventDTO[] = [
-    new EventDTO(
-      "1", 
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-      "",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-      "Max Musterstr. 3, 12345 Musterstadt",
-      "15. Mai",
-      "12:30 bis 15:00",
-      "11 bis 14 Jahre",
-      ""
-    ),
-    new EventDTO(
-      "2",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-      "test",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-      "Eva Evastr. 6, 54321 Evastadt",
-      "21. Juni",
-      "15:30 bis 20:00",
-      "12 bis 16 Jahre",
-      ""
-    ),
-    new EventDTO(
-      "3",
-      "Graffiti-Workshop",
-      "",
-      "Lerne coole Techniken mit Sprühdosen – ideal für Anfänger und Fortgeschrittene.",
-      "Jugendzentrum Westend, Herne",
-      "05. Juli",
-      "10:00 bis 14:00",
-      "14 bis 18 Jahre",
-      ""
-    ),
-    new EventDTO(
-      "4",
-      "Coding für Einsteiger",
-      "",
-      "Du wolltest schon immer Programmieren lernen? Hier fangen wir gemeinsam mit HTML, CSS & JavaScript an.",
-      "Stadtbibliothek Herne",
-      "12. Juli",
-      "09:30 bis 12:30",
-      "13 bis 17 Jahre",
-      ""
-    ),
-    new EventDTO(
-      "5",
-      "Skatepark Jam",
-      "",
-      "Skateboard-Contest mit DJ, Foodtruck und kleinen Preisen für die besten Tricks.",
-      "Skatepark Herne Mitte",
-      "20. Juli",
-      "13:00 bis 17:00",
-      "12 bis 18 Jahre",
-      ""
-    ),
-    new EventDTO(
-      "6",
-      "Brettspielnachmittag",
-      "",
-      "Bring deine Freunde mit und entdecke neue Brettspiele in entspannter Atmosphäre.",
-      "Kulturzentrum Herne",
-      "28. Juli",
-      "15:00 bis 18:00",
-      "10 bis 16 Jahre",
-      ""
-    ),
-    new EventDTO(
-      "7",
-      "Sommerkino Open-Air",
-      "",
-      "Genieße einen Kinoabend unter freiem Himmel mit Popcorn und guter Laune.",
-      "Schlosspark Strünkede",
-      "01. August",
-      "20:30 bis 23:00",
-      "ab 12 Jahre",
-      ""
-    )
-  ];
-  
+  {
+    uuid: 'd5e8b021-13f3-40dc-b12f-8e101b3ec101',
+    title: 'Open Air Konzert am See',
+    description: 'Ein einzigartiges Musikerlebnis unter freiem Himmel. Genieße entspannte Sommerabende mit Live-Musik, Street Food und Getränken direkt am Ufer des Sees. Ideal für Musikliebhaber und alle, die einen unvergesslichen Abend erleben möchten.',
+    address: 'Seepromenade 1, 10115 Berlin',
+    location: { lat: 52.5200, lng: 13.4050 },
+    category: [InterestEnum.Music, InterestEnum.Cooking],
+    time: '19:30',
+    date: '2025-07-14',
+    age: '16+',
+    image: ''
+  },
+  {
+    uuid: 'a1f2e73d-6d2e-4d38-83ae-b34fc3d0928d',
+    title: 'Tech Innovations 2025',
+    description: 'Die führende Konferenz für Technologie-Enthusiasten und Innovatoren. Erfahre mehr über KI, Robotik und nachhaltige Technologien von renommierten Expert:innen aus aller Welt. Networking, Vorträge und Live-Demos inklusive.',
+    address: 'Messezentrum 5, 80331 München',
+    location: { lat: 48.1351, lng: 11.5820 },
+    category: [InterestEnum.Technology, InterestEnum.Education],
+    time: '10:00',
+    date: '2025-08-05',
+    age: '18+',
+    image: ''
+  },
+  {
+    uuid: '27b88324-6815-42d1-892b-7551594e5f60',
+    title: 'Kunst im Park',
+    description: 'Ein ganzer Tag voller Farben, Kreativität und Inspiration. Regionale Künstler:innen präsentieren ihre Werke unter freiem Himmel. Workshops, Musik und gemütliche Picknickplätze sorgen für ein perfektes Kunsterlebnis.',
+    address: 'Stadtpark 4, 22767 Hamburg',
+    location: { lat: 53.5511, lng: 9.9937 },
+    category: [InterestEnum.Painting, InterestEnum.Family],
+    time: '11:00',
+    date: '2025-06-21',
+    age: 'Alle',
+    image: ''
+  },
+  {
+    uuid: 'f4a726fb-24b4-4a07-ae2a-4710a412e1d9',
+    title: 'Urban Sports Festival',
+    description: 'Ein actionreiches Wochenende mit Parkour, Skateboarding, Streetball und vielem mehr. Für alle Sportfans, die sich ausprobieren oder zuschauen wollen – mit Foodtrucks und Live-Musik direkt auf dem Gelände.',
+    address: 'Sportgelände Süd, 50667 Köln',
+    location: { lat: 50.9375, lng: 6.9603 },
+    category: [InterestEnum.Sports, InterestEnum.Music],
+    time: '12:00',
+    date: '2025-07-10',
+    age: '14+',
+    image: ''
+  },
+  {
+    uuid: '7cfb68f7-d88a-4f69-87d3-8e944db2634c',
+    title: 'Veganes Genussfestival',
+    description: 'Ein kulinarisches Erlebnis für alle, die nachhaltige und vegane Küche lieben. Von süßen Leckereien bis hin zu herzhaften Köstlichkeiten – entdecke neue Produkte, Rezepte und Inspirationen für deinen Alltag.',
+    address: 'Marktplatz 12, 70173 Stuttgart',
+    location: { lat: 48.7758, lng: 9.1829 },
+    category: [InterestEnum.Cooking, InterestEnum.Nature],
+    time: '13:00',
+    date: '2025-09-01',
+    age: 'Alle',
+    image: ''
+  },
+  {
+    uuid: '0f8c54ee-1a4a-499c-8f62-df3584e6c8e3',
+    title: 'Wandertag im Sauerland',
+    description: 'Natur pur – entdecke gemeinsam mit anderen Wanderfreunden wunderschöne Routen, weite Ausblicke und klare Bergluft. Inklusive geführter Touren, Familienangeboten und einem gemütlichen Lagerfeuer am Abend.',
+    address: 'Wanderzentrum, 59872 Meschede',
+    location: { lat: 51.3500, lng: 8.2833 },
+    category: [InterestEnum.Nature, InterestEnum.Family],
+    time: '08:00',
+    date: '2025-08-20',
+    age: '6+',
+    image: ''
+  },
+  {
+    uuid: '2d143539-6c5c-4f3b-9828-1c59a5402a6b',
+    title: 'Street Food Weekend',
+    description: 'Mehr als 50 internationale Food-Stände verwandeln das Zentrum in ein Paradies für Genießer:innen. Von asiatischen Spezialitäten bis hin zu süßen Verführungen – für jeden Geschmack ist etwas dabei.',
+    address: 'Innenstadtplatz, 45127 Essen',
+    location: { lat: 51.4566, lng: 7.0123 },
+    category: [InterestEnum.Cooking],
+    time: '16:00',
+    date: '2025-07-18',
+    age: 'Alle',
+    image: ''
+  },
+  {
+    uuid: '57e0876c-b9e7-4c60-b2e5-8ef5d8cf0c69',
+    title: 'Reise-Vortrag: Südamerika entdecken',
+    description: 'Abenteuer pur – Reisejournalist:innen berichten live über ihre Tour durch Peru, Bolivien und Chile. Faszinierende Bilder, kulturelle Eindrücke und Tipps für eigene Reisen inklusive.',
+    address: 'Kulturhaus Nord, 30159 Hannover',
+    location: { lat: 52.3759, lng: 9.7320 },
+    category: [InterestEnum.Traveling, InterestEnum.History],
+    time: '18:00',
+    date: '2025-10-10',
+    age: '16+',
+    image: ''
+  },
+  {
+    uuid: '14d94aa2-3b4e-4d6a-890e-25df6dcdd0d5',
+    title: 'Coding Bootcamp für Einsteiger',
+    description: 'Tauche ein in die Welt der Webentwicklung! Dieses Intensivseminar bietet praxisnahe Einführung in HTML, CSS, JavaScript und Frameworks. Keine Vorkenntnisse nötig – ideal für alle, die neu starten wollen.',
+    address: 'Innovationszentrum 3, 34117 Kassel',
+    location: { lat: 51.3127, lng: 9.4797 },
+    category: [InterestEnum.Technology, InterestEnum.Education],
+    time: '09:00',
+    date: '2025-11-01',
+    age: '18+',
+    image: ''
+  },
+  {
+    uuid: '3c45a0f4-fd93-4569-8ea9-3b90dc2ed204',
+    title: 'Familientag im Zoo',
+    description: 'Ein bunter Tag für Groß und Klein mit besonderen Führungen, Tierfütterungen und Mitmachaktionen. Entdecke die Tierwelt hautnah und genieße einen entspannten Tag im Grünen.',
+    address: 'Zooallee 7, 44791 Bochum',
+    location: { lat: 51.4818, lng: 7.2162 },
+    category: [InterestEnum.Animals, InterestEnum.Nature],
+    time: '10:00',
+    date: '2025-09-15',
+    age: 'Alle',
+    image: ''
+  }
+];
