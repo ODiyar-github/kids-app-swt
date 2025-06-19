@@ -1,34 +1,35 @@
 import { Routes } from '@angular/router';
-import { StartPageComponent } from './pages/startPage/startPage.component';
-import { EventsPageComponent } from './pages/eventsPage/eventsPage.component';
-import { CommunityPageComponent } from './pages/communityPage/communityPage.component';
-import { EventComponent } from './event/event.component';
+import { DashbardComponent } from './pages/dashboard/dashboard.component';
+import { CommunityPageComponent } from './pages/community/communityPage.component';
+import { EventComponent } from './pages/event/event.component';
+import { EventDetailsComponent } from './pages/eventDetails/eventDetails.component';
+import { RoutingEnum } from './shared/enums/routing.enum';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
-    {
-        path: '',
-        redirectTo: 'startseite',
-        pathMatch: 'full',
-    },
-    {
-        path: 'startseite',
-        component: StartPageComponent
-    },
-    {
-        path: 'angebote',
-        component: EventsPageComponent
-    },
-    {
-        path: 'angebote/:uuid',
-        component: EventComponent
-    },
-    {
-        path: 'community',
-        component: CommunityPageComponent
-    },
-    {
-        path: '**',
-        redirectTo: 'startseite',
-        pathMatch: 'full',
-    },
+  {
+    path: '',
+    redirectTo: RoutingEnum.DASHBOARD,
+    pathMatch: 'full',
+  },
+  {
+    path: RoutingEnum.DASHBOARD,
+    component: DashbardComponent,
+  },
+  {
+    path: RoutingEnum.EVENT,
+    component: EventComponent,
+  },
+  {
+    path: RoutingEnum.EVENT_DETAILS,
+    component: EventDetailsComponent,
+  },
+  {
+    path: RoutingEnum.ORGANISATION,
+    component: CommunityPageComponent,
+  },
+  {
+    path: RoutingEnum.LOGIN,
+    component: LoginComponent,
+  }
 ];

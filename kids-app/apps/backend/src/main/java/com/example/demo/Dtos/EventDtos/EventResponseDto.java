@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class EventResponseDto {
-  public Long offerID;
+  public String offerID;
   public String title;
   public String description;
   public List<String> category;
