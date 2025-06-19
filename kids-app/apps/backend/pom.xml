@@ -40,8 +40,6 @@
     <version>2.9.1</version>
   </dependency>
 
-
-
     <dependency>
       <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
@@ -97,7 +95,14 @@
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-crypto</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.lightcouch</groupId>
+      <artifactId>lightcouch</artifactId>
+      <version>0.2.0</version>
+    </dependency>
   </dependencies>
+
 
 	<build>
 		<plugins>

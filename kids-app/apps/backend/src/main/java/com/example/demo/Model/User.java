@@ -1,10 +1,8 @@
 package com.example.demo.Model;
 
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
-@NoArgsConstructor
 @Entity
 public class User {
 
