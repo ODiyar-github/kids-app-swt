@@ -5,7 +5,7 @@
             <img src = "/images/startpage_photo.jpeg" alt="">
         </mat-card>
         <div class="dataList">
-            <div class="eachList" *ngFor="let event of eventList">
+            <div class="eachList" *ngFor="let event of eventList" (click)="goToDetail(event.uuid)">
                 <app-event-preview [data]="event"></app-event-preview>
             </div>
         </div>

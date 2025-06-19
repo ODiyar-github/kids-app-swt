@@ -10,12 +10,12 @@ export const EventMockups: EventDTO[] = [
       "15. Mai",
       "12:30 bis 15:00",
       "11 bis 14 Jahre",
-      ""
+      "https://c7.alamy.com/comp/2FKW6DK/happy-kindergarten-teacher-and-multicultural-children-in-international-kindergarten-2FKW6DK.jpg"
     ),
     new EventDTO(
       "2",
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod",
-      "test",
+      "",
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
       "Eva Evastr. 6, 54321 Evastadt",
       "21. Juni",
