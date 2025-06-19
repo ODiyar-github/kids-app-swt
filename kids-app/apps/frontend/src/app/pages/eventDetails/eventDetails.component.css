@@ -1,0 +1,29 @@
+.wrapper {
+  width: 100%;
+}
+.viewer {
+  box-shadow: var(--defaultBoxShadow);
+  background-color: var(--areaBackgroundColor);
+  padding: 1rem;
+}
+.titel {
+  color: var(--contrastColour);
+  text-align: left;
+  text-wrap: wrap;
+}
+.topContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  justify-items: center;
+}
+img {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+}
+.cardDetails {
+  display: flex;
+  align-items: center;
+}
