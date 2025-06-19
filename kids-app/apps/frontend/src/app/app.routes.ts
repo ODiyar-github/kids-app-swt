@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { DashbardComponent } from './pages/dashboard/dashboard.component';
 import { CommunityPageComponent } from './pages/community/communityPage.component';
 import { EventComponent } from './pages/event/event.component';
+import { EventDetailsComponent } from './pages/eventDetails/eventDetails.component';
 import { RoutingEnum } from './shared/enums/routing.enum';
 import { LoginComponent } from './pages/login/login.component';
 
@@ -18,6 +19,10 @@ export const routes: Routes = [
   {
     path: RoutingEnum.EVENT,
     component: EventComponent,
+  },
+  {
+    path: RoutingEnum.EVENT_DETAILS,
+    component: EventDetailsComponent,
   },
   {
     path: RoutingEnum.ORGANISATION,

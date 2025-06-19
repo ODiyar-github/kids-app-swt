@@ -1,0 +1,28 @@
+<div class="wrapper">
+    <div class="viewer">
+        <div class="topContainer">
+          <div class="eventImage">
+            <img mat-card-image class="img" [src]="event.image" alt="">
+          </div>
+          <div class="maps">
+            <img mat-card-image class="img" src="https://cdn.write.corbpie.com/wp-content/uploads/2018/04/view-archived-google-satellite-maps.png">
+          </div>
+        </div>
+        <h1 class="titel">{{event.title}}</h1>
+        <mat-card-footer class="cardFooter" >
+        <div class="cardDetails">
+          <mat-icon>place</mat-icon>
+          <p>{{ event.location }}</p>
+        </div>
+        <div class="cardDetails">
+          <mat-icon>access_time</mat-icon>
+          <p>{{ event.date }}<br />{{ event.time }}</p>
+        </div>
+        <div class="cardDetails">
+          <mat-icon>cake</mat-icon>
+          <p>{{ event.age }}</p>
+        </div>
+      </mat-card-footer>
+        <p>{{event.desc}}</p>
+    </div>
+</div>
