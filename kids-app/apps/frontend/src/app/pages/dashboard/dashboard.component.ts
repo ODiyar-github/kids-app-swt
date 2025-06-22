@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { EventPreviewComponent } from "./eventPreview/eventPreview.component";
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { RoutingEnum } from '../../shared/enums/routing.enum';
 @Component({
   standalone: true,
@@ -22,7 +22,8 @@ import { RoutingEnum } from '../../shared/enums/routing.enum';
     MatListModule,
     MatCardModule,
     HttpClientModule,
-    EventPreviewComponent
+    EventPreviewComponent,
+    RouterLink
 ],
   providers: [
     EventService
@@ -30,6 +31,7 @@ import { RoutingEnum } from '../../shared/enums/routing.enum';
 })
 export class DashbardComponent {
   eventList: EventDTO[] = [];
+  routingEnum = RoutingEnum;
   constructor(private readonly eventService: EventService, private readonly cdr: ChangeDetectorRef, private router: Router){
     this.initializeDataSource();
   }
@@ -38,8 +40,4 @@ export class DashbardComponent {
     this.eventList = await lastValueFrom(this.eventService.getEventList());
     this.cdr.detectChanges();
   }  
-
-  goToDetail(uuid: string) {
-    this.router.navigate([RoutingEnum.EVENT + `/${uuid}`]);
-  }
 }

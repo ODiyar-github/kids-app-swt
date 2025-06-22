@@ -1,3 +1,4 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <div class="wrapper">
     <div class="viewer">
         <h1 class="titel">Willkommen im Jugendportal der Stadt Herne!</h1>
@@ -5,7 +6,7 @@
             <img src = "/images/startpage_photo.jpeg" alt="">
         </mat-card>
         <div class="dataList">
-            <div class="eachList" *ngFor="let event of eventList" (click)="goToDetail(event.uuid)">
+            <div class="eachList" *ngFor="let event of eventList" [routerLink]="['/', routingEnum.EVENT, event.uuid]">
                 <app-event-preview [data]="event"></app-event-preview>
             </div>
         </div>

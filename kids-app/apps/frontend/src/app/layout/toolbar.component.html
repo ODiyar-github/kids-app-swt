@@ -7,9 +7,7 @@
     <div class="nav-buttons">
       <button mat-button [routerLink]="['/', RoutingEnum.DASHBOARD]" routerLinkActive="active">Home</button>
       <div class="divider small"></div>
-      <button mat-button [routerLink]="['/', RoutingEnum.EVENT]" routerLinkActive="active">Veranstaltungen</button>
-      <div class="divider small"></div>
-      <button mat-button [routerLink]="['/', RoutingEnum.ORGANISATION]" routerLinkActive="active">Organisation</button>
+      <button mat-button [routerLink]="['/', RoutingEnum.COMMUNITY]" routerLinkActive="active">Community</button>
     </div>
     <span class="spacer"></span>
     <div class="divider"></div>
@@ -44,8 +42,7 @@
 
   <mat-menu #mobileMenu="matMenu">
     <button mat-menu-item [routerLink]="['/', RoutingEnum.DASHBOARD]">Home</button>
-    <button mat-menu-item [routerLink]="['/', RoutingEnum.EVENT]">Veranstaltungen</button>
-    <button mat-menu-item [routerLink]="['/', RoutingEnum.ORGANISATION]">Organisation</button>
+    <button mat-menu-item [routerLink]="['/', RoutingEnum.COMMUNITY]">Community</button>
   </mat-menu>  
 
   <mat-sidenav-container class="main-container">

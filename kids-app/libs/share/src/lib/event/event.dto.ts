@@ -5,6 +5,7 @@ export class EventDTO {
     uuid: string;
     title: string;
     description: string;
+    priceList: string;
     address: string;
     location: Point;
     category: InterestEnum[];
@@ -13,10 +14,11 @@ export class EventDTO {
     age: string;
     image: string;
 
-    constructor(uuid: string, title:string, description: string, address:string, location: Point, category: InterestEnum[] , date:string, time:string, age: string, image:string) {
+    constructor(uuid: string, title:string, description: string, priceList: string, address:string, location: Point, category: InterestEnum[] , date:string, time:string, age: string, image:string) {
         this.uuid = uuid;
         this.title = title;
         this.description = description;
+        this.priceList = priceList;
         this.address = address;
         this.location = location;
         this.category = category;
@@ -25,4 +27,4 @@ export class EventDTO {
         this.age = age;
         this.image = image;
     }
-}
+}  

@@ -9,7 +9,11 @@ export class EventService {
   constructor(private readonly httpClient: HttpClient) {}
 
   public getEventById(uuid: string): Observable<EventDTO> {
-    return this.httpClient.get<EventDTO>(`${environment.EVENT.URL}/${uuid}`);
+    return this.httpClient.get<EventDTO>(`${environment.EVENT.URL}/${uuid}`).pipe(
+      catchError(()=>{
+        return of(EventMockups[0]);
+      })
+    );
   }
 
   public getEventList(): Observable<EventDTO[]> {
