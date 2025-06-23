@@ -26,7 +26,7 @@ export class LoginService {
         }
         return throwError(() => new Error('Login fehlgeschlagen: Kein lokaler User gefunden.'), error);
       }),
-      tap((user) => this.currentUserSubject.next(user)) // bei Erfolg setzen
+      tap((user) => this.currentUserSubject.next(user))
     );
   }
 

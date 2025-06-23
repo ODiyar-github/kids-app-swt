@@ -1,16 +1,17 @@
-<ng-container *ngIf="!isLoading; else loading">
-
-  <!-- Check: Nicht angemeldet -->
-  <div *ngIf="!currentUserModel" class="not-logged-in-container" style="text-align:center; padding: 2rem;">
-    <p>Du bist noch nicht angemeldet.</p>
-    <button mat-raised-button color="primary" (click)="test()">Jetzt anmelden</button>
+<ng-container>
+  <div class="notLoggedIn" *ngIf="!user">
+    <p>Du bist noch nicht angemeldet</p>
+    <button mat-raised-button [routerLink]="['/', routingEnum.LOGIN]">
+      Anmelden
+    </button>
   </div>
-
-  <!-- Angemeldet: News + Empfehlungen -->
-  <ng-container *ngIf="currentUserModel">
-
-    <!-- 📰 Neuigkeiten -->
+  <div class="loggedIn" *ngIf="user">
     <mat-card class="activities-card">
+      <mat-card>
+        <mat-card-header>
+          Herzlich willkommen {{user.firstName}}
+        </mat-card-header>
+      </mat-card>
       <mat-card-header>
         <mat-card-title>Neuigkeiten deiner Freunde</mat-card-title>
       </mat-card-header>
@@ -29,7 +30,6 @@
       </p>
     </mat-card>
 
-    <!-- 🎯 Empfehlungen -->
     <mat-card class="recommendations-card" style="margin-top: 1rem;">
       <mat-card-header>
         <mat-card-title>Empfohlene Veranstaltungen für dich</mat-card-title>
@@ -51,9 +51,7 @@
         Es wurden keine passenden Veranstaltungen gefunden.
       </p>
     </mat-card>
-
-  </ng-container>
-
+  </div>
 </ng-container>
 
 <ng-template #loading>
@@ -61,3 +59,4 @@
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   </div>
 </ng-template>
+
