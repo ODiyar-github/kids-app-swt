@@ -1,4 +1,4 @@
-/* .community-container {
+.community-container {
   display: flex;
   gap: 2rem;
   padding: 2rem;
@@ -60,4 +60,4 @@
 .map{
   height: 80vh;
   width: 80vw;
-} */
+}

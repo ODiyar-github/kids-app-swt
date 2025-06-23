@@ -6,8 +6,8 @@ export const environment = {
     EVENT: {
       URL: `${BASE_URL}/events`,
     },
-    ORGANISATION: {
-      URL: `${BASE_URL}/organisations`,
+    LOGIN: {
+      URL: `${BASE_URL}/login`,
     },
     USER:{
       URL: `${BASE_URL}/user`,

@@ -1,0 +1,45 @@
+<ng-container *ngIf="!isLoading">
+  <ng-container *ngIf="currentUser; else notLoggedIn">
+    <mat-card class="profile-card">
+      <mat-card-title>Profil bearbeiten</mat-card-title>
+      <mat-card-content *ngIf="editableUser">
+        <form (ngSubmit)="saveChanges()" class="profile-form">
+          <mat-form-field appearance="fill">
+            <mat-label>Vorname</mat-label>
+            <input matInput [(ngModel)]="editableUser.firstName" name="firstName" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Nachname</mat-label>
+            <input matInput [(ngModel)]="editableUser.lastName" name="lastName" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Alter</mat-label>
+            <input matInput type="number" [(ngModel)]="editableUser.age" name="age" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Interessen</mat-label>
+            <mat-select multiple [(ngModel)]="editableUser.interests" name="interests">
+              <mat-option *ngFor="let interest of interests" [value]="interest">
+                {{ interest }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit">Änderungen speichern</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+
+  <ng-template #notLoggedIn>
+    <div class="login-hint">
+      <mat-icon>lock</mat-icon>
+      <p>Bitte logge dich ein, um dein Profil zu bearbeiten.</p>
+    </div>
+  </ng-template>
+</ng-container>
+
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="spinner"></mat-progress-spinner>

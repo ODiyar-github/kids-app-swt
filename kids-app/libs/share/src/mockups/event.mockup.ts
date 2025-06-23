@@ -1,5 +1,6 @@
-import { InterestEnum } from "../enums/interest.enum";
-import { EventDTO } from "../event/event.dto";
+import { EventDTO } from "../api/event/event.dto";
+import { InterestEnum } from "../util/enums/interest.enum";
+
 
 export const EventMockups: EventDTO[] = [
   {

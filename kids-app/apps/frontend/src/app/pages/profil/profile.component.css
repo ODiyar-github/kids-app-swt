@@ -1,0 +1,18 @@
+.profile-card {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 16px;
+  }
+  
+  .profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .login-hint {
+    text-align: center;
+    margin-top: 40px;
+    color: #777;
+  }
+  

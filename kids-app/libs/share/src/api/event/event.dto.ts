@@ -1,5 +1,5 @@
-import { InterestEnum } from "../enums/interest.enum";
-import { Point } from "../shared/point";
+import { InterestEnum } from "../../util/enums/interest.enum";
+import { Point } from "../../util/location.point";
 
 export class EventDTO {
     uuid: string;

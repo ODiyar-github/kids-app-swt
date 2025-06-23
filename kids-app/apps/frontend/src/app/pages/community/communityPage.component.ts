@@ -1,6 +1,5 @@
 
-import { Component } from '@angular/core';
-import { CommunityService } from '../../shared/services/community.service';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
@@ -9,7 +8,14 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {EventDTO} from '@kids-app/share'
+import {EventDTO, Logs, UserDTO,  UserModel} from '@kids-app/share'
+import { LoginService } from '../../shared/services/login.service';
+import { EventPreviewComponent } from '../dashboard/eventPreview/eventPreview.component';
+import { RoutingEnum } from '../../shared/enums/routing.enum';
+import { Router, RouterModule } from '@angular/router';
+import { UserService } from '../../shared/services/user.service';
+import { forkJoin, lastValueFrom, map, Observable, of, Subscription } from 'rxjs';
+import { EventService } from '../../shared/services/event.service';
 @Component({
   standalone:true,
   selector: 'app-community-component',
@@ -23,13 +29,103 @@ import {EventDTO} from '@kids-app/share'
     MatIconModule,
     MatProgressSpinnerModule,
     FormsModule,
+    RouterModule,
     CommonModule,
+
 ],
   providers: [
-    CommunityService
+    LoginService,
+    UserService,
+    EventService
   ],
 })
-export class CommunityComponent  {
-  eventList: EventDTO[] = [];
+export class CommunityComponent implements OnInit, OnDestroy {
+  routingEnum = RoutingEnum;
   isLoading = true;
+
+  currentUserModel!: UserModel;
+  friendModels: UserModel[] = [];
+  userNews: Logs[] = [];
+  recommendations: EventDTO[] = [];
+
+  private subscription = new Subscription();
+
+  constructor(
+    private readonly loginService: LoginService,
+    private readonly userService: UserService,
+    private readonly eventService: EventService,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly router: Router
+  ) {
+    const user = this.loginService.getCurrentUser();
+    console.log(user);
+  }
+
+  ngOnInit(): void {
+    // Erst synchron prüfen:
+    const userDto = this.loginService.getCurrentUser();
+    if (!userDto) {
+      this.isLoading = false;
+      // Option 1: Button/Anzeige zum Login (nicht umleiten)
+      // Option 2: Sofort umleiten:
+      // this.router.navigate(['/', this.routingEnum.LOGIN]);
+      this.cdr.detectChanges();
+    } else {
+      this.currentUserModel = new UserModel(userDto);
+      this.loadData();
+    }
+
+    // Auf User-Änderungen reagieren:
+    this.subscription.add(
+      this.loginService.currentUser$.subscribe(userDto => {
+        if (!userDto) {
+          this.isLoading = false;
+          this.cdr.detectChanges();
+          return;
+        }
+        this.currentUserModel = new UserModel(userDto);
+        this.loadData();
+      })
+    );
+  }
+
+  private loadData(): void {
+    this.isLoading = true;
+    forkJoin([
+      this.loadFriendModels(),
+      this.eventService.getEventList()
+    ]).subscribe(([friendModels, allEvents]) => {
+      this.friendModels = friendModels;
+      this.userNews = this.currentUserModel.getCommunityNews(friendModels);
+      this.recommendations = this.currentUserModel.getEventRecommendations(allEvents);
+      this.isLoading = false;
+      this.cdr.detectChanges();
+    });
+  }
+
+  private loadFriendModels(): Observable<UserModel[]> {
+    const friendIds = this.currentUserModel.getUserDto().friendIds;
+    if (friendIds.length === 0) {
+      return of([]);
+    }
+    const friendObservables = friendIds.map(id =>
+      this.userService.getUserInformation(id).pipe(
+        map(user => new UserModel(user))
+      )
+    );
+    return forkJoin(friendObservables);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+  test(){
+    const user = this.loginService.getCurrentUser();
+    console.log(user);
+
+    console.log('USERMODEL: ',this.currentUserModel);
+    console.log('FRIENDMODELS: ', this.friendModels);
+    console.log('RECOMMENDATIONS: ', this.recommendations);
+    console.log('USERNEWS: ', this.userNews);
+  }
 }
