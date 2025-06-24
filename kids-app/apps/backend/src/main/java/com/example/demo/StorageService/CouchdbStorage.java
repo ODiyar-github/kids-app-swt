@@ -1,42 +1,36 @@
 package com.example.demo.StorageService;
 
 import org.lightcouch.CouchDbClient;
+import org.lightcouch.Response;
 import org.springframework.stereotype.Component;
-import java.util.List;
 
 @Component
-public class CouchdbStorage<T> implements IStorage<T> {
+public class CouchdbStorage implements IStorage {
 
   private final CouchDbClient couchDbClient;
+  private final Response response;
 
-  public  CouchdbStorage(CouchDbClient couchDbClient) {
+
+  /**
+   * Konstruktor speichert das zentrale Projektobjekt einmalig.
+   */
+  public CouchdbStorage(CouchDbClient couchDbClient,ProjectDataDTO entity) {
     this.couchDbClient = couchDbClient;
+    this.response = couchDbClient.save(entity);
+
   }
 
-  @Override
-  public String save(T entity) {
-    return couchDbClient.save(entity).getId();
+ @Override
+  public ProjectDataDTO find(ProjectDataDTO entity){
+    return couchDbClient.find(ProjectDataDTO.class, this.response.getId());
   }
 
+  /**
+   * Aktualisiert das zentrale Projektobjekt.
+   */
   @Override
-  public T find(String id, Class<T> clazz) {
-    return couchDbClient.find(clazz, id);
-  }
-
-  @Override
-  public void update(T entity) {
+  public void update(ProjectDataDTO entity) {
     couchDbClient.update(entity);
-  }
 
-  @Override
-  public void delete(T entity) {
-    couchDbClient.remove(entity);
-  }
-
-  @Override
-  public List<T> findAll(Class<T> clazz) {
-    return couchDbClient.view("_all_docs")
-      .includeDocs(true)
-      .query(clazz);
   }
 }
