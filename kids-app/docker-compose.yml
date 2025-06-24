@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  couchdb:
+    image: couchdb:latest
+    container_name: couchdb
+    networks:
+      - app-network
+    ports:
+      - "5984:5984"
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=password
+    volumes:
+      - couchdb_data: /opt/couchdb/data
+      
+      
+  bff:
+    build:
+      dockerfile: ./docker/nest.dockerfile
+      args:
+        APP: bff
+    ports:
+      - "3000:3000"
+    environment:
+      - BROKER_URI=amqp://guest:guest@rabbitmq:5672
+      - AMQP_QUEUE_PREFIX=auavp-dev-
+      
+  frontend:
+    build:
+      dockerfile: ./docker/angular.dockerfile
+      args:
+        APP: frontend
+    depends_on:
+      - bff
+    environment:
+      - BASE_URL=http://localhost:3000
+      - CAMERA_BASE_URL=http://localhost:5002/
+    ports:
+      - "8080:8080"
+      
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: skala-rabbitmq
+    ports:
+      - "5672:5672"  # AMQP-Port
+      - "15672:15672"  # Management-UI-Port

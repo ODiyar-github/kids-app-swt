@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
-  OnChanges,
+  OnInit,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,6 +19,8 @@ import { RoutingEnum } from '../shared/enums/routing.enum';
 import { FooterComponent } from "./footerLayout/footer.component";
 import { LoginService } from '../shared/services/login.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { UserDTO } from '@kids-app/share';
 @Component({
   standalone: true,
   providers: [LoginService],
@@ -41,19 +43,17 @@ import { HttpClientModule } from '@angular/common/http';
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.css',
 })
-export class ToolbarComponent implements OnChanges {
+export class ToolbarComponent {
   protected readonly RoutingEnum = RoutingEnum;
-  
-  isLoggedIn = false;
 
-  constructor(private readonly loginService: LoginService, private readonly cdr: ChangeDetectorRef) {}
+  // Jetzt abonnierst du den Zustand direkt
+  user$: Observable<UserDTO | undefined>;
 
-  ngOnChanges(): void {
-    this.isLoggedIn = this.loginService.getCurrentLoginStatus();
-    this.cdr.detectChanges();
+  constructor(public readonly loginService: LoginService) {
+    this.user$ = this.loginService.currentUser$;
   }
 
-  logout() {
+  logout(): void {
     this.loginService.logout();
   }
 }

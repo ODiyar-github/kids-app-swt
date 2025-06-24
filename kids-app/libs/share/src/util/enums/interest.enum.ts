@@ -43,6 +43,9 @@ export enum InterestEnum {
     Surfing = "Surfing",
     Skateboarding = "Skateboarding",
     Climbing = "Climbing",
-    MartialArts = "MartialArts"
+    MartialArts = "MartialArts",
+    Education = "Education",
+    Family = "Family",
+    Art = "Kunst"
   }
   

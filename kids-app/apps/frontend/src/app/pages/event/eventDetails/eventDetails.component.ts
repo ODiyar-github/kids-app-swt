@@ -6,17 +6,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
-import { Component} from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { EventDTO } from '@kids-app/share'
-import { ActivatedRoute } from '@angular/router';
-import { EventMockups } from '@kids-app/share';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { MapComponent } from "./mapComponent/map.component";
+import { EventService } from '../../../shared/services/event.service';
+import { HttpClientModule } from '@angular/common/http';
 @Component({
   standalone: true,
   selector: 'app-event-details-component',
   templateUrl: './eventDetails.component.html',
   styleUrl: './eventDetails.component.css',
-  imports: [    
+  imports: [
     MatTableModule,
     MatPaginatorModule,
     MatInputModule,
@@ -25,17 +25,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     MatDividerModule,
     FormsModule,
-    FlexLayoutModule,
-    ],
+    MapComponent,
+    HttpClientModule,
+],
+providers: [EventService]
 })
 export class EventDetailsComponent {
-
-  event!: EventDTO;
-  eventList = EventMockups;
-  constructor(private route: ActivatedRoute) {}
-
-  ngOnInit() {
-    const uuid = this.route.snapshot.paramMap.get('uuid'); // Get the ID from the URL
-    this.event = this.eventList.find(obj => obj.uuid === uuid)!; // Find the object by ID
-  }
+  @Input() event!: EventDTO;
 }

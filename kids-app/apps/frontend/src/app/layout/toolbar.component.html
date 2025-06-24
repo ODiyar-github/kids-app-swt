@@ -1,28 +1,36 @@
 <div class="wrapper">
-  <mat-toolbar class="toolbar" >
+  <mat-toolbar class="toolbar">
     <div class="logo-section">
       <mat-icon class="icon">home</mat-icon>
     </div>
+
     <div class="divider"></div>
+
     <div class="nav-buttons">
       <button mat-button [routerLink]="['/', RoutingEnum.DASHBOARD]" routerLinkActive="active">Home</button>
       <div class="divider small"></div>
-      <button mat-button [routerLink]="['/', RoutingEnum.EVENT]" routerLinkActive="active">Veranstaltungen</button>
-      <div class="divider small"></div>
-      <button mat-button [routerLink]="['/', RoutingEnum.ORGANISATION]" routerLinkActive="active">Organisation</button>
+      <button mat-button [routerLink]="['/', RoutingEnum.COMMUNITY]" routerLinkActive="active">Community</button>
     </div>
+
     <span class="spacer"></span>
+
     <div class="divider"></div>
+
     <div class="user-section">
       <button mat-icon-button [matMenuTriggerFor]="userMenu">
         <mat-icon>account_circle</mat-icon>
       </button>
+
+      <ng-container *ngIf="user$ | async as user">
+        <span class="user-email">{{ user.email }}</span>
+      </ng-container>
     </div>
+
     <div class="mobile-left">
       <div class="logo-section">
         <mat-icon class="icon">home</mat-icon>
       </div>
-    
+
       <div class="mobile-nav">
         <button mat-icon-button [matMenuTriggerFor]="mobileMenu">
           <mat-icon>menu</mat-icon>
@@ -30,24 +38,29 @@
       </div>
     </div>
   </mat-toolbar>
-  
+
+  <!-- Benutzer-Menü -->
   <mat-menu #userMenu="matMenu">
-    <button mat-menu-item>Profil</button>
-    <button mat-menu-item>Einstellungen</button>
-    @if(this.isLoggedIn){
-      <button mat-menu-item [routerLink]="['/', RoutingEnum.DASHBOARD]">Logout</button>
-    }
-    @else {
+    <ng-container *ngIf="user$ | async as user; else loginOption">
+      <button mat-menu-item disabled>
+        Eingeloggt als {{ user.email }}
+      </button>
+      <button mat-menu-item [routerLink]="['/', RoutingEnum.PROFILE]">Profil</button>
+      <button mat-menu-item>Einstellungen</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </ng-container>
+    <ng-template #loginOption>
       <button mat-menu-item [routerLink]="['/', RoutingEnum.LOGIN]">Login</button>
-    }
+    </ng-template>
   </mat-menu>
 
+  <!-- Mobiles Menü -->
   <mat-menu #mobileMenu="matMenu">
     <button mat-menu-item [routerLink]="['/', RoutingEnum.DASHBOARD]">Home</button>
-    <button mat-menu-item [routerLink]="['/', RoutingEnum.EVENT]">Veranstaltungen</button>
-    <button mat-menu-item [routerLink]="['/', RoutingEnum.ORGANISATION]">Organisation</button>
-  </mat-menu>  
+    <button mat-menu-item [routerLink]="['/', RoutingEnum.COMMUNITY]">Community</button>
+  </mat-menu>
 
+  <!-- Seiteninhalt -->
   <mat-sidenav-container class="main-container">
     <mat-sidenav-content>
       <div class="content-scrollable">
