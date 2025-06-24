@@ -1,62 +1,72 @@
-<ng-container>
-  <div class="notLoggedIn" *ngIf="!user">
-    <p>Du bist noch nicht angemeldet</p>
-    <button mat-raised-button [routerLink]="['/', routingEnum.LOGIN]">
-      Anmelden
-    </button>
+<div class="wrapper">
+  <div class="viewer">
+    <ng-container *ngIf="!user; else loggedInBlock">
+      <div class="notLoggedIn">
+        <p>Du bist noch nicht angemeldet</p>
+        <button mat-raised-button [routerLink]="['/', routingEnum.LOGIN]">
+          Anmelden
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-template #loggedInBlock>
+      <!-- Willkommen-Karte ganz oben -->
+      <div class="welcome-container">
+        <mat-card class="welcome-card">
+          <mat-card-header>
+            <mat-card-title>Willkommen {{ user?.firstName }}</mat-card-title>
+          </mat-card-header>
+        </mat-card>
+      </div>
+
+      <!-- Danach kommt das Grid -->
+      <div class="community-grid">
+        <!-- Linke Spalte -->
+        <div class="left-panel">
+          <mat-card class="recommendations-card">
+            <mat-card-header>
+              <mat-card-title>Empfohlene Veranstaltungen</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+
+            <div class="dataList">
+              <div
+                class="eachList"
+                *ngFor="let event of recommendations"
+                [routerLink]="['/', routingEnum.EVENT, event.uuid]"
+              >
+                <app-event-preview [data]="event"></app-event-preview>
+              </div>
+            </div>
+
+            <p *ngIf="recommendations.length === 0" class="empty-text">
+              Keine passenden Veranstaltungen gefunden.
+            </p>
+          </mat-card>
+        </div>
+
+        <!-- Rechte Spalte -->
+        <div class="right-panel">
+          <mat-card class="activities-card">
+            <mat-card-header>
+              <mat-card-title>Neuigkeiten deiner Freunde</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+
+            <mat-list class="activitiesItems" *ngIf="userNews.length > 0">
+              <mat-list-item class="itemList" *ngFor="let log of userNews" [routerLink]="['/', routingEnum.EVENT, log.joinedEventId]">
+                <div><mat-icon matListIcon>person</mat-icon> {{log.name}}</div>
+                <div matLine class="activity-text">{{ log.message }}</div>
+                <div class="timestamp">{{ log.date | date: 'short' }}</div>
+              </mat-list-item>
+            </mat-list>
+
+            <p *ngIf="userNews.length === 0" class="empty-text">
+              Deine Freunde haben noch keine Aktivitäten.
+            </p>
+          </mat-card>
+        </div>
+      </div>
+    </ng-template>
   </div>
-  <div class="loggedIn" *ngIf="user">
-    <mat-card class="activities-card">
-      <mat-card>
-        <mat-card-header>
-          Herzlich willkommen {{user.firstName}}
-        </mat-card-header>
-      </mat-card>
-      <mat-card-header>
-        <mat-card-title>Neuigkeiten deiner Freunde</mat-card-title>
-      </mat-card-header>
-      <mat-divider></mat-divider>
-
-      <mat-list *ngIf="userNews.length > 0">
-        <mat-list-item *ngFor="let log of userNews">
-          <mat-icon matListIcon>person</mat-icon>
-          <div matLine class="activity-text">{{ log.message }}</div>
-          <div class="timestamp">{{ log.date | date: 'short' }}</div>
-        </mat-list-item>
-      </mat-list>
-
-      <p *ngIf="userNews.length === 0" class="empty-text">
-        Deine Freunde haben noch keine Aktivitäten.
-      </p>
-    </mat-card>
-
-    <mat-card class="recommendations-card" style="margin-top: 1rem;">
-      <mat-card-header>
-        <mat-card-title>Empfohlene Veranstaltungen für dich</mat-card-title>
-      </mat-card-header>
-      <mat-divider></mat-divider>
-
-      <mat-list *ngIf="recommendations.length > 0">
-        <mat-list-item *ngFor="let event of recommendations">
-          <mat-icon matListIcon>event</mat-icon>
-          <div matLine>
-            <strong>{{ event.title }}</strong>
-          </div>
-          <div matLine>{{ event.date | date:'shortDate' }} – {{ event.location }}</div>
-          <div class="tags">{{ event.category.join(', ') }}</div>
-        </mat-list-item>
-      </mat-list>
-
-      <p *ngIf="recommendations.length === 0" class="empty-text">
-        Es wurden keine passenden Veranstaltungen gefunden.
-      </p>
-    </mat-card>
-  </div>
-</ng-container>
-
-<ng-template #loading>
-  <div class="loading-container" style="display:flex; justify-content:center; margin-top: 3rem;">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-  </div>
-</ng-template>
-
+</div>

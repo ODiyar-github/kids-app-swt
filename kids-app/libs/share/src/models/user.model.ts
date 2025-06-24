@@ -11,14 +11,14 @@ export class UserModel{
     joinEvent(event: EventDTO){
         this.userDto.bookedEventIds.push(event.uuid);
         this.userDto.eventHistoryIds.push(event.uuid);
-        this.userDto.logs.push(new Logs(new Date(), event.uuid, `${this.userDto.firstName} ist der Veranstaltung ${event.title} beigetreten.`));
+        this.userDto.logs.push(new Logs(this.userDto.firstName, new Date(), event.uuid, `${this.userDto.firstName} ist der Veranstaltung ${event.title} beigetreten.`));
     }
     eventFinished(event: EventDTO) {
         this.userDto.bookedEventIds = this.userDto.bookedEventIds.filter(
           id => id !== event.uuid
         );
         this.userDto.logs.push(
-          new Logs(new Date(), event.uuid, `Event abgeschlossen: ${event.title}`)
+          new Logs(this.userDto.firstName,new Date(), event.uuid, `Event abgeschlossen: ${event.title}`)
         );
     }
     getViewedEvent(): string[]{
@@ -33,21 +33,30 @@ export class UserModel{
           .sort((a, b) => b.date.getTime() - a.date.getTime());
     }
     getEventRecommendations(allEvents: EventDTO[]): EventDTO[] {
-        const bookedOrVisited = new Set([
-          ...this.userDto.bookedEventIds,
-          ...this.userDto.eventHistoryIds
-        ]);
-      
-        return allEvents
-          .filter(event =>
-            event.category.some(interest =>
-              this.userDto.interests.includes(interest)
-            ) && !bookedOrVisited.has(event.uuid)
-          )
-          .sort((a, b) => {
-            const aMatches = a.category.filter(cat => this.userDto.interests.includes(cat)).length;
-            const bMatches = b.category.filter(cat => this.userDto.interests.includes(cat)).length;
-            return bMatches - aMatches;
-        });
+      if (!this.userDto?.interests?.length) {
+        return []; 
+      }
+    
+      const bookedOrVisited = new Set([
+        ...(this.userDto.bookedEventIds ?? []),
+        ...(this.userDto.eventHistoryIds ?? [])
+      ]);
+    
+      return allEvents
+        .filter(event => {
+          const matchesInterest = event.category?.some(cat =>
+            this.userDto.interests.includes(cat)
+          );
+          const isNew = !bookedOrVisited.has(event.uuid);
+          return matchesInterest && isNew;
+        })
+        .map(event => ({
+          ...event,
+          matchCount: event.category.filter(cat =>
+            this.userDto.interests.includes(cat)
+          ).length
+        }))
+        .sort((a, b) => b.matchCount - a.matchCount)
+        .map(({ matchCount, ...event }) => event); 
     }
 }

@@ -25,8 +25,8 @@ export const UserMockups: UserDTO[] = [
     ],
     [InterestEnum.Music, InterestEnum.Traveling, InterestEnum.Cooking],
     [
-      new Logs(new Date("2025-06-01"), "d5e8b021-13f3-40dc-b12f-8e101b3ec101", "Teilnahme am Open Air Konzert"),
-      new Logs(new Date("2025-06-10"), "2d143539-6c5c-4f3b-9828-1c59a5402a6b", "Street Food Ticket gebucht")
+      new Logs('Anna Schmidt', new Date("2025-06-01"), "d5e8b021-13f3-40dc-b12f-8e101b3ec101", "Teilnahme am Open Air Konzert"),
+      new Logs('Anna Schmidt', new Date("2025-06-10"), "2d143539-6c5c-4f3b-9828-1c59a5402a6b", "Street Food Ticket gebucht")
     ]
   ),
   new UserDTO(
@@ -45,9 +45,9 @@ export const UserMockups: UserDTO[] = [
       "a1f2e73d-6d2e-4d38-83ae-b34fc3d0928d", // Tech Innovations
       "f4a726fb-24b4-4a07-ae2a-4710a412e1d9"  // Urban Sports Festival
     ],
-    [InterestEnum.Sports, InterestEnum.Gaming, InterestEnum.Programming],
+    [InterestEnum.Sports, InterestEnum.Gaming, InterestEnum.Programming, InterestEnum.Art, InterestEnum.Cooking],
     [
-      new Logs(new Date("2025-06-15"), "14d94aa2-3b4e-4d6a-890e-25df6dcdd0d5", "Bootcamp erfolgreich abgeschlossen")
+      new Logs('Max Mustermann', new Date("2025-06-15"), "14d94aa2-3b4e-4d6a-890e-25df6dcdd0d5", "Bootcamp erfolgreich abgeschlossen")
     ]
   ),
   new UserDTO(
@@ -79,7 +79,7 @@ export const UserMockups: UserDTO[] = [
     ["27b88324-6815-42d1-892b-7551594e5f60"], // Kunst im Park
     [],
     [InterestEnum.Art, InterestEnum.Music],
-    [new Logs(new Date("2025-05-21"), "27b88324-6815-42d1-892b-7551594e5f60", "Besuchte Kunstausstellung im Park")]
+    [new Logs('Tim Jansen', new Date("2025-05-21"), "27b88324-6815-42d1-892b-7551594e5f60", "Besuchte Kunstausstellung im Park")]
   ),
   new UserDTO(
     "d91e4ab8-4bd2-4e03-bc4a-8ddf46ce12b1",
@@ -107,7 +107,7 @@ export const UserMockups: UserDTO[] = [
     ["2d143539-6c5c-4f3b-9828-1c59a5402a6b"], // Street Food Weekend
     [],
     [InterestEnum.Cooking, InterestEnum.Traveling, InterestEnum.Hiking],
-    [new Logs(new Date("2025-06-03"), "2d143539-6c5c-4f3b-9828-1c59a5402a6b", "Teilnahme am Street Food Event")]
+    [new Logs('Jan Lange',new Date("2025-06-03"), "2d143539-6c5c-4f3b-9828-1c59a5402a6b", "Teilnahme am Street Food Event")]
   ),
   new UserDTO(
     "ebac3a3c-d3a7-4aaf-a4d2-c64db31de4d3",
@@ -135,7 +135,7 @@ export const UserMockups: UserDTO[] = [
     ["f4a726fb-24b4-4a07-ae2a-4710a412e1d9"], // Urban Sports Festival
     [],
     [InterestEnum.Sports, InterestEnum.Traveling],
-    [new Logs(new Date("2025-06-19"), "f4a726fb-24b4-4a07-ae2a-4710a412e1d9", "Teilnahme am Sportfestival")]
+    [new Logs('Felix Bauer', new Date("2025-06-19"), "f4a726fb-24b4-4a07-ae2a-4710a412e1d9", "Teilnahme am Sportfestival")]
   ),
   new UserDTO(
     "a4a9cbcb-44d3-4ef7-a779-6fe0414c12c0",
@@ -149,7 +149,7 @@ export const UserMockups: UserDTO[] = [
     ["57e0876c-b9e7-4c60-b2e5-8ef5d8cf0c69"], // Reise-Vortrag
     [],
     [InterestEnum.Traveling, InterestEnum.Reading],
-    [new Logs(new Date("2025-06-08"), "57e0876c-b9e7-4c60-b2e5-8ef5d8cf0c69", "Reisevortrag besucht")]
+    [new Logs('Julia Berg', new Date("2025-06-08"), "57e0876c-b9e7-4c60-b2e5-8ef5d8cf0c69", "Reisevortrag besucht")]
   ),
   new UserDTO(
     "cfd2b580-4c53-4b5c-b90a-3b0b2345f6a0",

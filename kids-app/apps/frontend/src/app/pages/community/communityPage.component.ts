@@ -30,8 +30,9 @@ import { EventService } from '../../shared/services/event.service';
     FormsModule,
     RouterModule,
     CommonModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    EventPreviewComponent
+],
   providers: [
     UserService,
     EventService
@@ -61,13 +62,14 @@ export class CommunityComponent implements OnInit, OnDestroy{
     this.user = this.loginService.getCurrentUser();
 
     if (!this.user) {
-      this.router.navigate(['/', this.routingEnum.LOGIN]);
+      this.router.navigate(['/', this.routingEnum.LOGIN], {
+        queryParams: { redirect: this.routingEnum.COMMUNITY }
+      });
       return;
     }
 
     this.userModel = new UserModel(this.user);
 
-    // Lade Events + Freunde gleichzeitig
     forkJoin([
       this.loadFriendModels(),
       this.eventService.getEventList()
@@ -78,6 +80,10 @@ export class CommunityComponent implements OnInit, OnDestroy{
         this.recommendations = this.userModel.getEventRecommendations(allEvents);
         this.isLoading = false;
         this.cdr.detectChanges();
+        console.log('USER: ',this.user);
+        console.log('FRIENDMODEL: ', this.friendModels);
+        console.log('USERNEWS: ', this.userNews);
+        console.log('RECOMMENDATION', this.recommendations);
       },
       error: err => {
         console.error('Fehler beim Laden der Community-Daten:', err);
@@ -92,9 +98,6 @@ export class CommunityComponent implements OnInit, OnDestroy{
       this.userService.getUserInformation(friendId)
     );
     return forkJoin(requests).pipe(
-      // UserDTO[] → UserModel[]
-      // .map nicht vergessen!
-      // ↑ RxJS map importieren, oder wie hier direkt inline:
       map(users => users.map(user => new UserModel(user)))
     );
   }
