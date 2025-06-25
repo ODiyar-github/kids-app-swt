@@ -1,47 +1,81 @@
-version: '3.8'
-
 services:
+  # CouchDB Service - Hier scheint alles korrekt zu sein
   couchdb:
     image: couchdb:latest
-    container_name: couchdb
-    networks:
-      - app-network
+    container_name: kidsapp-couchdb 
     ports:
       - "5984:5984"
     environment:
-      - COUCHDB_USER=admin
-      - COUCHDB_PASSWORD=password
+      COUCHDB_USER: ${COUCHDB_USERNAME}   
+      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD} 
     volumes:
-      - couchdb_data: /opt/couchdb/data
+      - couchdb_data:/opt/couchdb/data
       
-      
+  # RabbitMQ Service - Hier scheint alles korrekt zu sein
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: kidsapp-rabbitmq
+    ports:
+      - "5672:5672"  
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME} 
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD} 
+    
+  # Dein Spring Boot Backend Service
+  backend:
+    build:
+      context: ./apps/backend              # Build-Kontext: Der Ordner, der das Spring Boot Projekt enthält
+      dockerfile: ./dockerfile # <--- KORREKTUR: Pfad vom docker-compose.yml zum Dockerfile
+    container_name: kidsapp-backend
+    ports:
+      - "5000:5000" 
+    environment:
+      RABBITMQ_HOST: rabbitmq         
+      RABBITMQ_PORT: 5672             
+      RABBITMQ_USERNAME: ${RABBITMQ_USERNAME}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+      COUCHDB_PROTOCOL: ${COUCHDB_PROTOCOL}
+      COUCHDB_HOST: couchdb           
+      COUCHDB_PORT: 5984              
+      COUCHDB_USERNAME: ${COUCHDB_USERNAME}
+      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD}
+      COUCHDB_DATABASE: ${COUCHDB_DATABASE}
+    depends_on:
+      - rabbitmq 
+      - couchdb  
+
+  # Dein NestJS BFF Service
   bff:
     build:
       dockerfile: ./docker/nest.dockerfile
       args:
         APP: bff
     ports:
-      - "3000:3000"
+      - "${BFF_PORT:-3000}:3000"
     environment:
-      - BROKER_URI=amqp://guest:guest@rabbitmq:5672
-      - AMQP_QUEUE_PREFIX=auavp-dev-
+      PORT: ${BFF_PORT}
+      RABBITMQ_URL: amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RABBITMQ_HOST}:${RABBITMQ_PORT}
+      RABBITMQ_QUEUE: ${RABBITMQ_QUEUE}
+      AMQP_QUEUE_PREFIX: ${AMQP_QUEUE_PREFIX}
+    # depends_on:
+    #   - rabbitmq 
+    #   - backend
       
+  # Dein Angular Frontend Service
   frontend:
     build:
       dockerfile: ./docker/angular.dockerfile
       args:
         APP: frontend
     depends_on:
-      - bff
+      - bff      
     environment:
-      - BASE_URL=http://localhost:3000
-      - CAMERA_BASE_URL=http://localhost:5002/
+      # Ändere dies zu 'bff' (dem Servicenamen des BFF-Containers)
+      BASE_URL: http://bff:3000/api 
     ports:
-      - "8080:8080"
-      
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: skala-rabbitmq
-    ports:
-      - "5672:5672"  # AMQP-Port
-      - "15672:15672"  # Management-UI-Port
+      - "8080:8080" 
+
+# Volumes definieren
+volumes:
+  couchdb_data:

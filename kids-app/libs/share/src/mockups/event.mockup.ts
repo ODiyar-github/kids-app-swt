@@ -1,6 +1,6 @@
 import { EventDTO } from "../api/event/event.dto";
 import { InterestEnum } from "../util/enums/interest.enum";
-
+import { RatingEnum } from "../util/enums/rating.enum";
 
 export const EventMockups: EventDTO[] = [
   {
@@ -11,6 +11,14 @@ export const EventMockups: EventDTO[] = [
     address: 'Seepromenade 1, 10115 Berlin',
     location: { lat: 52.5200, lng: 13.4050 },
     category: [InterestEnum.Music, InterestEnum.Cooking],
+    feedBack: [
+      {
+        userId: 'u1',
+        userName: 'Anna Schmidt',
+        rating: RatingEnum.Excellent,
+        message: 'Wunderschöne Atmosphäre!'
+      }
+    ],
     time: '19:30',
     date: '2025-07-14',
     age: '16+',
@@ -24,6 +32,14 @@ export const EventMockups: EventDTO[] = [
     address: 'Messezentrum 5, 80331 München',
     location: { lat: 48.1351, lng: 11.5820 },
     category: [InterestEnum.Technology, InterestEnum.Education],
+    feedBack: [
+      {
+        userId: 'u2',
+        userName: 'Max Weber',
+        rating: RatingEnum.Good,
+        message: 'Tolle Vorträge, aber etwas voll.'
+      }
+    ],
     time: '10:00',
     date: '2025-08-05',
     age: '18+',
@@ -37,6 +53,7 @@ export const EventMockups: EventDTO[] = [
     address: 'Stadtpark 4, 22767 Hamburg',
     location: { lat: 53.5511, lng: 9.9937 },
     category: [InterestEnum.Painting, InterestEnum.Family],
+    feedBack: [],
     time: '11:00',
     date: '2025-06-21',
     age: 'Alle',
@@ -50,6 +67,14 @@ export const EventMockups: EventDTO[] = [
     address: 'Sportgelände Süd, 50667 Köln',
     location: { lat: 50.9375, lng: 6.9603 },
     category: [InterestEnum.Sports, InterestEnum.Music],
+    feedBack: [
+      {
+        userId: 'u3',
+        userName: 'Lea Kunz',
+        rating: RatingEnum.Average,
+        message: 'Cooles Konzept, aber zu wenig Sitzgelegenheiten.'
+      }
+    ],
     time: '12:00',
     date: '2025-07-10',
     age: '14+',
@@ -63,6 +88,7 @@ export const EventMockups: EventDTO[] = [
     address: 'Marktplatz 12, 70173 Stuttgart',
     location: { lat: 48.7758, lng: 9.1829 },
     category: [InterestEnum.Cooking, InterestEnum.Nature],
+    feedBack: [],
     time: '13:00',
     date: '2025-09-01',
     age: 'Alle',
@@ -76,6 +102,7 @@ export const EventMockups: EventDTO[] = [
     address: 'Wanderzentrum, 59872 Meschede',
     location: { lat: 51.3500, lng: 8.2833 },
     category: [InterestEnum.Nature, InterestEnum.Family],
+    feedBack: [],
     time: '08:00',
     date: '2025-08-20',
     age: '6+',
@@ -89,6 +116,7 @@ export const EventMockups: EventDTO[] = [
     address: 'Innenstadtplatz, 45127 Essen',
     location: { lat: 51.4566, lng: 7.0123 },
     category: [InterestEnum.Cooking],
+    feedBack: [],
     time: '16:00',
     date: '2025-07-18',
     age: 'Alle',
@@ -102,6 +130,7 @@ export const EventMockups: EventDTO[] = [
     address: 'Kulturhaus Nord, 30159 Hannover',
     location: { lat: 52.3759, lng: 9.7320 },
     category: [InterestEnum.Traveling, InterestEnum.History],
+    feedBack: [],
     time: '18:00',
     date: '2025-10-10',
     age: '16+',
@@ -115,6 +144,14 @@ export const EventMockups: EventDTO[] = [
     address: 'Innovationszentrum 3, 34117 Kassel',
     location: { lat: 51.3127, lng: 9.4797 },
     category: [InterestEnum.Technology, InterestEnum.Education],
+    feedBack: [
+      {
+        userId: 'u4',
+        userName: 'Jonas Meier',
+        rating: RatingEnum.Excellent,
+        message: 'Super Einstieg ins Programmieren!'
+      }
+    ],
     time: '09:00',
     date: '2025-11-01',
     age: '18+',
@@ -128,6 +165,7 @@ export const EventMockups: EventDTO[] = [
     address: 'Zooallee 7, 44791 Bochum',
     location: { lat: 51.4818, lng: 7.2162 },
     category: [InterestEnum.Animals, InterestEnum.Nature],
+    feedBack: [],
     time: '10:00',
     date: '2025-09-15',
     age: 'Alle',

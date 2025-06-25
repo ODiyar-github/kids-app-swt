@@ -1,0 +1,36 @@
+# --- STAGE 1: Build the Spring Boot Application ---
+FROM eclipse-temurin:21-jdk-jammy AS builder
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the Maven wrapper files to leverage cached dependencies
+COPY mvnw .
+COPY .mvn .mvn
+
+# Copy the pom.xml file
+COPY pom.xml .
+
+# Download project dependencies (this step will be skipped if pom.xml doesn't change)
+RUN ./mvnw dependency:go-offline
+
+# Copy the rest of the source code
+COPY src src
+
+# Package the application into a JAR file
+RUN ./mvnw package -DskipTests
+
+# --- STAGE 2: Create the final, smaller runtime image ---
+FROM eclipse-temurin:21-jre-jammy
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the built JAR file from the builder stage
+COPY --from=builder /app/target/*.jar app.jar
+
+# Expose the port your Spring Boot application runs on (default is 8080)
+EXpose 8080
+
+# Define the command to run the application
+ENTRYPOINT ["java","-jar","app.jar"]

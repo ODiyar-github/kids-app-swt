@@ -1,5 +1,3 @@
-import { EventDTO } from "../api/event/event.dto";
-
 export class Logs{
     name: string;
     date: Date;

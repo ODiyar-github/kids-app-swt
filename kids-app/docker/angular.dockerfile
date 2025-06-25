@@ -9,11 +9,11 @@ COPY . .
 RUN npx nx build ${APP}
 
 
-FROM docker.io/nginxinc/nginx-unprivileged
-ARG APP
+FROM nginxinc/nginx-unprivileged
+ARG APP=frontend
 USER root
 WORKDIR /app
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY apps/${APP}/nginx/default.conf /etc/nginx/conf.d/default.conf
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /app/dist/apps/${APP}/browser /usr/share/nginx/html/
 EXPOSE 8080:8080
