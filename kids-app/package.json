@@ -2,7 +2,11 @@
   "name": "@kids-app/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "dev": "nx run-many --all --parallel 5 --target serve",
+    "build:bff": "nx build bff",
+    "build:backend": "nx build backend"
+  },
   "private": true,
   "dependencies": {
     "@angular/common": "~19.2.0",

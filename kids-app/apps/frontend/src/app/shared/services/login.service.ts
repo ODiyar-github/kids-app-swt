@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserDTO, UserMockups } from '@kids-app/share';
@@ -12,7 +13,7 @@ export class LoginService {
   constructor(private readonly http: HttpClient) {}
 
   public login(username: string, password: string): Observable<UserDTO> {
-    return this.http.get<UserDTO>(`${environment.USER.URL}/login`, {
+    return this.http.get<UserDTO>(`${environment.USER.URL}`, {
       params: { username, password }
     }).pipe(
       catchError((error) => {

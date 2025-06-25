@@ -3,5 +3,6 @@ export const RmqPatterns = {
     USER_LOGIN: 'user-login',
     GET_ALL_EVENTS: 'get-all-events',
     GET_EVENT_BY_ID: 'get-event-by-id',
-    SEND_MOCKUP_DATA: 'send-mockup-data'
+    SEND_MOCKUP_DATA: 'send-mockup-data',
+    GET_TEST: 'get-test-backend'
 };

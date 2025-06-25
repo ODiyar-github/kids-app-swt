@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const window: any;
-const BASE_URL = window.env?.BASE_URL || 'http://localhost:3000';
+const BASE_URL = window.env?.BASE_URL || 'http://localhost:3000/api';
 export const environment = {
     production: false,
     EVENT: {

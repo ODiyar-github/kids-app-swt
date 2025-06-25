@@ -1,5 +1,6 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
@@ -11,6 +12,7 @@ import { EventPreviewComponent } from "./eventPreview/eventPreview.component";
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { RoutingEnum } from '../../shared/enums/routing.enum';
+import { TestService } from '../../shared/services/test.service';
 @Component({
   standalone: true,
   selector: 'app-dashboard',
@@ -26,13 +28,19 @@ import { RoutingEnum } from '../../shared/enums/routing.enum';
     RouterLink
 ],
   providers: [
-    EventService
+    EventService,
+    TestService
   ],
 })
 export class DashbardComponent {
   eventList: EventDTO[] = [];
   routingEnum = RoutingEnum;
-  constructor(private readonly eventService: EventService, private readonly cdr: ChangeDetectorRef, private router: Router){
+  testValue = '';
+  constructor(
+    private readonly eventService: EventService, 
+    private readonly cdr: ChangeDetectorRef, 
+    private readonly testService: TestService,
+    private router: Router){
     this.initializeDataSource();
   }
 
@@ -40,4 +48,9 @@ export class DashbardComponent {
     this.eventList = await lastValueFrom(this.eventService.getEventList());
     this.cdr.detectChanges();
   }  
+
+  async testSend(){
+    this.testValue = await lastValueFrom(this.testService.testSend());
+    this.cdr.detectChanges();
+  }
 }

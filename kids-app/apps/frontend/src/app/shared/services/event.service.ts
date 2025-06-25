@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, map, Observable, of, throwError } from "rxjs";
@@ -38,7 +39,7 @@ export class EventService {
   }
 
   public getEventList(): Observable<EventDTO[]> {
-    return this.httpClient.get<EventDTO[]>(environment.EVENT.URL).pipe(
+    return this.httpClient.get<EventDTO[]>(`${environment.EVENT.URL}`).pipe(
         catchError(error => {
           console.error('API fehlgeschlagen, keine Events:', error);
           return of(EventMockups);
