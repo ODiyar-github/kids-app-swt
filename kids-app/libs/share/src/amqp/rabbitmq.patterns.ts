@@ -1,8 +1,14 @@
 export const RmqPatterns = {
-    GET_USER_BY_ID: 'get-user-by-id',
-    USER_LOGIN: 'user-login',
-    GET_ALL_EVENTS: 'get-all-events',
-    GET_EVENT_BY_ID: 'get-event-by-id',
-    SEND_MOCKUP_DATA: 'send-mockup-data',
-    GET_TEST: 'get-test-backend'
+    AUTH: {
+      LOGIN: 'login',
+      GET_USER_BY_ID: 'get-user-by-id',
+    },
+    EVENTS: {
+      GET_ALL: 'get-all',
+      GET_BY_ID: 'get-by-id',
+    },
+    TEST: {
+      SEND_MOCKUP: 'send-mockup',
+      BACKEND_TEST: 'get-backend-test',
+    },
 };

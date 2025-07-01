@@ -15,20 +15,7 @@ export class LoginService {
   public login(username: string, password: string): Observable<UserDTO> {
     return this.http.get<UserDTO>(`${environment.USER.URL}`, {
       params: { username, password }
-    }).pipe(
-      catchError((error) => {
-        const localUser = UserMockups.find(
-          user => user.email.toLowerCase() === username.toLowerCase()
-        );
-
-        if (localUser) {
-          this.currentUserSubject.next(localUser);
-          return of(localUser);
-        }
-        return throwError(() => new Error('Login fehlgeschlagen: Kein lokaler User gefunden.'), error);
-      }),
-      tap((user) => this.currentUserSubject.next(user))
-    );
+    });
   }
 
   public logout(): void {

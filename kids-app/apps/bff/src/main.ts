@@ -12,7 +12,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: ['http://localhost:8080', 'http://localhost:8080/'], // Oder die tatsächliche URL deines Angular-Frontends im Container, falls anders
+    origin: ['http://localhost:8080', 'http://localhost:8080/', 'http://localhost:4200', 'http://localhost:4200/'], // Oder die tatsächliche URL deines Angular-Frontends im Container, falls anders
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });

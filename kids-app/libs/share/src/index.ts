@@ -1,5 +1,7 @@
 //Amqp-Section
 export * from './amqp/rabbitmq.patterns'
+export * from './amqp/broker/amqp.broker'
+export * from './amqp/amqp.broker.queues'
 //Api-Section
 export * from './api/jsonData/json.data'
 export * from './api/event/event.dto'

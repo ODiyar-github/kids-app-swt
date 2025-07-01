@@ -1,6 +1,6 @@
 import { Controller, Get, Query, Param } from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserDTO } from '@kids-app/share';
 import { Observable } from 'rxjs';
 
@@ -10,19 +10,21 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('login')
-  @ApiQuery({ name: 'username', type: String })
-  @ApiQuery({ name: 'password', type: String })
-  @ApiResponse({ status: 200, description: 'The image with the given uuid.', type: String })
-  @ApiResponse({ status: 404, description: 'Image not found' })
-  login(@Query('username') username: string, @Query('password') password: string): Observable<UserDTO> {
+  @ApiOperation({ summary: 'User Login' })
+  @ApiResponse({ status: 200, description: 'User bei erfolgreichem Login', type: UserDTO })
+  login(
+    @Query('username') username: string,
+    @Query('password') password: string
+  ): Observable<UserDTO> {
+    console.log(`🔐 Loginversuch für ${username}`);
     return this.userService.login(username, password);
   }
 
   @Get(':uuid')
-  @ApiParam({ name: 'uuid', type: String })
-  @ApiResponse({ status: 200, description: 'The user with the given uuid.', type: String })
-  @ApiResponse({ status: 404, description: 'User not found' })
-  getUser(@Param('uuid') uuid: string):Observable<UserDTO> {
+  @ApiOperation({ summary: 'User nach UUID abrufen' })
+  @ApiResponse({ status: 200, description: 'Einzelner User', type: UserDTO })
+  getUser(@Param('uuid') uuid: string): Observable<UserDTO> {
+    console.log(`📥 Anfrage: User mit UUID ${uuid}`);
     return this.userService.getUser(uuid);
   }
 }

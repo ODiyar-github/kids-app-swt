@@ -1,18 +1,22 @@
-import { Injectable } from '@nestjs/common';
-import { RmqClientService } from '../services/rabbitmq.client.service';
-import { RmqPatterns, UserDTO } from '@kids-app/share';
+import { Inject, Injectable } from '@nestjs/common';
+import { AmqpBrokerQueues, RmqPatterns, UserDTO } from '@kids-app/share';
 import { Observable } from 'rxjs';
+import { ClientProxy } from '@nestjs/microservices';
 @Injectable()
 export class UserService {
-  private client = this.rmqClient.getClient();
+  constructor(
+    @Inject(AmqpBrokerQueues.KIDS_APP_STORAGE_SERVICE_QUEUE)
+    private readonly client: ClientProxy
+  ) {}
 
-  constructor(private readonly rmqClient: RmqClientService) {}
-
-  login(username: string, password: string):Observable<UserDTO> {
-    return this.client.send(RmqPatterns.USER_LOGIN, { username, password });
+  login(username: string, password: string): Observable<UserDTO> {
+    const payload = { username, password };
+    console.log('📨 Login-Daten an Backend senden:', payload);
+    return this.client.send(RmqPatterns.AUTH.LOGIN, payload);
   }
 
-  getUser(uuid: string):Observable<UserDTO> {
-    return this.client.send(RmqPatterns.GET_USER_BY_ID, uuid);
+  getUser(uuid: string): Observable<UserDTO> {
+    console.log(`📨 Anfrage für User mit UUID ${uuid}`);
+    return this.client.send(RmqPatterns.AUTH.GET_USER_BY_ID, { uuid });
   }
 }

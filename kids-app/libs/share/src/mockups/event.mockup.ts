@@ -6,14 +6,14 @@ export const EventMockups: EventDTO[] = [
   {
     uuid: 'd5e8b021-13f3-40dc-b12f-8e101b3ec101',
     title: 'Open Air Konzert am See',
-    description: 'Ein einzigartiges Musikerlebnis unter freiem Himmel...',
+    description: `Erlebe ein unvergessliches Open-Air-Konzert direkt am idyllischen See in Herne! Junge Talente und lokale Bands bringen die Bühne zum Beben, während du auf Picknickdecken oder Liegestühlen entspannen kannst. Neben der Musik gibt es Essensstände, Mitmachaktionen, Fotospots und eine Chillout-Area – perfekt für Jugendliche, die Musik lieben und neue Leute kennenlernen wollen. Familienfreundlich und trotzdem cool – sichere dir deinen Platz!`,
     priceList: 'Eintritt: 15€, Kinder unter 12 kostenlos',
-    address: 'Seepromenade 1, 10115 Berlin',
-    location: { lat: 52.5200, lng: 13.4050 },
+    address: 'Seepromenade 1, 44623 Herne',
+    location: { lat: 51.531, lng: 7.2532 },
     category: [InterestEnum.Music, InterestEnum.Cooking],
     feedBack: [
       {
-        userId: 'u1',
+        userId: '9e4b1a3d-3a6d-4d71-bfc4-2e3d8fdd8121',
         userName: 'Anna Schmidt',
         rating: RatingEnum.Excellent,
         message: 'Wunderschöne Atmosphäre!'
@@ -21,154 +21,196 @@ export const EventMockups: EventDTO[] = [
     ],
     time: '19:30',
     date: '2025-07-14',
-    age: '16+',
+    age: '13-17',
     image: ''
   },
   {
     uuid: 'a1f2e73d-6d2e-4d38-83ae-b34fc3d0928d',
     title: 'Tech Innovations 2025',
-    description: 'Die führende Konferenz für Technologie-Enthusiasten...',
+    description: `Willkommen zur Tech Innovations 2025 – der Messe für technikbegeisterte Jugendliche! Entdecke neue Gadgets, KI-Demos, Robotik und spannende Workshops von echten Start-ups. Du kannst VR-Brillen testen, eigene Mini-Roboter programmieren oder einfach coole Vorträge über Zukunftsthemen anhören. Das Event ist speziell für Jugendliche gedacht, die sich für Technik, Coding und neue Entwicklungen interessieren. Snacks, Lounge-Areas und Networking inklusive!`,
     priceList: 'Tagesticket: 49€, Studierende: 29€',
-    address: 'Messezentrum 5, 80331 München',
-    location: { lat: 48.1351, lng: 11.5820 },
+    address: 'Messezentrum, 44623 Herne',
+    location: { lat: 51.5321, lng: 7.2458 },
     category: [InterestEnum.Technology, InterestEnum.Education],
     feedBack: [
       {
-        userId: 'u2',
-        userName: 'Max Weber',
+        userId: 'c26ae8b0-c9f0-4b66-bc3f-6ff2b83c2b4b',
+        userName: 'Max Mustermann',
         rating: RatingEnum.Good,
         message: 'Tolle Vorträge, aber etwas voll.'
       }
     ],
     time: '10:00',
     date: '2025-08-05',
-    age: '18+',
+    age: '12-17',
     image: ''
   },
   {
     uuid: '27b88324-6815-42d1-892b-7551594e5f60',
     title: 'Kunst im Park',
-    description: 'Ein ganzer Tag voller Farben, Kreativität...',
+    description: `Ein farbenfrohes Fest der Kreativität mitten im Grünen! Bei "Kunst im Park" kannst du dich in verschiedenen Kunst-Workshops ausprobieren: von Acrylmalerei über Street Art bis hin zu Tonfiguren. Professionelle Künstler:innen zeigen dir Tipps und Tricks und helfen dir bei deinen eigenen Werken. Dazu gibt’s Live-Musik, leckeres Essen und eine kleine Open-Air-Ausstellung. Perfekt für Kinder und Jugendliche, die ihrer Fantasie freien Lauf lassen wollen!`,
     priceList: 'Eintritt frei',
-    address: 'Stadtpark 4, 22767 Hamburg',
-    location: { lat: 53.5511, lng: 9.9937 },
+    address: 'Parkstraße, 44623 Herne',
+    location: { lat: 51.5268, lng: 7.2123 },
     category: [InterestEnum.Painting, InterestEnum.Family],
-    feedBack: [],
+    feedBack: [
+      {
+        userId: '7f90cbb5-b823-4564-9e5e-22a32fcd2187',
+        userName: 'Tim Jansen',
+        rating: RatingEnum.Good,
+        message: 'Toller Tag mit kreativen Ideen!'
+      }
+    ],
     time: '11:00',
     date: '2025-06-21',
-    age: 'Alle',
+    age: '8-13',
     image: ''
   },
   {
     uuid: 'f4a726fb-24b4-4a07-ae2a-4710a412e1d9',
     title: 'Urban Sports Festival',
-    description: 'Ein actionreiches Wochenende mit Parkour...',
+    description: `Bereit für Action? Beim Urban Sports Festival dreht sich alles um Bewegung, Mut und Adrenalin. Egal ob du Skaten, Parkour, BMX oder Streetball liebst – hier findest du deinen Platz. Coaches zeigen dir neue Tricks, du kannst an Mini-Turnieren teilnehmen oder einfach auf der Zuschauertribüne chillen. Außerdem gibt es Foodtrucks, Musik-DJs und eine Graffiti-Zone. Für alle sportlich Aktiven zwischen 11 und 16 Jahren – bring deine Crew mit und sei dabei!`,
     priceList: 'Tagespass: 10€, Wochenende: 18€',
-    address: 'Sportgelände Süd, 50667 Köln',
-    location: { lat: 50.9375, lng: 6.9603 },
+    address: 'Sportgelände, 44623 Herne',
+    location: { lat: 51.5405, lng: 7.2678 },
     category: [InterestEnum.Sports, InterestEnum.Music],
     feedBack: [
       {
-        userId: 'u3',
-        userName: 'Lea Kunz',
+        userId: '4b78ad21-91d1-4c4f-9b2d-527f531bd9d8',
+        userName: 'Felix Bauer',
         rating: RatingEnum.Average,
         message: 'Cooles Konzept, aber zu wenig Sitzgelegenheiten.'
       }
     ],
     time: '12:00',
     date: '2025-07-10',
-    age: '14+',
-    image: ''
-  },
-  {
-    uuid: '7cfb68f7-d88a-4f69-87d3-8e944db2634c',
-    title: 'Veganes Genussfestival',
-    description: 'Ein kulinarisches Erlebnis für alle...',
-    priceList: 'Eintritt: 5€, Kinder unter 10 frei',
-    address: 'Marktplatz 12, 70173 Stuttgart',
-    location: { lat: 48.7758, lng: 9.1829 },
-    category: [InterestEnum.Cooking, InterestEnum.Nature],
-    feedBack: [],
-    time: '13:00',
-    date: '2025-09-01',
-    age: 'Alle',
-    image: ''
-  },
-  {
-    uuid: '0f8c54ee-1a4a-499c-8f62-df3584e6c8e3',
-    title: 'Wandertag im Sauerland',
-    description: 'Natur pur – entdecke gemeinsam mit anderen...',
-    priceList: 'Teilnahmegebühr: 8€, Familienkarte: 20€',
-    address: 'Wanderzentrum, 59872 Meschede',
-    location: { lat: 51.3500, lng: 8.2833 },
-    category: [InterestEnum.Nature, InterestEnum.Family],
-    feedBack: [],
-    time: '08:00',
-    date: '2025-08-20',
-    age: '6+',
+    age: '11-16',
     image: ''
   },
   {
     uuid: '2d143539-6c5c-4f3b-9828-1c59a5402a6b',
     title: 'Street Food Weekend',
-    description: 'Mehr als 50 internationale Food-Stände...',
+    description: `Ein Wochenende voller Geschmacksexplosionen! Entdecke auf dem Street Food Weekend über 50 Stände mit Gerichten aus aller Welt – von mexikanischen Tacos über japanisches Street Sushi bis hin zu veganem Eis. Zusätzlich gibt es eine Chill-Zone für Jugendliche, kleine Kochworkshops zum Mitmachen und ein Bühnenprogramm mit DJ-Sets und Überraschungsgästen. Essen verbindet – komm vorbei und probiere dich durch die Weltküche mitten in Herne!`,
     priceList: 'Eintritt: 4€, inkl. 1 Getränk',
-    address: 'Innenstadtplatz, 45127 Essen',
-    location: { lat: 51.4566, lng: 7.0123 },
+    address: 'Innenstadtplatz, 44623 Herne',
+    location: { lat: 51.5233, lng: 7.2185 },
     category: [InterestEnum.Cooking],
-    feedBack: [],
+    feedBack: [
+      {
+        userId: '05f76e11-9f5c-41e5-a6b4-b5a684db645c',
+        userName: 'Jan Lange',
+        rating: RatingEnum.Good,
+        message: 'Super lecker, tolle Auswahl!'
+      }
+    ],
     time: '16:00',
     date: '2025-07-18',
-    age: 'Alle',
+    age: '10-15',
     image: ''
   },
   {
-    uuid: '57e0876c-b9e7-4c60-b2e5-8ef5d8cf0c69',
-    title: 'Reise-Vortrag: Südamerika entdecken',
-    description: 'Abenteuer pur – Reisejournalist:innen berichten...',
-    priceList: 'Eintritt: 10€, ermäßigt: 6€',
-    address: 'Kulturhaus Nord, 30159 Hannover',
-    location: { lat: 52.3759, lng: 9.7320 },
-    category: [InterestEnum.Traveling, InterestEnum.History],
-    feedBack: [],
-    time: '18:00',
-    date: '2025-10-10',
-    age: '16+',
-    image: ''
-  },
-  {
-    uuid: '14d94aa2-3b4e-4d6a-890e-25df6dcdd0d5',
-    title: 'Coding Bootcamp für Einsteiger',
-    description: 'Tauche ein in die Welt der Webentwicklung...',
-    priceList: 'Kosten: 199€, inkl. Verpflegung & Materialien',
-    address: 'Innovationszentrum 3, 34117 Kassel',
-    location: { lat: 51.3127, lng: 9.4797 },
+    uuid: '7bc042ab-d70c-4cb2-b0e2-f16c0b2df4df',
+    title: 'Game Jam Junior 2025',
+    description: `Tauche ein in die Welt der Videospielentwicklung! Beim Game Jam Junior entwickeln Jugendliche in kleinen Teams innerhalb von zwei Tagen ein eigenes Spiel – von der Idee bis zur Präsentation. Mit Unterstützung von Mentor:innen lernst du dabei Game Design, einfache Programmierung und Storytelling. Keine Vorkenntnisse nötig! Snacks, Musik und Preisverleihung inklusive.`,
+    priceList: 'Teilnahme kostenlos, Anmeldung erforderlich',
+    address: 'Kreativzentrum, 44623 Herne',
+    location: { lat: 51.5301, lng: 7.2498 },
     category: [InterestEnum.Technology, InterestEnum.Education],
     feedBack: [
       {
-        userId: 'u4',
-        userName: 'Jonas Meier',
+        userId: '9e4b1a3d-3a6d-4d71-bfc4-2e3d8fdd8121',
+        userName: 'Anna Schmidt',
         rating: RatingEnum.Excellent,
-        message: 'Super Einstieg ins Programmieren!'
+        message: 'Ein super Einstieg in Game-Entwicklung!'
       }
     ],
     time: '09:00',
-    date: '2025-11-01',
-    age: '18+',
+    date: '2025-08-03',
+    age: '12-16',
     image: ''
   },
   {
-    uuid: '3c45a0f4-fd93-4569-8ea9-3b90dc2ed204',
-    title: 'Familientag im Zoo',
-    description: 'Ein bunter Tag für Groß und Klein...',
-    priceList: 'Erwachsene: 12€, Kinder: 6€, Familienkarte: 30€',
-    address: 'Zooallee 7, 44791 Bochum',
-    location: { lat: 51.4818, lng: 7.2162 },
-    category: [InterestEnum.Animals, InterestEnum.Nature],
-    feedBack: [],
-    time: '10:00',
-    date: '2025-09-15',
-    age: 'Alle',
+    uuid: '28a1e189-c4e9-46b2-bfde-460962a7a38f',
+    title: 'Graffiti Workshop: Walls of Creativity',
+    description: `Werde Teil unserer Street-Art-Community! In diesem Workshop zeigen professionelle Graffiti-Artists dir, wie du eigene Styles entwickelst, Sprühtechniken lernst und auf echten Wänden legale Kunstwerke schaffst. Gemeinsam gestalten wir eine Wand in Herne neu – mit deiner Message! Farben, Schutzkleidung und Drinks sind inklusive.`,
+    priceList: 'Teilnahmegebühr: 5€, Material inklusive',
+    address: 'Jugendzentrum Süd, 44623 Herne',
+    location: { lat: 51.5244, lng: 7.2412 },
+    category: [InterestEnum.Painting, InterestEnum.Education],
+    feedBack: [
+      {
+        userId: '7f90cbb5-b823-4564-9e5e-22a32fcd2187',
+        userName: 'Tim Jansen',
+        rating: RatingEnum.Good,
+        message: 'Cooler Workshop, alles gut erklärt!'
+      }
+    ],
+    time: '14:00',
+    date: '2025-07-28',
+    age: '13-17',
+    image: ''
+  },
+  {
+    uuid: '96a3c6e4-63e7-4a71-980b-21b4e6f38d2d',
+    title: 'Schnitzeljagd 2.0 – Die QR-Quest',
+    description: `Erlebe Herne neu bei unserer digitalen Schnitzeljagd! In kleinen Teams löst ihr Rätsel per QR-Code, bewegt euch durch Parks, Straßen und spannende Locations. Jede Station bringt euch ein Stück näher zum Schatz. Die Jagd ist App-gestützt, macht Spaß und fordert eure Kreativität und Teamgeist!`,
+    priceList: 'Kostenfrei, Smartphone erforderlich',
+    address: 'Startpunkt: Rathausplatz Herne',
+    location: { lat: 51.5389, lng: 7.2211 },
+    category: [InterestEnum.Technology, InterestEnum.Sports],
+    feedBack: [
+      {
+        userId: '4b78ad21-91d1-4c4f-9b2d-527f531bd9d8',
+        userName: 'Felix Bauer',
+        rating: RatingEnum.Excellent,
+        message: 'Spannend, modern, richtig gut organisiert!'
+      }
+    ],
+    time: '11:00',
+    date: '2025-07-20',
+    age: '10-14',
+    image: ''
+  },
+  {
+    uuid: 'cd3913b1-f912-4173-b1ff-d12d71e9c6f6',
+    title: 'Dance & Beats – HipHop Moves für Teens',
+    description: `Lust auf coole Moves, neue Beats und viel Energie? Dann ist unser HipHop-Workshop genau das Richtige! Unter Anleitung erfahrener Coaches lernst du Choreos, Technik und Style – alles zu aktuellen Tracks. Am Ende zeigen wir in einer Mini-Show, was du drauf hast. Spaß, Bewegung und Ausdruck stehen im Mittelpunkt.`,
+    priceList: 'Workshopgebühr: 8€',
+    address: 'Tanzstudio Herne West, 44623 Herne',
+    location: { lat: 51.5333, lng: 7.2611 },
+    category: [InterestEnum.Music, InterestEnum.Sports],
+    feedBack: [
+      {
+        userId: '05f76e11-9f5c-41e5-a6b4-b5a684db645c',
+        userName: 'Jan Lange',
+        rating: RatingEnum.Good,
+        message: 'Die Coaches waren super nett!'
+      }
+    ],
+    time: '15:00',
+    date: '2025-07-29',
+    age: '12-17',
+    image: ''
+  },
+  {
+    uuid: '9c9f13f7-85c3-4f8c-91be-823bd10457cf',
+    title: 'Pizza & Pasta Party – Kochen wie in Italien',
+    description: `Lerne in lockerer Atmosphäre, wie du echte italienische Klassiker selbst zubereitest! Gemeinsam backen wir knusprige Pizzen, machen Pasta von Hand und bereiten frische Soßen zu. Der Workshop endet mit einem gemütlichen Abendessen mit selbst gemachten Gerichten, Musik und Spaß.`,
+    priceList: 'Teilnahme: 6€, inkl. Essen & Getränke',
+    address: 'Jugendhaus Eickel, 44651 Herne',
+    location: { lat: 51.5259, lng: 7.1867 },
+    category: [InterestEnum.Cooking, InterestEnum.Family],
+    feedBack: [
+      {
+        userId: 'c26ae8b0-c9f0-4b66-bc3f-6ff2b83c2b4b',
+        userName: 'Max Mustermann',
+        rating: RatingEnum.Excellent,
+        message: 'War super lecker und entspannt!'
+      }
+    ],
+    time: '17:00',
+    date: '2025-08-02',
+    age: '8-13',
     image: ''
   }
 ];

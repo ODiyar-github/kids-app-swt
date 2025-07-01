@@ -1,16 +1,27 @@
-import { Injectable } from '@nestjs/common';
-import { RmqClientService } from '../services/rabbitmq.client.service';
-import { EventDTO, RmqPatterns } from '@kids-app/share';
+import { Inject, Injectable } from '@nestjs/common';
+import { AmqpBrokerQueues, EventDTO, RmqPatterns } from '@kids-app/share';
 import { Observable, of } from 'rxjs';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class TestService {
-  private client = this.rmqClient.getClient();
+  constructor(
+    @Inject(AmqpBrokerQueues.KIDS_APP_STORAGE_SERVICE_QUEUE)
+    private readonly backendClient: ClientProxy,
 
-  constructor(private readonly rmqClient: RmqClientService) {}
+    @Inject(AmqpBrokerQueues.KIDS_APP_DAS_QUEUE)
+    private readonly dasClient: ClientProxy
+  ) {}
 
-  getBackendTest(): Observable<string>{
-    return of('Dies ist ein Test-String vom BFF-Backend!');
-    // return this.client.send(RmqPatterns.GET_TEST, {});
+
+  getBackendTest(): Observable<any> {
+    const payload = {
+      message: 'Testdaten vom BFF',
+      timestamp: new Date().toISOString(),
+    };
+
+    console.log('📨 Sende an RabbitMQ:', payload);
+
+    return this.backendClient.send(RmqPatterns.TEST.BACKEND_TEST, payload);
   }
 }

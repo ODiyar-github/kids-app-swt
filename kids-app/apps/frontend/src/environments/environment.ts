@@ -3,6 +3,9 @@ declare const window: any;
 const BASE_URL = window.env?.BASE_URL || 'http://localhost:3000/api';
 export const environment = {
     production: false,
+    MAIN: {
+      URL: `${BASE_URL}`,
+    },
     EVENT: {
       URL: `${BASE_URL}/events`,
     },

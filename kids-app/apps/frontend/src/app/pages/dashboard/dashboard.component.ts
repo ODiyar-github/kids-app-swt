@@ -46,11 +46,12 @@ export class DashbardComponent {
 
   async initializeDataSource(): Promise<void> {
     this.eventList = await lastValueFrom(this.eventService.getEventList());
+    this.testValue = await lastValueFrom(this.testService.testSend());
     this.cdr.detectChanges();
   }  
 
   async testSend(){
-    this.testValue = await lastValueFrom(this.testService.testSend());
+    this.testValue = JSON.stringify(await lastValueFrom(this.testService.testSend()));
     this.cdr.detectChanges();
   }
 }
