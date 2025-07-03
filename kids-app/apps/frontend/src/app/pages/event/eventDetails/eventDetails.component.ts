@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
@@ -10,6 +11,9 @@ import { Component, Input} from '@angular/core';
 import { EventDTO } from '@kids-app/share'
 import { MapComponent } from "./mapComponent/map.component";
 import { EventService } from '../../../shared/services/event.service';
+import { LoginService } from '../../../shared/services/login.service';
+import { Observable } from 'rxjs';
+import { UserDTO } from '@kids-app/share';
 import { HttpClientModule } from '@angular/common/http';
 @Component({
   standalone: true,
@@ -26,10 +30,22 @@ import { HttpClientModule } from '@angular/common/http';
     MatDividerModule,
     FormsModule,
     MapComponent,
+    CommonModule,
     HttpClientModule,
 ],
 providers: [EventService]
 })
 export class EventDetailsComponent {
   @Input() event!: EventDTO;
+  
+    // Jetzt abonnierst du den Zustand direkt
+    user$: Observable<UserDTO | undefined>;
+  
+    constructor(public readonly loginService: LoginService) {
+      this.user$ = this.loginService.currentUser$;
+    }
+  
+    logout(): void {
+      this.loginService.logout();
+    }
 }
