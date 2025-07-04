@@ -3,15 +3,16 @@
 }
 .viewer {
   box-shadow: var(--defaultBoxShadow);
-  background-color: var(--areaBackgroundColor);
   padding: 1rem;
 }
 .titel {
   color: var(--contrastColour);
-  text-align: left;
+  text-align: center;
   text-wrap: wrap;
 }
 .topContainer {
+  box-sizing: border-box;
+  overflow: hidden;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 1rem;
@@ -23,7 +24,54 @@ img {
   height: 100%;
   width: 100%;
 }
-.cardDetails {
+.detailsList {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+}
+.details {
   display: flex;
   align-items: center;
+  background-color: blue;
+  border-radius: var(--borderRadius);
+  padding: 0rem 1rem;
+}
+.maps {
+  box-shadow: var(--defaultBoxShadow);
+  border-radius: var(--borderRadius);
+  background-color: var(--backgroundWithOpacity2);
+}
+.location {
+  text-align: center;
+}
+.titleContainer {
+  display: flex;
+  justify-content: center;
+}
+.descriptionContainer {
+  margin: 3rem 0;
+}
+.title, .description, .button {
+  padding: 1rem;
+  border-radius: var(--borderRadius);
+  background-color: var(--backgroundWithOpacity);
+}
+.title {
+  background-color: var(--backgroundWithOpacity3);
+  display: inline;
+}
+.dateContainer > .details {
+  background-color: var(--backgroundWithOpacity4);
+}
+.ageContainer > .details {
+  background-color: var(--backgroundWithOpacity5);
+}
+.details, .title, .description, .button {
+  box-shadow: var(--defaultBoxShadow);
+}
+.button {
+  background-color: var(--backgroundWithOpacity4)
+}
+.button, .descriptionContainer {
+  margin: 1rem 0;
 }

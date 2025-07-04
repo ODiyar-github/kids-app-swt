@@ -6,23 +6,35 @@
           </div>
           <div class="maps">
             <app-map-component [event]="event"></app-map-component>
+            <div class="location">
+              <p>{{ event.location }}</p>
+            </div>
           </div>
         </div>
-        <h1 class="titel">{{event.title}}</h1>
-        <mat-card-footer class="cardFooter" >
-        <div class="cardDetails">
-          <mat-icon>place</mat-icon>
-          <p>{{ event.location }}</p>
+        <div class="titleContainer">
+          <h1 class="title">{{event.title}}</h1>
         </div>
-        <div class="cardDetails">
-          <mat-icon>access_time</mat-icon>
-          <p>{{ event.date }}<br />{{ event.time }}</p>
+        <div class ="detailsList">
+          <div class="dateContainer">
+            <div class="details">
+              <mat-icon>access_time</mat-icon>
+              <p>{{ event.date }}<br />{{ event.time }}</p>
+            </div>
+          </div>
+          <div class="ageContainer">
+            <div class="details">
+              <mat-icon>cake</mat-icon>
+              <p>{{ event.age }}</p>
+            </div>
+          </div>
         </div>
-        <div class="cardDetails">
-          <mat-icon>cake</mat-icon>
-          <p>{{ event.age }}</p>
+        <div class="descriptionContainer">
+          <p class="description">{{event.description}}</p>
         </div>
-      </mat-card-footer>
-        <p>{{event.description}}</p>
+        <ng-container *ngIf="user$ | async as user">
+          <div>
+            <button class="button">[An/Abmeldebutton]</button>
+          </div>
+        </ng-container>
     </div>
 </div>
