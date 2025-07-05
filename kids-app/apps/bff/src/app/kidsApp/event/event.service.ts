@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { AmqpBrokerQueues, EventDTO, RmqPatterns } from '@kids-app/share';
+import { AmqpBrokerQueues, RmqPatterns } from "@libs/amqp/amqp";
+import { EventDTO } from '@kids-app/share';
 import { Observable } from 'rxjs';
 import { ClientProxy } from '@nestjs/microservices';
 

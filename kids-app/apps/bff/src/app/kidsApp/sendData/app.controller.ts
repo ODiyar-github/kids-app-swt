@@ -3,8 +3,8 @@ import { AppService } from './app.service';
 import { Observable } from 'rxjs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('AppController')
-@Controller('appcontroller')
+@ApiTags('sendData')
+@Controller('sendData')
 export class AppController {
   constructor(private readonly appService: AppService) {}
   @Get()

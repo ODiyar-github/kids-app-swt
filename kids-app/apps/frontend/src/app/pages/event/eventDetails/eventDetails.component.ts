@@ -33,7 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     HttpClientModule,
 ],
-providers: [EventService]
+providers: [EventService, LoginService],
 })
 export class EventDetailsComponent {
   @Input() event!: EventDTO;
@@ -41,7 +41,7 @@ export class EventDetailsComponent {
     // Jetzt abonnierst du den Zustand direkt
     user$: Observable<UserDTO | undefined>;
   
-    constructor(public readonly loginService: LoginService) {
+    constructor(private readonly loginService: LoginService) {
       this.user$ = this.loginService.currentUser$;
     }
   

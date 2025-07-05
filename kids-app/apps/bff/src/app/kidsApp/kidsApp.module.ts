@@ -5,7 +5,7 @@ import { EventService } from "./event/event.service";
 import { UserService } from "./user/user.service";
 import { TestService } from "./test/test.service";
 import { TestController } from "./test/test.controller";
-import { AmqpBroker } from "@kids-app/share";
+import { AmqpBroker } from "@libs/amqp/amqp";
 import { AppController } from "./sendData/app.controller";
 import { AppService } from "./sendData/app.service";
 @Module({

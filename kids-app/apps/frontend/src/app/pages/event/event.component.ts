@@ -39,7 +39,8 @@ export class EventComponent {
   eventPageEnum = EventPageEnum;
   event!: EventDTO;
   id$!: Observable<string>;
-  constructor(private readonly route: ActivatedRoute,
+  constructor(
+    private readonly route: ActivatedRoute,
     private readonly eventService: EventService,
     private readonly cdr: ChangeDetectorRef
   ) {

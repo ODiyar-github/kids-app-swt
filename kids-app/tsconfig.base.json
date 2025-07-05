@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@kids-app/share": ["libs/share/src/index.ts"],
-      "@kids-app/utils": ["utils/src/index.ts"]
+      "@libs/amqp/amqp": ["libs/amqp/src/index.ts"],
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -36,9 +36,7 @@ public class MockupService implements MessageHandler {
             JsonData jsonData = objectMapper.convertValue(data, JsonData.class);
             jsonData.set_id(null);
             jsonData.set_rev(null);
-
             String docId = this.couchdbStorage.save(jsonData);
-
             Map<String, Object> responseData = new HashMap<>();
             responseData.put("status", "SUCCESS");
             responseData.put("responseFrom", "Spring Boot Backend");

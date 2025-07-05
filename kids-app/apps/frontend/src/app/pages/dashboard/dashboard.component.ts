@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { RoutingEnum } from '../../shared/enums/routing.enum';
 import { TestService } from '../../shared/services/test.service';
+import { SendDataService } from '../../shared/services/sendData.service';
 @Component({
   standalone: true,
   selector: 'app-dashboard',
@@ -29,7 +30,8 @@ import { TestService } from '../../shared/services/test.service';
 ],
   providers: [
     EventService,
-    TestService
+    TestService,
+    SendDataService
   ],
 })
 export class DashbardComponent {
@@ -40,7 +42,9 @@ export class DashbardComponent {
     private readonly eventService: EventService, 
     private readonly cdr: ChangeDetectorRef, 
     private readonly testService: TestService,
-    private router: Router){
+    private readonly sendDataService: SendDataService,
+    private readonly router: Router
+  ){
     this.initializeDataSource();
   }
 
@@ -52,6 +56,7 @@ export class DashbardComponent {
 
   async testSend(){
     this.testValue = JSON.stringify(await lastValueFrom(this.testService.testSend()));
+    this.sendDataService.sendData();
     this.cdr.detectChanges();
   }
 }

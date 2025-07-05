@@ -2,8 +2,8 @@ package com.example.demo.MyFolder.share.util;
 
 public enum RabbitMqPattern {
 
-    EVENTS_GET_ALL("get-all", false), // Fire-and-Forget? Dann false.
-    EVENTS_GET_BY_ID("get-by-id", false), // Fire-and-Forget? Dann false.
+    EVENTS_GET_ALL("get-all", true), // Fire-and-Forget? Dann false.
+    EVENTS_GET_BY_ID("get-by-id", true), // Fire-and-Forget? Dann false.
 
     // Korrekte Definition für dein Mockup-Pattern:
     SEND_MOCKUP("send-mockup", true), // Sollte KEINE Antwort erwarten (Fire-and-Forget)
