@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 
 import { ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, SimpleChanges, } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';

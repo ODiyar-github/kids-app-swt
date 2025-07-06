@@ -6,9 +6,9 @@ export const RmqPatterns = {
     EVENTS: {
       GET_ALL: 'get-all',
       GET_BY_ID: 'get-by-id',
+      GET_BY: 'get-by'
     },
-    TEST: {
+    SENDDATA: {
       SEND_MOCKUP: 'send-mockup',
-      BACKEND_TEST: 'get-backend-test',
     },
 };

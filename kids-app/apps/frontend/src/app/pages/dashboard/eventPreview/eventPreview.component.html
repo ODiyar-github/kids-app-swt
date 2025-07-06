@@ -1,7 +1,7 @@
 <div class="wrapper">
   <mat-card class="card">
     <mat-card-header class="cardHeader">
-        <img mat-card-image class="cardImage" [src]="data.image" alt="" />
+      <img mat-card-image class="cardImage" [src]="'assets/images/eventImages/' + data.uuid + '.png'" alt="{{ data.title }}" />
         <div class="cardHeaderContent">
             <mat-divider class="cardDivider"></mat-divider>
             <p class="cardTitel">{{ data.title }}</p>
@@ -26,8 +26,5 @@
         <p>{{ data.age }}</p>
       </div>
     </mat-card-footer>
-    <button mat-icon-button class="cardButton cardButtonChecked">
-        <mat-icon>star</mat-icon>
-    </button>
   </mat-card>
 </div>

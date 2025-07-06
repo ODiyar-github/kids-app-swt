@@ -1,0 +1,19 @@
+<mat-card class="weather-card">
+  <mat-card-title> <mat-icon>thermostat</mat-icon> Wetter </mat-card-title>
+
+  <div class="current-weather">
+    <span class="day">{{ currentWeath.day }}</span>
+    <mat-icon class="weather-icon">{{ currentWeath.icon }}</mat-icon>
+    <div class="current-temp">{{ currentWeath.max }}°C Aktuell vor Ort</div>
+  </div>
+
+  <mat-list>
+    <mat-list-item *ngFor="let day of weatherForecast">
+      <div class="weather">
+        <span class="day">{{ day.day }}</span>
+        <mat-icon class="weather-icon">{{ day.icon }}</mat-icon>
+        <span class="temp-range">{{ day.min }}°C - {{ day.max }}°C</span>  
+      </div>
+     </mat-list-item>
+  </mat-list>
+</mat-card>

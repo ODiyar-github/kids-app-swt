@@ -1,18 +1,17 @@
 /* eslint-disable @angular-eslint/prefer-inject */
 
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatListModule } from '@angular/material/list';
 import { EventService } from '../../shared/services/event.service';
-import { EventDTO } from '@kids-app/share'
+import { Appointment, EventDTO, EventFeedBackDto, EventMockups, InterestEnum, Point, RatingEnum, WeatherForecast } from '@kids-app/share'
 import { HttpClientModule } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { EventPreviewComponent } from "./eventPreview/eventPreview.component";
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { RoutingEnum } from '../../shared/enums/routing.enum';
-import { TestService } from '../../shared/services/test.service';
 import { SendDataService } from '../../shared/services/sendData.service';
 @Component({
   standalone: true,
@@ -30,7 +29,6 @@ import { SendDataService } from '../../shared/services/sendData.service';
 ],
   providers: [
     EventService,
-    TestService,
     SendDataService
   ],
 })
@@ -41,22 +39,17 @@ export class DashbardComponent {
   constructor(
     private readonly eventService: EventService, 
     private readonly cdr: ChangeDetectorRef, 
-    private readonly testService: TestService,
     private readonly sendDataService: SendDataService,
     private readonly router: Router
   ){
-    this.initializeDataSource();
+    // this.initializeDataSource();
+    this.eventList = EventMockups;
   }
 
-  async initializeDataSource(): Promise<void> {
-    this.eventList = await lastValueFrom(this.eventService.getEventList());
-    this.testValue = await lastValueFrom(this.testService.testSend());
-    this.cdr.detectChanges();
-  }  
+  // async initializeDataSource(): Promise<void> {
+  //   this.sendDataService.sendData();
+  //   this.eventList = await lastValueFrom(this.eventService.getEventList());
+  //   this.cdr.detectChanges();
+  // }  
 
-  async testSend(){
-    this.testValue = JSON.stringify(await lastValueFrom(this.testService.testSend()));
-    this.sendDataService.sendData();
-    this.cdr.detectChanges();
-  }
 }

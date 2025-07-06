@@ -1,17 +1,16 @@
 import { AppFeedback } from "../../util/app.feedback";
 import { EventDTO } from "../event/event.dto";
-import { UserDTO } from "../user/user.dto";
-
+import { AuthLoginDTO } from "../user/auth.login.dto";
 export class JsonData{
     _id: string;
     _rev: string;
-    userData: UserDTO[];
+    userData: AuthLoginDTO[];
     eventData: EventDTO[];
     feedBackAppData: AppFeedback[];
     constructor(
         _id: string,
         _rev: string,
-        userData: UserDTO[],
+        userData: AuthLoginDTO[],
         eventData: EventDTO[],
         feedBackAppData: AppFeedback[]
     ){

@@ -13,12 +13,7 @@ export class EventService {
     return this.httpClient.get<EventDTO>(`${environment.EVENT.URL}/${uuid}`);
   }
 
-  public getEventsByCategories(categories: string[]): Observable<EventDTO[]> {
-    return this.httpClient.post<EventDTO[]>(`${environment.EVENT.URL}`, categories);
-  }
-
   public getEventList(): Observable<EventDTO[]> {
-    console.log('SCHICKE GET AN BFF')
     return this.httpClient.get<EventDTO[]>(`${environment.EVENT.URL}`);
   }
 }

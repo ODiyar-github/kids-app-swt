@@ -10,7 +10,7 @@ public class JsonData {
     private String _id;
     @JsonProperty("_rev")
     private String _rev;
-    private List<UserDTO> userData;
+    private List<AuthLoginDTO> userData;
     private List<EventDTO> eventData;
     private List<AppFeedback> feedBackAppData;
 
@@ -34,11 +34,11 @@ public class JsonData {
         this._rev = _rev;
     }
 
-    public List<UserDTO> getUserData() {
+    public List<AuthLoginDTO> getUserData() {
         return userData;
     }
 
-    public void setUserData(List<UserDTO> userData) {
+    public void setUserData(List<AuthLoginDTO> userData) {
         this.userData = userData;
     }
 

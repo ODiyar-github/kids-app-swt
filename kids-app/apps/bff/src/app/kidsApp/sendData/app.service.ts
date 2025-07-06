@@ -5,17 +5,12 @@ import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom, Observable, of } from 'rxjs';
 
 @Injectable()
-export class AppService implements OnModuleInit {
+export class AppService {
   private isSend = false;
   constructor(
     @Inject(AmqpBrokerQueues.KIDS_APP_STORAGE_SERVICE_QUEUE)
     private readonly client: ClientProxy,
   ) {}
-
-  async onModuleInit() {
-    //  const value =this.sendMockupData(); // Aktivieren, wenn du es testen möchtest
-    //  console.log('Habe einen datenpacket von backend erhalten', value);
-  }
 
   sendMockupData(): Observable<any>{
     if(this.isSend === false){
@@ -27,12 +22,15 @@ export class AppService implements OnModuleInit {
         feedBackAppData: AppFeedbackMockup, // Fülle dies mit deinen AppFeedbackMockup
       };
       try {
-        console.log('Mockup-Daten erfolgreich gesendet.', RmqPatterns.TEST.SEND_MOCKUP);
-        return this.client.send(RmqPatterns.TEST.SEND_MOCKUP, jsonData);
+        this.isSend = true;
+        return this.client.send(RmqPatterns.SENDDATA.SEND_MOCKUP, jsonData);
       } catch (error) {
         console.error('Fehler beim Senden der Mockup-Daten:', error.message);
         return of(('Error by sending Data to Backend!'));
       }
+    }
+    else{
+      return of('Data already set');
     }
   }
 }

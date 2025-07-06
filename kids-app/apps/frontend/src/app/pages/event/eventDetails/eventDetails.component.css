@@ -5,73 +5,74 @@
   box-shadow: var(--defaultBoxShadow);
   padding: 1rem;
 }
-.titel {
-  color: var(--contrastColour);
-  text-align: center;
-  text-wrap: wrap;
-}
-.topContainer {
-  box-sizing: border-box;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 1rem;
+.topContent {
+  height: 36rem; 
+  display: flex;
   padding: 1rem;
-  justify-items: center;
+  gap: 1em;
+  transition: all 0.3s ease-in-out;
+  align-items: stretch;
+  flex-direction: row;
+  justify-content: space-around;
+  .eventImage {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    border-radius: 0;
+  }
+  
+  .img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    object-fit: cover; 
+    box-shadow: var(--defaultBoxShadow);
+  }
+  .maps {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--defaultBoxShadow);
+    border-radius: var(--borderRadius);
+    background-color: var(--backgroundWithOpacity2);
+  }
 }
-img {
-  object-fit: contain;
-  height: 100%;
-  width: 100%;
-}
-.detailsList {
+
+.eventContent{
   display: flex;
-  gap: 1rem;
-  align-items: flex-end;
+  gap: 0.5rem;
+
+  .leftSide{
+    .titel{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .recommendations-card {
+      background-color: #fafafa;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+    }
+    .dataList {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .eachList {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+    }
+    .addButton{
+      margin-left:70vw;
+      margin-bottom: 1vh;
+    }
+  }
+
+  .rightSide{
+
+  }
 }
-.details {
-  display: flex;
-  align-items: center;
-  background-color: blue;
-  border-radius: var(--borderRadius);
-  padding: 0rem 1rem;
-}
-.maps {
-  box-shadow: var(--defaultBoxShadow);
-  border-radius: var(--borderRadius);
-  background-color: var(--backgroundWithOpacity2);
-}
-.location {
-  text-align: center;
-}
-.titleContainer {
-  display: flex;
-  justify-content: center;
-}
-.descriptionContainer {
-  margin: 3rem 0;
-}
-.title, .description, .button {
-  padding: 1rem;
-  border-radius: var(--borderRadius);
-  background-color: var(--backgroundWithOpacity);
-}
-.title {
-  background-color: var(--backgroundWithOpacity3);
-  display: inline;
-}
-.dateContainer > .details {
-  background-color: var(--backgroundWithOpacity4);
-}
-.ageContainer > .details {
-  background-color: var(--backgroundWithOpacity5);
-}
-.details, .title, .description, .button {
-  box-shadow: var(--defaultBoxShadow);
-}
-.button {
-  background-color: var(--backgroundWithOpacity4)
-}
-.button, .descriptionContainer {
-  margin: 1rem 0;
-}
+

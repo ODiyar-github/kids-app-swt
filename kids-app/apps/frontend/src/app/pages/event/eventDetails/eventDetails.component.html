@@ -1,40 +1,96 @@
 <div class="wrapper">
-    <div class="viewer">
-        <div class="topContainer">
-          <div class="eventImage">
-            <img mat-card-image class="img" [src]="event.image" alt="">
-          </div>
-          <div class="maps">
-            <app-map-component [event]="event"></app-map-component>
-            <div class="location">
-              <p>{{ event.location }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="titleContainer">
-          <h1 class="title">{{event.title}}</h1>
-        </div>
-        <div class ="detailsList">
-          <div class="dateContainer">
-            <div class="details">
-              <mat-icon>access_time</mat-icon>
-              <p>{{ event.date }}<br />{{ event.time }}</p>
-            </div>
-          </div>
-          <div class="ageContainer">
-            <div class="details">
-              <mat-icon>cake</mat-icon>
-              <p>{{ event.age }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="descriptionContainer">
-          <p class="description">{{event.description}}</p>
-        </div>
-        <ng-container *ngIf="user$ | async as user">
-          <div>
-            <button class="button">[An/Abmeldebutton]</button>
-          </div>
-        </ng-container>
+  <div class="viewer">
+    <div class="topContent">
+      <div class="eventImage">
+        <img mat-card-image class="img" [src]="'assets/images/eventImages/' + event.uuid + '.png'" alt=""/>
+      </div>
+      <div class="maps">
+        <app-map-component [event]="event"></app-map-component>
+      </div>
     </div>
+
+    <div class="eventContent">
+      <mat-card class="leftSide">
+        <mat-card-header class="titel"><b>{{event.title}}</b></mat-card-header>
+        <mat-divider></mat-divider>
+  
+        <mat-card-content>
+  
+          <div class="information">
+            <div class="address">
+              <p><mat-icon>place</mat-icon>{{ event.address }}</p>
+            </div>
+            <div class="time">
+              <p><mat-icon>access_time</mat-icon>{{ event.date }}:{{event.time}}</p>
+            </div>
+            <div class="description">
+              <b>Beschreibung:</b>
+              <p>{{event.description}}</p>
+            </div>
+            <div class="priceList">
+              <b>Preisliste:</b>
+              <p>{{event.priceList}}</p>
+            </div>
+            <div class="userRating">
+              <b>Kundenbewertung:</b>
+              <div *ngFor="let feedback of event.feedBack">
+                <p>{{feedback.message}} -{{feedback.userName}}</p>
+              </div>
+            </div>
+            <div class="addButton">
+              @if (this.user === undefined) {
+                <button mat-raised-button (click)="login()">
+                  Anmelden
+                </button>
+              }@else {
+                <button mat-raised-button (click)="addEventToUserList()">
+                  Veranstaltungen buchen
+                </button>
+              }
+            </div>
+          </div>
+        </mat-card-content>
+
+          <mat-card class="recommendations-card">
+            <mat-card-header>
+              <mat-card-title>Empfohlene Veranstaltungen</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+
+            <div class="dataList">
+              <div
+                class="eachList"
+                *ngFor="let event of recommendations"
+                [routerLink]="['/', routingEnum.EVENT, event.uuid]"
+              >
+                <app-event-preview [data]="event"></app-event-preview>
+              </div>
+            </div>
+
+            <p *ngIf="recommendations.length === 0" class="empty-text">
+              Keine passenden Veranstaltungen gefunden.
+            </p>
+          </mat-card>
+  
+      </mat-card>
+      
+      <mat-card class="rightSide">
+        <mat-card-content>
+          <div class="weather">
+            <app-weather [weatherForecast]="event.weatherForecast" ></app-weather>
+          </div>
+          <div class="author">
+            <p><b>Autor</b></p>
+            <p>{{event.author}}</p>
+          </div>
+          <div class="organisation">
+            <p><b>Organisator</b></p>
+            <p>{{event.organization}}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
 </div>
+

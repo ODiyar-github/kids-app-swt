@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
@@ -7,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { EventDTO } from '@kids-app/share'
+import { Appointment, EventDTO, EventFeedBackDto, EventMockups, InterestEnum, Point, RatingEnum, WeatherForecast } from '@kids-app/share'
 import { EventPageEnum } from './enum/page.enum';
 import { EventDetailsComponent } from "./eventDetails/eventDetails.component";
 import { map, Observable } from 'rxjs';
@@ -39,6 +40,7 @@ export class EventComponent {
   eventPageEnum = EventPageEnum;
   event!: EventDTO;
   id$!: Observable<string>;
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly eventService: EventService,
@@ -46,11 +48,16 @@ export class EventComponent {
   ) {
     this.id$ = this.route.params.pipe(map((params) => params['id']));
     this.id$.subscribe((id: string) => {
-      this.eventService.getEventById(id).subscribe((event: EventDTO) => {
-        if(event?.uuid){
+      // this.eventService.getEventById(id).subscribe((event: EventDTO) => {
+      //   if(event?.uuid){
+      //     this.event = event;
+      //   }
+      // });
+      EventMockups.filter( (event) =>{
+        if(event.uuid === id){
           this.event = event;
         }
-      });
+      })
     });
   }
 }

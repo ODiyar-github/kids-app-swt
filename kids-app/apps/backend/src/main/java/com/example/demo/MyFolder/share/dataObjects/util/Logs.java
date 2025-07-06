@@ -1,22 +1,13 @@
 package com.example.demo.MyFolder.share.dataObjects.util;
 
-import java.time.Instant;
-
 public class Logs {
     private String name;
-    // TypeScript Date wird oft als String im ISO-Format gesendet.
-    // Instant ist gut für die genaue Zeit, String für einfaches Mapping.
-    // Wenn es ein ISO-8601 String ist, kann Jackson ihn direkt in Instant oder Date
-    // parsen.
-    // Oder, wenn es ein Millisekunden-Timestamp ist, kann Jackson auch damit
-    // umgehen.
-    // Hier verwenden wir Instant als gute Praxis für Datum/Uhrzeit.
     private String date;
     private String joinedEventId;
     private String message;
 
     public Logs() {
-    } // Standardkonstruktor
+    }
 
     public Logs(String name, String date, String joinedEventId, String message) {
         this.name = name;

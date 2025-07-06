@@ -59,17 +59,17 @@ services:
       backend:
         condition: service_started
 
-  frontend:
-    build:
-      dockerfile: ./docker/angular.dockerfile
-      args:
-        APP: frontend
-    depends_on:
-      - bff
-    environment:
-      - BASE_URL=http://localhost:3000/api
-    ports:
-      - "8080:8080"
+  # frontend:
+  #   build:
+  #     dockerfile: ./docker/angular.dockerfile
+  #     args:
+  #       APP: frontend
+  #   depends_on:
+  #     - bff
+  #   environment:
+  #     - BASE_URL=http://localhost:3000/api
+  #   ports:
+  #     - "8080:8080"
 
 volumes:
   couchdb_data:

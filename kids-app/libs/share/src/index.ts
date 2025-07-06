@@ -14,4 +14,5 @@ export * from './models/user.model'
 export * from './util/enums/interest.enum'
 export * from './util/location.point'
 export * from './util/user.logs'
+export * from './util/enums/rating.enum'
 

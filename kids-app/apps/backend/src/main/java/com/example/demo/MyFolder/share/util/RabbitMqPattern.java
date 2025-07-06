@@ -2,20 +2,17 @@ package com.example.demo.MyFolder.share.util;
 
 public enum RabbitMqPattern {
 
-    EVENTS_GET_ALL("get-all", true), // Fire-and-Forget? Dann false.
-    EVENTS_GET_BY_ID("get-by-id", true), // Fire-and-Forget? Dann false.
+    EVENTS_GET_ALL("get-all", true),
+    EVENTS_GET_BY_ID("get-by-id", true),
+    EVENTS_GET_BY("get-by", true),
 
-    // Korrekte Definition für dein Mockup-Pattern:
-    SEND_MOCKUP("send-mockup", true), // Sollte KEINE Antwort erwarten (Fire-and-Forget)
+    SEND_MOCKUP("send-mockup", true),
 
     AUTH_LOGIN("login", true),
-    AUTH_GET_USER_BY_ID("get-user-by-id", true),
-
-    // Korrekte Definition für dein Backend-Test Pattern:
-    BACKEND_TEST("get-backend-test", true); // Sollte EINE Antwort erwarten (Request-Response)
+    AUTH_GET_USER_BY_ID("get-user-by-id", true);
 
     private final String pattern;
-    private final boolean expectsReply; // Neue Eigenschaft
+    private final boolean expectsReply;
 
     RabbitMqPattern(String pattern, boolean expectsReply) {
         this.pattern = pattern;
@@ -26,7 +23,7 @@ public enum RabbitMqPattern {
         return pattern;
     }
 
-    public boolean expectsReply() { // Getter für die neue Eigenschaft
+    public boolean expectsReply() {
         return expectsReply;
     }
 

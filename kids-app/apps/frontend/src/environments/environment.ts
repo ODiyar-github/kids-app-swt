@@ -7,7 +7,7 @@ export const environment = {
       URL: `${BASE_URL}`,
     },
     EVENT: {
-      URL: `${BASE_URL}/events`,
+      URL: `${BASE_URL}/event`,
     },
     LOGIN: {
       URL: `${BASE_URL}/login`,
