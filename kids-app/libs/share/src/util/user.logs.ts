@@ -1,11 +1,11 @@
 export class Logs{
     name: string;
-    date: Date;
+    date: string;
     joinedEventId: string;
     message: string;
     constructor(
         name: string,
-        date: Date,
+        date: string,
         joinedEventId: string,
         message: string,
     ){

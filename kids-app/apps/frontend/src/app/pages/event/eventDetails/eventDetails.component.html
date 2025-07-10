@@ -1,40 +1,116 @@
 <div class="wrapper">
-    <div class="viewer">
-        <div class="topContainer">
-          <div class="eventImage">
-            <img mat-card-image class="img" [src]="event.image" alt="">
-          </div>
-          <div class="maps">
-            <app-map-component [event]="event"></app-map-component>
-            <div class="location">
-              <p>{{ event.location }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="titleContainer">
-          <h1 class="title">{{event.title}}</h1>
-        </div>
-        <div class ="detailsList">
-          <div class="dateContainer">
-            <div class="details">
-              <mat-icon>access_time</mat-icon>
-              <p>{{ event.date }}<br />{{ event.time }}</p>
-            </div>
-          </div>
-          <div class="ageContainer">
-            <div class="details">
-              <mat-icon>cake</mat-icon>
-              <p>{{ event.age }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="descriptionContainer">
-          <p class="description">{{event.description}}</p>
-        </div>
-        <ng-container *ngIf="user$ | async as user">
-          <div>
-            <button class="button">[An/Abmeldebutton]</button>
-          </div>
-        </ng-container>
+  <div class="viewer" *ngIf="event">
+
+    <!-- Bild & Karte -->
+    <div class="topContent">
+      <div class="eventImage">
+        <img
+          mat-card-image
+          class="img"
+          [src]="'assets/images/eventImages/' + event.uuid + '.png'"
+          alt="Event Bild"
+        />
+      </div>
+      <div class="maps">
+        <app-map-component [event]="event"></app-map-component>
+      </div>
     </div>
+
+    <!-- Eventinhalt -->
+    <div class="eventContent">
+      <mat-card class="leftSide">
+        <mat-card-header class="titel">
+          <b>{{ event.title }}</b>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+
+        <mat-card-content>
+          <div class="information">
+            <p><mat-icon>place</mat-icon> {{ event.address }}</p>
+            <p><mat-icon>access_time</mat-icon> {{ event.date }} {{ event.time }}</p>
+
+            <div class="description">
+              <b>Beschreibung:</b>
+              <p>{{ event.description }}</p>
+            </div>
+
+            <div class="priceList">
+              <b>Preisliste:</b>
+              <p>{{ event.priceList }}</p>
+            </div>
+
+            <div class="userRating">
+              <b>Kundenbewertungen:</b>
+              <div *ngFor="let feedback of event.feedBack">
+                <p>"{{ feedback.message }}" – {{ feedback.userName }}</p>
+              </div>
+            </div>
+
+            <div class="addButton">
+              <ng-container *ngIf="user$ | async as user; else showLogin">
+                <ng-container *ngIf="!user.bookedEventIds?.includes(event.uuid); else alreadyBooked">
+                  <button mat-raised-button color="primary" (click)="addEventToUserList(user)">
+                    Veranstaltung buchen
+                  </button>
+                </ng-container>
+              </ng-container>
+              <ng-template #alreadyBooked>
+                <button mat-raised-button color="accent" disabled>
+                  Bereits gebucht
+                </button>
+              </ng-template>
+              <ng-template #showLogin>
+                <button mat-raised-button color="primary" (click)="login()">
+                  Anmelden
+                </button>
+              </ng-template>
+            </div>
+
+          </div>
+        </mat-card-content>
+
+        <!-- Empfehlungen -->
+        <mat-card class="recommendations-card">
+          <mat-card-header>
+            <mat-card-title>Empfohlene Veranstaltungen</mat-card-title>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+
+          <ng-container *ngIf="recommendations$ | async as recommendations">
+            <div class="dataList">
+              <div
+                class="eachList"
+                *ngFor="let rec of recommendations"
+                [routerLink]="['/', routingEnum.EVENT, rec.uuid]"
+              >
+                <app-event-preview [data]="rec"></app-event-preview>
+              </div>
+            </div>
+
+            <p *ngIf="recommendations.length === 0" class="empty-text">
+              Keine passenden Empfehlungen vorhanden.
+            </p>
+          </ng-container>
+        </mat-card>
+      </mat-card>
+
+      <!-- Rechte Spalte -->
+      <mat-card class="rightSide">
+        <mat-card-content>
+          <div class="weather">
+            <app-weather [weatherForecast]="event.weatherForecasts"></app-weather>
+          </div>
+
+          <div class="author">
+            <p><b>Autor:</b> {{ event.author }}</p>
+          </div>
+
+          <div class="organisation">
+            <p><b>Organisator:</b> {{ event.organisation }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+  </div>
 </div>

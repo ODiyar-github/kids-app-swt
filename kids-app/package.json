@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cdk": "^19.2.0",
     "@angular/common": "~19.2.0",
     "@angular/compiler": "~19.2.0",
     "@angular/core": "~19.2.0",
@@ -46,8 +47,8 @@
     "@nx/eslint": "21.2.0",
     "@nx/eslint-plugin": "21.2.0",
     "@nx/jest": "21.2.0",
-    "@nx/js": "21.2.0",
-    "@nx/nest": "^21.2.0",
+    "@nx/js": "21.2.2",
+    "@nx/nest": "21.2.2",
     "@nx/node": "21.2.0",
     "@nx/web": "21.2.0",
     "@nx/webpack": "21.2.0",

@@ -9,8 +9,10 @@
 }
 
 .welcome-container {
-  max-width: 1300px;
+  max-width: 40vw;
   margin: 0 auto 2rem;
+  display: grid;
+  grid-template-columns: repeat(1fr,1fr);
 }
 
 .welcome-card {
@@ -98,4 +100,22 @@
   margin-top: 1rem;
   font-size: 1rem;
   color: #aaa;
+}
+.search-user-card {
+  margin-bottom: 1rem;
+}
+
+.search-field {
+  width: 100%;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.already-friend {
+  color: gray;
 }

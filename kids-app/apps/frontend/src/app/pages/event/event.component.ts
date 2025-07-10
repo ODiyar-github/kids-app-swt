@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
@@ -39,7 +40,9 @@ export class EventComponent {
   eventPageEnum = EventPageEnum;
   event!: EventDTO;
   id$!: Observable<string>;
-  constructor(private readonly route: ActivatedRoute,
+
+  constructor(
+    private readonly route: ActivatedRoute,
     private readonly eventService: EventService,
     private readonly cdr: ChangeDetectorRef
   ) {

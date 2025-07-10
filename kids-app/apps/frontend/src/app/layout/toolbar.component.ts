@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
@@ -23,7 +24,6 @@ import { Observable } from 'rxjs';
 import { UserDTO } from '@kids-app/share';
 @Component({
   standalone: true,
-  providers: [LoginService],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -46,7 +46,6 @@ import { UserDTO } from '@kids-app/share';
 export class ToolbarComponent {
   protected readonly RoutingEnum = RoutingEnum;
 
-  // Jetzt abonnierst du den Zustand direkt
   user$: Observable<UserDTO | undefined>;
 
   constructor(public readonly loginService: LoginService) {

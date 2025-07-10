@@ -3,13 +3,18 @@ import { EventController } from "./event/event.controller";
 import { UserController } from "./user/user.controller";
 import { EventService } from "./event/event.service";
 import { UserService } from "./user/user.service";
-import { RmqClientService } from "./services/rabbitmq.client.service";
-import { TestService } from "./test/test.service";
-import { TestController } from "./test/test.controller";
+import { AmqpBroker } from "@libs/amqp/amqp";
+import { AppController } from "./sendData/app.controller";
+import { AppService } from "./sendData/app.service";
+import { AppFeedbackController } from "./feedback/app.feedback.controller";
+import { AppFeedbackService } from "./feedback/app.feedback.service";
 @Module({
-    imports: [],
-    controllers: [EventController, UserController, TestController],
-    providers: [EventService, UserService, TestService, RmqClientService],
+    imports: [
+      new AmqpBroker().getDASBroker(),
+      new AmqpBroker().getStorageServiceBroker()
+    ],
+    controllers: [AppController, EventController, UserController, AppFeedbackController],
+    providers: [AppService, EventService, UserService, AppFeedbackService],
   })
   export class KidsAppModule {}
   

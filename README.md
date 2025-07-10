@@ -1,1 +1,0 @@
-# kids-app-swt

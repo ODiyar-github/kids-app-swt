@@ -29,8 +29,8 @@ WORKDIR /app
 # Copy the built JAR file from the builder stage
 COPY --from=builder /app/target/*.jar app.jar
 
-# Expose the port your Spring Boot application runs on (default is 8080)
-EXpose 8080
+# Expose the port your Spring Boot application runs on (default is 5000)
+EXPOSE 5000
 
 # Define the command to run the application
 ENTRYPOINT ["java","-jar","app.jar"]

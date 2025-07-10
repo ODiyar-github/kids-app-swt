@@ -1,25 +1,27 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { EventService } from './event.service';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Observable } from 'rxjs';
-import { EventDTO } from '@kids-app/share';
+import { Observable, of } from 'rxjs';
+import { EventDTO, EventMockups } from '@kids-app/share';
 
-@ApiTags('Events')
-@Controller('events')
+@ApiTags('Event')
+@Controller('event')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
   @Get()
-  @ApiOperation({ description: 'Get all Events' })
-  @ApiResponse({ type: String, description: 'Return of all events that is currently saved.' })
-  @ApiResponse({ status: 200, description: 'A list of the stored events' })
+  @ApiOperation({ summary: 'Alle Events abrufen' })
+  @ApiResponse({ status: 200, description: 'Liste aller Events', type: [EventDTO] })
   getAllEvents(): Observable<EventDTO[]> {
-    return this.eventService.getAllEvents(); 
+    console.log('📥 Anfrage: Alle Events');
+    return this.eventService.getAllEvents();
   }
 
   @Get(':id')
-  @ApiParam({ name: 'uuid', type: String })
+  @ApiOperation({ summary: 'Ein Event nach ID abrufen' })
+  @ApiResponse({ status: 200, description: 'Einzelnes Event', type: EventDTO })
   getEventById(@Param('id') id: string): Observable<EventDTO> {
+    console.log(`📥 Anfrage: Event mit ID ${id}`);
     return this.eventService.getEventById(id);
   }
 }

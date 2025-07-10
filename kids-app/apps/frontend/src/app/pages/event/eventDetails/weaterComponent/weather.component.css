@@ -1,0 +1,42 @@
+.weather-card {
+    max-width: 300px;
+    padding: 1rem;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .current-weather {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    gap: 0.5rem;
+  }
+  .weather {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    gap: 0.5rem;
+  }
+  
+  .weather-icon {
+    font-size: 1.5rem;
+  }
+  
+  .current-temp {
+    font-size: 1.2rem;
+  }
+  
+  mat-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .day {
+    flex: 1;
+  }
+  
+  .temp-range {
+    flex: 1;
+    text-align: right;
+  }
+  
