@@ -1,6 +1,5 @@
 import { InterestEnum } from "../../util/enums/interest.enum";
 import { Point } from "../../util/location.point";
-import { Appointment } from "./event.appointment";
 import { EventFeedBackDto } from "./event.feedback.dto";
 import { WeatherForecast } from "./event.weather.forecast";
 
@@ -11,15 +10,14 @@ export class EventDTO {
     priceList: string;
     address: string;
     location: Point;
-    weatherForecast: WeatherForecast[];
+    weatherForecasts: WeatherForecast[];
     category: InterestEnum[];
     feedBack: EventFeedBackDto[];
-    appointments: Appointment[];
     time: string;
     date: string;
     age: string;
     image: string;
-    organization: string;
+    organisation: string;
     author: string;
 
     constructor(
@@ -29,15 +27,14 @@ export class EventDTO {
         priceList: string,
         address: string,
         location: Point,
-        weatherForecast: WeatherForecast[],
+        weatherForecasts: WeatherForecast[],
         category: InterestEnum[],
         feedBack: EventFeedBackDto[],
-        appointments: Appointment[],
         date: string,
         time: string,
         age: string,
         image: string,
-        organization: string,
+        organisation: string,
         author: string,
     ) {
         this.uuid = uuid;
@@ -46,17 +43,15 @@ export class EventDTO {
         this.priceList = priceList;
         this.address = address;
         this.location = location;
-        this.weatherForecast = weatherForecast;
+        this.weatherForecasts = weatherForecasts;
         this.category = category;
         this.feedBack = feedBack;
-        this.appointments = appointments;
         this.date = date;
         this.time = time;
         this.age = age;
         this.image = image;
-        this.organization = organization;
+        this.organisation = organisation;
         this.author = author;
     }
 }
 
-export { Appointment, EventFeedBackDto, Point, WeatherForecast };

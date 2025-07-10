@@ -1,25 +1,58 @@
 <div class="wrapper">
   <div class="viewer">
-    <ng-container *ngIf="!user; else loggedInBlock">
-      <div class="notLoggedIn">
-        <p>Du bist noch nicht angemeldet</p>
-        <button mat-raised-button [routerLink]="['/', routingEnum.LOGIN]">
-          Anmelden
-        </button>
-      </div>
-    </ng-container>
-
-    <ng-template #loggedInBlock>
-      <!-- Willkommen-Karte ganz oben -->
+    <ng-container *ngIf="user$ | async as userDto; else notLoggedIn">
+      <!-- Willkommen-Karte -->
       <div class="welcome-container">
+        <mat-card class="search-user-card">
+          <mat-card-header>
+            <mat-card-title>Finde neue Freunde</mat-card-title>
+          </mat-card-header>
+
+          <mat-form-field appearance="fill" class="search-field">
+            <mat-label>Benutzername suchen</mat-label>
+            <input
+              matInput
+              [(ngModel)]="searchTerm"
+              (ngModelChange)="onSearchUser()"
+            />
+          </mat-form-field>
+
+          <mat-list *ngIf="searchResults.length > 0">
+            <mat-list-item *ngFor="let user of searchResults">
+              <div class="user-info">
+                <span>{{ user.firstName }} {{ user.lastName }}</span>
+                <button
+                  mat-button
+                  color="primary"
+                  [disabled]="userDto.friendIds.includes(user.userId)"
+                  [ngClass]="{
+                    'already-friend': userDto.friendIds.includes(user.userId),
+                  }"
+                  (click)="addFriend(user, userDto)"
+                >
+                  {{
+                    userDto.friendIds.includes(user.userId)
+                      ? 'Bereits Freund'
+                      : 'Hinzufügen'
+                  }}
+                </button>
+              </div>
+            </mat-list-item>
+          </mat-list>
+
+          <p *ngIf="searchResults.length === 0 && searchTerm">
+            Kein Benutzer gefunden.
+          </p>
+        </mat-card>
+
         <mat-card class="welcome-card">
           <mat-card-header>
-            <mat-card-title>Willkommen {{ user?.firstName }}</mat-card-title>
+            <mat-card-title>Willkommen {{ userDto.firstName }}</mat-card-title>
           </mat-card-header>
         </mat-card>
       </div>
 
-      <!-- Danach kommt das Grid -->
+      <!-- Grid-Bereich -->
       <div class="community-grid">
         <!-- Linke Spalte -->
         <div class="left-panel">
@@ -54,8 +87,14 @@
             <mat-divider></mat-divider>
 
             <mat-list class="activitiesItems" *ngIf="userNews.length > 0">
-              <mat-list-item class="itemList" *ngFor="let log of userNews" [routerLink]="['/', routingEnum.EVENT, log.joinedEventId]">
-                <div><mat-icon matListIcon>person</mat-icon> {{log.name}}</div>
+              <mat-list-item
+                class="itemList"
+                *ngFor="let log of userNews"
+                [routerLink]="['/', routingEnum.EVENT, log.joinedEventId]"
+              >
+                <div>
+                  <mat-icon matListIcon>person</mat-icon> {{ log.name }}
+                </div>
                 <div matLine class="activity-text">{{ log.message }}</div>
                 <div class="timestamp">{{ log.date | date: 'short' }}</div>
               </mat-list-item>
@@ -66,6 +105,15 @@
             </p>
           </mat-card>
         </div>
+      </div>
+    </ng-container>
+
+    <ng-template #notLoggedIn>
+      <div class="notLoggedIn">
+        <p>Du bist noch nicht angemeldet</p>
+        <button mat-raised-button [routerLink]="['/', routingEnum.LOGIN]">
+          Anmelden
+        </button>
       </div>
     </ng-template>
   </div>

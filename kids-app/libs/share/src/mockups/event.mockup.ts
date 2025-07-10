@@ -1,4 +1,7 @@
-import { EventDTO, Appointment, EventFeedBackDto, WeatherForecast, Point } from "../api/event/event.dto";
+import { EventFeedBackDto } from "../api/event/event.feedback.dto";
+import { WeatherForecast } from "../api/event/event.weather.forecast";
+import { Point } from "../util/location.point";
+import { EventDTO} from "../api/event/event.dto";
 import { InterestEnum } from "../util/enums/interest.enum";
 import { RatingEnum } from "../util/enums/rating.enum";
 
@@ -10,7 +13,7 @@ export const EventMockups: EventDTO[] = [
     priceList: '15-Jährige: 7,50€, 16-Jährige: 8,00€, 17-Jährige: 9,00€, Erwachsene: 10,00€',
     address: 'Seepromenade 1, 44623 Herne',
     location: new Point(51.531, 7.2532),
-    weatherForecast: [
+    weatherForecasts: [
       new WeatherForecast('Montag', 'wb_sunny', 20, 32),
       new WeatherForecast('Dienstag', 'wb_sunny', 22, 28),
       new WeatherForecast('Mittwoch', 'bolt', 23, 30),
@@ -28,14 +31,11 @@ export const EventMockups: EventDTO[] = [
         'Wunderschöne Atmosphäre!'
       )
     ],
-    appointments: [
-      new Appointment('2025-07-14', '19:30')
-    ],
     date: '2025-07-14',
     time: '19:30',
     age: '15-17',
     image: '',
-    organization: 'Herne Events GmbH',
+    organisation: 'Herne Events GmbH',
     author: 'Lena Mustermann'
   },
   {
@@ -45,7 +45,7 @@ export const EventMockups: EventDTO[] = [
     priceList: '12- bis 13-Jährige: 5,00€, 14- bis 16-Jährige: 6,50€, 17-Jährige: 7,50€, Erwachsene: 10,00€',
     address: 'Messezentrum, 44623 Herne',
     location: new Point(51.5321, 7.2458),
-    weatherForecast: [
+    weatherForecasts: [
       new WeatherForecast('Montag', 'cloudy', 18, 26),
       new WeatherForecast('Dienstag', 'thunderstorm', 20, 28),
       new WeatherForecast('Mittwoch', 'foggy', 15, 22),
@@ -63,14 +63,11 @@ export const EventMockups: EventDTO[] = [
         'Tolle Vorträge, aber etwas voll.'
       )
     ],
-    appointments: [
-      new Appointment('2025-08-05', '10:00')
-    ],
     date: '2025-08-05',
     time: '10:00',
     age: '12-17',
     image: '',
-    organization: 'Innovation Hub Herne',
+    organisation: 'Innovation Hub Herne',
     author: 'Tim Schneider'
   },
   {
@@ -80,7 +77,7 @@ export const EventMockups: EventDTO[] = [
     priceList: 'Für Kinder und Eltern Kostenlos',
     address: 'Parkstraße, 44623 Herne',
     location: new Point(51.5268, 7.2123),
-    weatherForecast: [
+    weatherForecasts: [
       new WeatherForecast('Montag', 'wb_sunny', 20, 32),
       new WeatherForecast('Dienstag', 'wb_sunny', 22, 28),
       new WeatherForecast('Mittwoch', 'bolt', 23, 30),
@@ -98,14 +95,11 @@ export const EventMockups: EventDTO[] = [
         'Toller Tag mit kreativen Ideen!'
       )
     ],
-    appointments: [
-      new Appointment('2025-06-21', '11:00')
-    ],
     date: '2025-06-21',
     time: '11:00',
     age: '8-13',
     image: '',
-    organization: 'Kulturamt Herne',
+    organisation: 'Kulturamt Herne',
     author: 'Sabine Müller'
   },
   {
@@ -115,7 +109,7 @@ export const EventMockups: EventDTO[] = [
     priceList: '11- bis 13-Jährige: 3,00€, 14- bis 15-Jährige: 4,50€, 16-Jährige: 5,50€, Erwachsene: 8,00€',
     address: 'Sportgelände, 44623 Herne',
     location: new Point(51.5405, 7.2678),
-    weatherForecast: [
+    weatherForecasts: [
       new WeatherForecast('Montag', 'cloudy', 18, 26),
       new WeatherForecast('Dienstag', 'thunderstorm', 20, 28),
       new WeatherForecast('Mittwoch', 'foggy', 15, 22),
@@ -133,14 +127,11 @@ export const EventMockups: EventDTO[] = [
         'Cooles Konzept, aber zu wenig Sitzgelegenheiten.'
       )
     ],
-    appointments: [
-      new Appointment('2025-07-10', '12:00')
-    ],
     date: '2025-07-10',
     time: '12:00',
     age: '11-16',
     image: '',
-    organization: 'Sportverein Herne e.V.',
+    organisation: 'Sportverein Herne e.V.',
     author: 'Daniel Richter'
   },
   {
@@ -150,7 +141,7 @@ export const EventMockups: EventDTO[] = [
     priceList: '10- bis 11-Jährige: 5,00€, 12- bis 14-Jährige: 6,50€, 15-Jährige: 7,50€, Erwachsene: 10,00€',
     address: 'Innenstadtplatz, 44623 Herne',
     location: new Point(51.5233, 7.2185),
-    weatherForecast: [
+    weatherForecasts: [
       new WeatherForecast('Montag', 'wb_sunny', 20, 32),
       new WeatherForecast('Dienstag', 'wb_sunny', 22, 28),
       new WeatherForecast('Mittwoch', 'bolt', 23, 30),
@@ -168,14 +159,11 @@ export const EventMockups: EventDTO[] = [
         'Super lecker, tolle Auswahl!'
       )
     ],
-    appointments: [
-      new Appointment('2025-07-18', '16:00')
-    ],
     date: '2025-07-18',
     time: '16:00',
     age: '10-15',
     image: '',
-    organization: 'Food Truck Events',
+    organisation: 'Food Truck Events',
     author: 'Sophie Weber'
   },
   {
@@ -185,7 +173,7 @@ export const EventMockups: EventDTO[] = [
     priceList: '12- bis 14-Jährige: 5,00€, 15-Jährige: 6,50€, 16-Jährige: 7,50€, Erwachsene: 10,00€',
     address: 'Kreativzentrum, 44623 Herne',
     location: new Point(51.5301, 7.2498),
-    weatherForecast: [
+    weatherForecasts: [
       new WeatherForecast('Montag', 'cloudy', 18, 26),
       new WeatherForecast('Dienstag', 'thunderstorm', 20, 28),
       new WeatherForecast('Mittwoch', 'foggy', 15, 22),
@@ -203,14 +191,11 @@ export const EventMockups: EventDTO[] = [
         'Ein super Einstieg in Game-Entwicklung!'
       )
     ],
-    appointments: [
-      new Appointment('2025-08-03', '09:00')
-    ],
     date: '2025-08-03',
     time: '09:00',
     age: '12-16',
     image: '',
-    organization: 'Jugend Code Academy',
+    organisation: 'Jugend Code Academy',
     author: 'Laura Fischer'
   },
   {
@@ -220,7 +205,7 @@ export const EventMockups: EventDTO[] = [
     priceList: '13- bis 14-Jährige: 5,00€, 15-Jährige: 6,50€, 17-Jährige: 7,50€, Erwachsene: 10,00€',
     address: 'Jugendzentrum Süd, 44623 Herne',
     location: new Point(51.5244, 7.2412),
-    weatherForecast: [
+    weatherForecasts: [
       new WeatherForecast('Montag', 'wb_sunny', 20, 32),
       new WeatherForecast('Dienstag', 'wb_sunny', 22, 28),
       new WeatherForecast('Mittwoch', 'bolt', 23, 30),
@@ -238,14 +223,11 @@ export const EventMockups: EventDTO[] = [
         'Cooler Workshop, alles gut erklärt!'
       )
     ],
-    appointments: [
-      new Appointment('2025-07-28', '14:00')
-    ],
     date: '2025-07-28',
     time: '14:00',
     age: '13-17',
     image: '',
-    organization: 'Street Art Collective',
+    organisation: 'Street Art Collective',
     author: 'Michael Kurz'
   },
   {
@@ -255,7 +237,7 @@ export const EventMockups: EventDTO[] = [
     priceList: 'Für Kinder und Eltern Kostenlos',
     address: 'Startpunkt: Rathausplatz Herne',
     location: new Point(51.5389, 7.2211),
-    weatherForecast: [
+    weatherForecasts: [
       new WeatherForecast('Montag', 'cloudy', 18, 26),
       new WeatherForecast('Dienstag', 'thunderstorm', 20, 28),
       new WeatherForecast('Mittwoch', 'foggy', 15, 22),
@@ -273,14 +255,11 @@ export const EventMockups: EventDTO[] = [
         'Spannend, modern, richtig gut organisiert!'
       )
     ],
-    appointments: [
-      new Appointment('2025-07-20', '11:00')
-    ],
     date: '2025-07-20',
     time: '11:00',
     age: '10-14',
     image: '',
-    organization: 'Stadterkundungen Herne',
+    organisation: 'Stadterkundungen Herne',
     author: 'Patrick Klein'
   },
   {
@@ -290,7 +269,7 @@ export const EventMockups: EventDTO[] = [
     priceList: '12- bis 14-Jährige: 5,00€, 15-Jährige: 6,50€, 17-Jährige: 7,50€, Erwachsene: 10,00€',
     address: 'Tanzstudio Herne West, 44623 Herne',
     location: new Point(51.5333, 7.2611),
-    weatherForecast: [
+    weatherForecasts: [
       new WeatherForecast('Montag', 'wb_sunny', 20, 32),
       new WeatherForecast('Dienstag', 'wb_sunny', 22, 28),
       new WeatherForecast('Mittwoch', 'bolt', 23, 30),
@@ -308,14 +287,11 @@ export const EventMockups: EventDTO[] = [
         'Die Coaches waren super nett!'
       )
     ],
-    appointments: [
-      new Appointment('2025-07-29', '15:00')
-    ],
     date: '2025-07-29',
     time: '15:00',
     age: '12-17',
     image: '',
-    organization: 'Urban Dance Studio',
+    organisation: 'Urban Dance Studio',
     author: 'Julia Berger'
   },
   {
@@ -325,7 +301,7 @@ export const EventMockups: EventDTO[] = [
     priceList: '8- und 9-Jährige: 5,00€, 10-Jährige: 6,50€, 13-Jährige: 7,50€, Erwachsene: 10,00€',
     address: 'Jugendhaus Eickel, 44651 Herne',
     location: new Point(51.5259, 7.1867),
-    weatherForecast: [
+    weatherForecasts: [
       new WeatherForecast('Montag', 'cloudy', 18, 26),
       new WeatherForecast('Dienstag', 'thunderstorm', 20, 28),
       new WeatherForecast('Mittwoch', 'foggy', 15, 22),
@@ -343,14 +319,11 @@ export const EventMockups: EventDTO[] = [
         'War super lecker und entspannt!'
       )
     ],
-    appointments: [
-      new Appointment('2025-08-02', '17:00')
-    ],
     date: '2025-08-02',
     time: '17:00',
     age: '8-13',
     image: '',
-    organization: 'Jugendförderung Herne',
+    organisation: 'Jugendförderung Herne',
     author: 'Lena Koch'
   }
 ];

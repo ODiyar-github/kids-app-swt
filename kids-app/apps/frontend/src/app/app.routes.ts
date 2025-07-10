@@ -5,6 +5,8 @@ import { RoutingEnum } from './shared/enums/routing.enum';
 import { LoginComponent } from './pages/login/login.component';
 import { CommunityComponent } from './pages/community/communityPage.component';
 import { ProfilePageComponent } from './pages/profil/profile.component';
+import { AboutComponent } from './pages/about/about.component';
+import { AppFeedbackComponent } from './pages/contact/app-feedback.component';
 
 export const routes: Routes = [
   {
@@ -31,5 +33,13 @@ export const routes: Routes = [
   { 
     path: RoutingEnum.PROFILE, 
     component: ProfilePageComponent 
-  }
+  },
+  { 
+    path: RoutingEnum.ABOUT, 
+    component: AboutComponent 
+  },
+  { 
+    path: RoutingEnum.CONTACT, 
+    component: AppFeedbackComponent 
+  },
 ];

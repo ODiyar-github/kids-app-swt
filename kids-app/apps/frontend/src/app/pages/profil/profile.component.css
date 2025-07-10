@@ -15,4 +15,26 @@
     margin-top: 40px;
     color: #777;
   }
+  .profilTitel{
+    text-align: center;
+  }
+  .section-list {
+    margin-top: 16px;
+  }
   
+  .section-list h3 {
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  
+  .section-list ul {
+    padding-left: 0;
+    list-style: none;
+  }
+  
+  .section-list li {
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }

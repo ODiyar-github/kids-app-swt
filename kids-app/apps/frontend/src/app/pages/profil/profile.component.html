@@ -1,45 +1,94 @@
 <ng-container *ngIf="!isLoading">
-  <ng-container *ngIf="currentUser; else notLoggedIn">
-    <mat-card class="profile-card">
-      <mat-card-title>Profil bearbeiten</mat-card-title>
-      <mat-card-content *ngIf="editableUser">
-        <form (ngSubmit)="saveChanges()" class="profile-form">
-          <mat-form-field appearance="fill">
-            <mat-label>Vorname</mat-label>
-            <input matInput [(ngModel)]="editableUser.firstName" name="firstName" />
-          </mat-form-field>
+  <mat-card class="profile-card">
+    <mat-card-title class="profilTitel">Profil bearbeiten</mat-card-title>
+    <mat-card-content *ngIf="user$ | async as user">
+      <form (ngSubmit)="saveChanges()" class="profile-form">
+        <!-- Vorname -->
+        <mat-form-field appearance="fill">
+          <mat-label>Vorname</mat-label>
+          <input matInput [(ngModel)]="user.firstName" name="firstName" disabled/>
+        </mat-form-field>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Nachname</mat-label>
-            <input matInput [(ngModel)]="editableUser.lastName" name="lastName" />
-          </mat-form-field>
+        <!-- Nachname -->
+        <mat-form-field appearance="fill">
+          <mat-label>Nachname</mat-label>
+          <input matInput [(ngModel)]="user.lastName" name="lastName" disabled/>
+        </mat-form-field>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Alter</mat-label>
-            <input matInput type="number" [(ngModel)]="editableUser.age" name="age" />
-          </mat-form-field>
+        <!-- Alter -->
+        <mat-form-field appearance="fill">
+          <mat-label>Alter</mat-label>
+          <input matInput type="number" [(ngModel)]="user.age" name="age" disabled/>
+        </mat-form-field>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Interessen</mat-label>
-            <mat-select multiple [(ngModel)]="editableUser.interests" name="interests">
-              <mat-option *ngFor="let interest of interests" [value]="interest">
-                {{ interest }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+        <!-- Email (readonly) -->
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput [value]="user.email" name="email" disabled />
+        </mat-form-field>
 
-          <button mat-raised-button color="primary" type="submit">Änderungen speichern</button>
-        </form>
-      </mat-card-content>
-    </mat-card>
-  </ng-container>
+        <!-- Adresse -->
+        <mat-form-field appearance="fill">
+          <mat-label>Adresse</mat-label>
+          <input matInput [(ngModel)]="user.address" name="address" />
+        </mat-form-field>
 
-  <ng-template #notLoggedIn>
-    <div class="login-hint">
-      <mat-icon>lock</mat-icon>
-      <p>Bitte logge dich ein, um dein Profil zu bearbeiten.</p>
-    </div>
-  </ng-template>
+        <!-- Interessen -->
+        <mat-form-field appearance="fill">
+          <mat-label>Interessen</mat-label>
+          <mat-select multiple [(ngModel)]="user.interests" name="interests">
+            <mat-option *ngFor="let interest of interests" [value]="interest">
+              {{ interest }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Freunde -->
+        <section class="section-list">
+          <h3>Freunde</h3>
+          <ul>
+            <li *ngFor="let friend of friendNames">
+              <mat-icon>person</mat-icon> {{ friend }}
+              <button mat-icon-button color="warn" (click)="removeFriend(friend)">
+                <mat-icon>person_remove</mat-icon>
+              </button>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Vergangene Events -->
+        <section class="section-list">
+          <h3>Vergangene Events</h3>
+          <ul>
+            <li *ngFor="let event of eventHistoryTitles">
+              <mat-icon>event</mat-icon> {{ event }}
+            </li>
+          </ul>
+        </section>
+
+        <!-- Gebuchte Events -->
+        <section class="section-list">
+          <h3>Gebuchte Events</h3>
+          <ul>
+            <li *ngFor="let event of bookedEventTitles">
+              <mat-icon>event_available</mat-icon> 
+              {{ event }} 
+              <!-- Beispiel: (10.08.2025, 18:00 Uhr) -->
+              <span class="event-date">({{ eventDatesMap[event] || 'kein Datum' }})</span>
+        
+              <button mat-icon-button color="warn" (click)="removeBookedEvent(event)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Speichern -->
+        <button mat-raised-button color="primary" type="submit">Änderungen speichern</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </ng-container>
 
+<!-- Ladespinner -->
 <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" class="spinner"></mat-progress-spinner>

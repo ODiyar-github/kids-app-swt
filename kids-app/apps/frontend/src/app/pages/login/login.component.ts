@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-inject */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { RoutingEnum } from '../../shared/enums/routing.enum';
 import { firstValueFrom } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -21,7 +23,8 @@ import { firstValueFrom } from 'rxjs';
     ReactiveFormsModule,
     RouterModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
 })
 export class LoginComponent implements OnInit {
@@ -39,18 +42,19 @@ export class LoginComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.redirectUrl = params['redirect'] || '/';
     });
-    console.log(this.redirectUrl);
   }
-
+  
   async login(): Promise<void> {
     try {
       const user = await firstValueFrom(
         this.loginService.login(this.username, this.password)
       );
-
+  
       console.log('Login erfolgreich:', user);
-
-      this.router.navigate(['/', this.redirectUrl]);
+  
+      this.router.navigateByUrl(this.redirectUrl);
+      window.scrollTo({top:0});
+      console.log(this.redirectUrl);
     } catch (err: any) {
       console.error('Login-Fehler:', err);
       this.errorMsg = err.message || 'Unbekannter Fehler beim Login';

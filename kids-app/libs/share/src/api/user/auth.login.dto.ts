@@ -1,9 +1,9 @@
 import { UserDTO } from "./user.dto";
 
 export class AuthLoginDTO{
-    private username: string;
-    private password: string;
-    private user: UserDTO;
+    username: string;
+    password: string;
+    user: UserDTO;
     constructor(
         username: string,
         password: string,

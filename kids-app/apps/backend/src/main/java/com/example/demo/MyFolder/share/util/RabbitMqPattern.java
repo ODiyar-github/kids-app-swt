@@ -7,9 +7,13 @@ public enum RabbitMqPattern {
     EVENTS_GET_BY("get-by", true),
 
     SEND_MOCKUP("send-mockup", true),
+    APP_GET_ALL_FEEDBACK("get-all-feedback", true),
+    APP_CREATE_FEEDBACK("save-feedback", true),
 
     AUTH_LOGIN("login", true),
-    AUTH_GET_USER_BY_ID("get-user-by-id", true);
+    AUTH_GET_USER_BY_ID("get-user-by-id", true),
+    UPDATE_USER("update-user", true),
+    GET_ALL_USER("get-all-user", true);
 
     private final String pattern;
     private final boolean expectsReply;
@@ -29,9 +33,8 @@ public enum RabbitMqPattern {
 
     public static RabbitMqPattern fromString(String text) {
         for (RabbitMqPattern mp : RabbitMqPattern.values()) {
-            System.out.println(mp.pattern.toString());
             if (mp.pattern.equalsIgnoreCase(text)) {
-                System.out.println(mp.pattern.toString());
+                System.out.println("Pattern gefunden: " + mp.pattern.toString());
                 return mp;
             }
         }

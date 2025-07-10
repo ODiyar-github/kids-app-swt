@@ -24,7 +24,6 @@ import { Observable } from 'rxjs';
 import { UserDTO } from '@kids-app/share';
 @Component({
   standalone: true,
-  providers: [LoginService],
   imports: [
     CommonModule,
     MatToolbarModule,

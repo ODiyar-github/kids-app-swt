@@ -1,7 +1,7 @@
 <div class="wrapper">
   <mat-toolbar class="toolbar">
     <div class="logo-section">
-      <mat-icon class="icon">home</mat-icon>
+      <img src="assets/images/kids_app_logo.png" alt="Logo" class="logo-image" />
     </div>
 
     <div class="divider"></div>
@@ -10,6 +10,8 @@
       <button mat-button [routerLink]="['/', RoutingEnum.DASHBOARD]" routerLinkActive="active">Home</button>
       <div class="divider small"></div>
       <button mat-button [routerLink]="['/', RoutingEnum.COMMUNITY]" routerLinkActive="active">Community</button>
+      <div class="divider small"></div>
+      <button mat-button [routerLink]="['/', RoutingEnum.ABOUT]" routerLinkActive="active">About</button>
     </div>
 
     <span class="spacer"></span>
@@ -43,10 +45,10 @@
   <mat-menu #userMenu="matMenu">
     <ng-container *ngIf="user$ | async as user; else loginOption">
       <button mat-menu-item disabled>
-        Eingeloggt als {{ user.email }}
+        Eingeloggt als {{ user.firstName }}
       </button>
       <button mat-menu-item [routerLink]="['/', RoutingEnum.PROFILE]">Profil</button>
-      <button mat-menu-item>Einstellungen</button>
+      <button mat-menu-item [routerLink]="['/', RoutingEnum.CONTACT]">Kontakt</button>
       <button mat-menu-item (click)="logout()">Logout</button>
     </ng-container>
     <ng-template #loginOption>
@@ -57,7 +59,7 @@
   <!-- Mobiles Menü -->
   <mat-menu #mobileMenu="matMenu">
     <button mat-menu-item [routerLink]="['/', RoutingEnum.DASHBOARD]">Home</button>
-    <button mat-menu-item [routerLink]="['/', RoutingEnum.COMMUNITY]">Community</button>
+    <button mat-menu-item [routerLink]="['/', RoutingEnum.CONTACT]">Kontakt</button>
   </mat-menu>
 
   <!-- Seiteninhalt -->

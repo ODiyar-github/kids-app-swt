@@ -3,6 +3,8 @@ export enum RoutingEnum {
     REGISTER = 'register',
     DASHBOARD = 'dashboard',
     EVENT = 'event',
-    PROFILE = 'Profile',
+    PROFILE = 'profile',
     COMMUNITY = 'community',
+    ABOUT = 'about',
+    CONTACT = "feedback",
   }

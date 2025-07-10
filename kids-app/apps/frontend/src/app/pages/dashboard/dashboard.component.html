@@ -4,7 +4,7 @@
         <mat-card class="photo">
             <img src = "/images/startpage_photo.jpeg" alt="">
         </mat-card>
-        <div class="dataList">
+        <div class="dataList" *ngIf="eventList">
             <div class="eachList" *ngFor="let event of eventList" [routerLink]="['/', routingEnum.EVENT, event.uuid]">
                 <app-event-preview [data]="event"></app-event-preview>
             </div>

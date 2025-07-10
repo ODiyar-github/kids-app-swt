@@ -1,6 +1,7 @@
 package com.example.demo.MyFolder.services.api.sendDataService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ public class SendDataService implements MessageHandler {
 
     // Nutze den Konstruktor für Dependency Injection
     @Autowired // Optional, aber gute Praxis für Konstruktor-Injection
-    public SendDataService(ObjectMapper objectMapper, CouchDbStorage couchdbStorage, SingleDataPacketHolder jsonDataHolder) {
+    public SendDataService(ObjectMapper objectMapper, CouchDbStorage couchdbStorage,
+            SingleDataPacketHolder jsonDataHolder) {
         this.objectMapper = objectMapper; // Spring injiziert den konfigurierten ObjectMapper
         this.couchdbStorage = couchdbStorage;
         this.jsonDataHolder = jsonDataHolder;
@@ -36,14 +38,43 @@ public class SendDataService implements MessageHandler {
     @Override
     public Object handle(Map<String, Object> data) {
         try {
-            JsonData jsonData = objectMapper.convertValue(data, JsonData.class);
-            jsonData.set_id(null);
-            jsonData.set_rev(null);
-            for (JsonData element : this.couchdbStorage.findAll()) {
-                this.couchdbStorage.delete(element);
+            JsonData incomingData = objectMapper.convertValue(data, JsonData.class);
+            List<JsonData> allDocs = this.couchdbStorage.findAll();
+            String docId = null;
+            JsonData jsonData;
+
+            System.out.println("📄 Anzahl an Dokumenten in der DB: " + allDocs.size());
+
+            if (allDocs.size() > 1) {
+                // Mehrere vorhanden: Lösche alle, speichere neues
+                for (JsonData doc : allDocs) {
+                    this.couchdbStorage.delete(doc);
+                }
+                // neues Dokument speichern – _id & _rev null setzen
+                incomingData.set_id(null);
+                incomingData.set_rev(null);
+                docId = this.couchdbStorage.save(incomingData);
+                jsonData = incomingData;
+            } else if (allDocs.size() == 1) {
+                // Nur eins vorhanden: wiederverwenden
+                jsonData = allDocs.get(0);
+                docId = jsonData.get_id();
+            } else {
+                // Kein Dokument vorhanden: Speichere das neue
+                incomingData.set_id(null);
+                incomingData.set_rev(null);
+                docId = this.couchdbStorage.save(incomingData);
+                jsonData = incomingData;
             }
-            String docId = this.couchdbStorage.save(jsonData);
+
+            // Test: Abruf anhand ID
+            System.out.println("✅ Gefundene ID: " + jsonData.get_id() + ", " + jsonData.get_rev());
+            System.out.println("➡ Dokument: " + this.couchdbStorage.find(docId));
+
+            // Halte den Datensatz im Holder
             this.jsonDataHolder.setJsonData(jsonData);
+
+            // Rückgabe
             Map<String, Object> responseData = new HashMap<>();
             responseData.put("status", "SUCCESS");
             responseData.put("responseFrom", "Spring Boot Backend");

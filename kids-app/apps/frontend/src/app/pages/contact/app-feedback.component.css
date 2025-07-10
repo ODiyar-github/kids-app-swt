@@ -1,0 +1,52 @@
+.wrapper {
+  background-color: var(--areaBackgroundColor);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center; 
+  padding: 1rem; 
+  width: 100%;
+  height: auto;
+}
+
+.contacts-form {
+  background-color: white;
+  position: relative;
+  z-index: 1;
+  padding: 3rem;
+  max-width: 30rem;
+  margin: 30px auto;
+  border-radius: 10px;
+  box-shadow: 4px 0 1.25rem 0 var(--box-shadow-color);
+}
+
+.contacts-form h2 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  color: var(--secondary-color);
+}
+
+.form-field {
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.submit-button {
+  width: 100%;
+}
+
+.confirmation-message {
+  color: green;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  animation: fadeOut 5s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

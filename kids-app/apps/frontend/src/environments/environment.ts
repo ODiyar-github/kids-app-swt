@@ -9,10 +9,10 @@ export const environment = {
     EVENT: {
       URL: `${BASE_URL}/event`,
     },
-    LOGIN: {
-      URL: `${BASE_URL}/login`,
-    },
     USER:{
       URL: `${BASE_URL}/user`,
+    },
+    FEEDBACK:{
+      URL: `${BASE_URL}/feedback`
     }
 };

@@ -42,31 +42,31 @@ export class UserModel{
           return dateB.getTime() - dateA.getTime(); // Sortiert absteigend
       });
 }
-    getEventRecommendations(allEvents: EventDTO[]): EventDTO[] {
-      if (!this.userDto?.interests?.length) {
-        return []; 
-      }
-    
-      const bookedOrVisited = new Set([
-        ...(this.userDto.bookedEventIds ?? []),
-        ...(this.userDto.eventHistoryIds ?? [])
-      ]);
-    
-      return allEvents
-        .filter(event => {
-          const matchesInterest = event.category?.some(cat =>
-            this.userDto.interests.includes(cat)
-          );
-          const isNew = !bookedOrVisited.has(event.uuid);
-          return matchesInterest && isNew;
-        })
-        .map(event => ({
-          ...event,
-          matchCount: event.category.filter(cat =>
-            this.userDto.interests.includes(cat)
-          ).length
-        }))
-        .sort((a, b) => b.matchCount - a.matchCount)
-        .map(({ matchCount, ...event }) => event); 
-    }
+getEventRecommendations(allEvents: EventDTO[]): EventDTO[] {
+  if (!this.userDto?.interests?.length) return [];
+
+  const bookedOrVisited = new Set([
+    ...(this.userDto.bookedEventIds ?? []),
+    ...(this.userDto.eventHistoryIds ?? [])
+  ]);
+
+  const userInterests = this.userDto.interests.map(i => i.toLowerCase());
+
+  return allEvents
+    .filter(event => {
+      const matchesInterest = event.category?.some(cat =>
+        userInterests.includes(cat.toLowerCase())
+      );
+      const isNew = !bookedOrVisited.has(event.uuid);
+      return matchesInterest && isNew;
+    })
+    .map(event => ({
+      ...event,
+      matchCount: event.category.filter(cat =>
+        userInterests.includes(cat.toLowerCase())
+      ).length
+    }))
+    .sort((a, b) => b.matchCount - a.matchCount)
+    .map(({ matchCount, ...event }) => event);
+}
 }

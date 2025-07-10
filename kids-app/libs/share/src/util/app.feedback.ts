@@ -1,16 +1,16 @@
-import { RatingEnum } from './enums/rating.enum';
+import { AppFeedbackEnum } from './enums/app.feedback.enum';
 
 export class AppFeedback {
   feedbackId: string;
   userId: string;
-  rating: RatingEnum;
+  rating: AppFeedbackEnum;
   comment: string;
   timestamp: string;
 
   constructor(
     feedbackId: string,
     userId: string,
-    rating: RatingEnum,
+    rating: AppFeedbackEnum,
     comment: string,
     timestamp: string,
   ) {

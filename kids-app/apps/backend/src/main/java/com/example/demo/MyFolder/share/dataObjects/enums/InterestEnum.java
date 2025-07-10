@@ -52,9 +52,7 @@ public enum InterestEnum {
     MARTIAL_ARTS("MartialArts"), // Hier musst du in Java einen Unterstrich verwenden
     EDUCATION("Education"),
     FAMILY("Family"),
-    // Besonderheit: Dein Frontend sendet "Kunst", der Enum-Name in Java ist aber
-    // ART
-    ART("Kunst");
+    ART("Art");
 
     private final String label; // Feld, um das String-Label zu speichern
 
