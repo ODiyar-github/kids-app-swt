@@ -1,7 +1,7 @@
 .wrapper{
   width: 100%;
   height: 100%;
-  background-image: url("/assets/images/background_angebote.jpg");
+  background-image: url("/assets/images/background_eventImage.jpg");
   background-size: cover;
   background-attachment: fixed;
 }

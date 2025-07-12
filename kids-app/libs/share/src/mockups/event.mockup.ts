@@ -5,6 +5,14 @@ import { EventDTO} from "../api/event/event.dto";
 import { InterestEnum } from "../util/enums/interest.enum";
 import { RatingEnum } from "../util/enums/rating.enum";
 
+/**
+ * @constant EventMockups
+ * @description Ein Array von EventDTO-Objekten, das als Mock-Daten für Events dient.
+ * Diese Daten werden zu Test- und Entwicklungszwecken verwendet, um eine realistische
+ * Darstellung von Events in der Anwendung zu simulieren.
+ *
+ * @type {EventDTO[]}
+ */
 export const EventMockups: EventDTO[] = [
   {
     uuid: 'd5e8b021-13f3-40dc-b12f-8e101b3ec101',
