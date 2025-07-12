@@ -1,47 +1,92 @@
 <div class="wrapper">
-  <div class="container">
-    <h2>Dein Feedback ist uns wichtig!</h2>
-    <p>Hilf uns, die KidsApp noch besser zu machen.</p>
-  
-    <ng-container *ngIf="user$ | async as user; else loginPrompt">
-      <button mat-stroked-button (click)="toggleForm()">Feedback senden</button>
-      <div *ngIf="showForm" class="feedback-form">
-        <h3>Feedback Formular</h3>
-        <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" class="contact-form">
-          <p>Hallo <strong>{{ user.firstName }} {{ user.lastName }}</strong> ({{ user.email }}),</p>
-          <p>wir freuen uns über deine Nachricht!</p>
-  
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Wie bewertest du die App?</mat-label>
-            <mat-select formControlName="rating" required>
-              <mat-option *ngFor="let ratingOption of ratingOptions" [value]="ratingOption.value">
-                {{ ratingOption.viewValue }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="feedbackForm.get('rating')?.hasError('required')">Eine Bewertung ist <strong>erforderlich</strong></mat-error>
-          </mat-form-field>
-  
-          <mat-form-field appearance="outline" class="form-field">
-            <mat-label>Deine Nachricht</mat-label>
-            <textarea matInput formControlName="comment" required placeholder="Gib hier dein Feedback ein..."></textarea>
-            <mat-error *ngIf="feedbackForm.get('comment')?.hasError('required')">Eine Nachricht ist <strong>erforderlich</strong></mat-error>
-          </mat-form-field>
-  
-          <button mat-stroked-button type="submit" [disabled]="feedbackForm.invalid">Senden</button>
-          <button mat-button type="button" (click)="closeForm()">Schließen</button>
-        </form>
+  <div class="feedback-layout">
+    <!-- Linke Seite: Feedback-Liste -->
+    <div class="left-panel">
+      <mat-card class="feedback-list-card">
+        <mat-card-header>
+          <mat-card-title class="listTitel">Alle Feedbacks</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+
+        <div class="feedback-list">
+          <mat-card class="eachItem" *ngFor="let feedback of allFeedbacks">
+            <mat-card-header>
+              <mat-icon mat-card-avatar>feedback</mat-icon>
+              <mat-card-title>{{ getRatingViewValue(feedback.rating) }}</mat-card-title>
+              <mat-card-subtitle>{{ feedback.timestamp | date: 'short' }}</mat-card-subtitle>
+            </mat-card-header>
+            
+            <mat-card-content>
+              <p>{{ feedback.comment }}</p>
+            </mat-card-content>
+          </mat-card>
+        
+          <ng-template #noFeedbacks>
+            <p class="empty-text">Noch kein Feedback vorhanden.</p>
+          </ng-template>
+        
+          <mat-spinner *ngIf="isLoadingFeedbacks" diameter="30"></mat-spinner>
+        </div>
+
+        <ng-template #noFeedbacks>
+          <p class="empty-text">Noch kein Feedback vorhanden.</p>
+        </ng-template>
+
+        <mat-spinner *ngIf="isLoadingFeedbacks" diameter="30"></mat-spinner>
+      </mat-card>
+    </div>
+
+    <!-- Rechte Seite: Formular, Login, Bestätigung -->
+    <div class="right-panel">
+      <div class="container">
+        <h2>Dein Feedback ist uns wichtig!</h2>
+        <p>Hilf uns, die KidsApp noch besser zu machen.</p>
+
+        <ng-container *ngIf="user$ | async as user; else loginPrompt">
+          <button mat-stroked-button (click)="toggleForm()">Feedback senden</button>
+          <div *ngIf="showForm" class="feedback-form">
+            <h3>Feedback Formular</h3>
+            <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" class="contact-form">
+              <p>Hallo <strong>{{ user.firstName }} {{ user.lastName }}</strong> ({{ user.email }}),</p>
+              <p>wir freuen uns über deine Nachricht!</p>
+
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Wie bewertest du die App?</mat-label>
+                <mat-select formControlName="rating" required>
+                  <mat-option *ngFor="let ratingOption of ratingOptions" [value]="ratingOption.value">
+                    {{ ratingOption.viewValue }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="feedbackForm.get('rating')?.hasError('required')">
+                  Eine Bewertung ist <strong>erforderlich</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Deine Nachricht</mat-label>
+                <textarea matInput formControlName="comment" required placeholder="Gib hier dein Feedback ein..."></textarea>
+                <mat-error *ngIf="feedbackForm.get('comment')?.hasError('required')">
+                  Eine Nachricht ist <strong>erforderlich</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <button mat-stroked-button type="submit" [disabled]="feedbackForm.invalid">Senden</button>
+              <button mat-button type="button" (click)="closeForm()">Schließen</button>
+            </form>
+          </div>
+        </ng-container>
+
+        <ng-template #loginPrompt>
+          <p class="login-message">
+            Um uns Feedback zu senden, musst du dich zuerst anmelden.
+          </p>
+          <button mat-stroked-button (click)="goToLogin()">Jetzt anmelden</button>
+        </ng-template>
+
+        <p *ngIf="showConfirmation" class="confirmation-message">
+          Vielen Dank! Dein Feedback wurde erfolgreich gesendet!
+        </p>
       </div>
-    </ng-container>
-  
-    <ng-template #loginPrompt>
-      <p class="login-message">
-        Um uns Feedback zu senden, musst du dich zuerst anmelden.
-      </p>
-      <button mat-stroked-button (click)="goToLogin()">Jetzt anmelden</button>
-    </ng-template>
-  
-    <p *ngIf="showConfirmation" class="confirmation-message">
-      Vielen Dank! Dein Feedback wurde erfolgreich gesendet!
-    </p>
+    </div>
   </div>
 </div>

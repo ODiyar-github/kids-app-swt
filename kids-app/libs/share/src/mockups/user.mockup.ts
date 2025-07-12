@@ -4,6 +4,15 @@ import { Logs } from '../util/user.logs';
 import { GenderEnum } from '../util/enums/gender.enum';
 import { AuthLoginDTO } from '../api/user/auth.login.dto';
 
+/**
+ * @constant UserMockups
+ * @description Ein Array von AuthLoginDTO-Objekten, das als Mock-Daten für Benutzeranmeldungen dient.
+ * Jedes Objekt repräsentiert einen simulierten Benutzer mit Anmeldeinformationen und
+ * detaillierten Benutzerprofilinformationen (UserDTO). Diese Daten werden zu Test- und
+ * Entwicklungszwecken verwendet, um Benutzerdaten und deren Interaktionen zu simulieren.
+ *
+ * @type {AuthLoginDTO[]}
+ */
 export const UserMockups: AuthLoginDTO[] = [
   new AuthLoginDTO(
     "anna.schmidt@example.com", 

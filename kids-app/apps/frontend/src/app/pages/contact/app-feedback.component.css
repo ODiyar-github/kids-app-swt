@@ -50,3 +50,47 @@
     opacity: 0;
   }
 }
+.feedback-list-card{
+  height: auto;
+}
+
+.feedback-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  
+}
+
+.feedback-list {
+flex: 1;
+overflow-y: auto;
+padding-right: 1rem;
+display: flex;
+flex-direction: column;
+}
+
+.eachItem {
+  padding: 0.5rem;
+  margin: 1rem;
+  background-color: var(--areaBackgroundColor);
+}
+
+.left-panel {
+  flex: 1;
+  min-width: 50vw;
+  max-width: 50vw;
+  height: 80vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-panel {
+  flex: 2;
+  min-width: 350px;
+}
+.listTitel{
+  text-align: center;
+  align-items: center;
+}

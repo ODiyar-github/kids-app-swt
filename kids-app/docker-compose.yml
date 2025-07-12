@@ -1,29 +1,44 @@
 services:
+  # Definition des CouchDB-Dienstes
   couchdb:
+    # Verwendet das offizielle CouchDB-Image in der neuesten Version
     image: couchdb:latest
+    # Name des Docker-Containers
     container_name: kidsapp-couchdb
+    # Port-Mapping: Host-Port 5984 wird auf Container-Port 5984 gemappt
     ports:
       - "5984:5984"
+    # Umgebungsvariablen für die CouchDB-Konfiguration (Benutzername und Passwort)
     environment:
       - COUCHDB_USER=${COUCHDB_USERNAME}
       - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
+    # Volume-Mapping: Persistente Daten werden im 'couchdb_data'-Volume gespeichert
     volumes:
       - couchdb_data:/opt/couchdb/data
 
+  # Definition des RabbitMQ-Dienstes
   rabbitmq:
+    # Verwendet das RabbitMQ-Image mit Management-Plugin in Version 3
     image: rabbitmq:3-management
+    # Name des Docker-Containers
     container_name: kidsapp-rabbitmq
+    # Port-Mappings: 5672 für AMQP und 15672 für die Management-UI
     ports:
       - "5672:5672"
       - "15672:15672"
 
+  # Definition des Backend-Dienstes
   backend:
+    # Build-Kontext und Dockerfile-Pfad für das Backend
     build:
       context: ./apps/backend
       dockerfile: ./dockerfile
+    # Name des Docker-Containers
     container_name: kidsapp-backend
+    # Port-Mapping: Host-Port 5000 wird auf Container-Port 5000 gemappt
     ports:
       - "5000:5000"
+    # Umgebungsvariablen für die Backend-Anwendung
     environment:
       - RABBITMQ_HOST=rabbitmq
       - RABBITMQ_PORT=5672
@@ -38,39 +53,52 @@ services:
       - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
       - COUCHDB_DATABASE=${COUCHDB_DATABASE}
       - BACKEND_PORT=5000
+    # Abhängigkeiten: Backend startet erst, wenn RabbitMQ und CouchDB gestartet sind
     depends_on:
       rabbitmq:
         condition: service_started
       couchdb:
         condition: service_started
 
+  # Definition des BFF (Backend-for-Frontend)-Dienstes
   bff:
+    # Build-Konfiguration für den BFF-Dienst
     build:
       dockerfile: ./docker/nest.dockerfile
       args:
         APP: bff
+    # Port-Mapping: Host-Port 3000 wird auf Container-Port 3000 gemappt
     ports:
       - "3000:3000"
+    # Umgebungsvariablen für den BFF-Dienst
     environment:
       - PORT=3000
       - RABBITMQ_URL=${BROKER_URI}
       - AMQP_QUEUE_PREFIX=${AMQP_QUEUE_PREFIX}
+    # Abhängigkeit: BFF startet erst, wenn das Backend gestartet ist
     depends_on:
       backend:
         condition: service_started
 
+  # Definition des Frontend-Dienstes
   # frontend:
+  #   # Build-Konfiguration für den Frontend-Dienst
   #   build:
   #     dockerfile: ./docker/angular.dockerfile
   #     args:
   #       APP: frontend
+  #   # Abhängigkeit: Frontend startet erst, wenn der BFF gestartet ist
   #   depends_on:
   #     - bff
+  #   # Umgebungsvariablen für den Frontend-Dienst
   #   environment:
   #     - BASE_URL=http://localhost:3000/api
+  #   # Port-Mapping: Host-Port 8080 wird auf Container-Port 8080 gemappt
   #   ports:
   #     - "8080:8080"
 
+# Definition der Volumes
 volumes:
+  # Lokales Volume für die persistenten Daten von CouchDB
   couchdb_data:
     driver: local

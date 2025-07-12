@@ -2,6 +2,14 @@ import { AppFeedback } from "../util/app.feedback";
 // Wichtig: Hier das neue Enum importieren
 import { AppFeedbackEnum } from "../util/enums/app.feedback.enum"; // Passe den Pfad an dein Enum an
 
+/**
+ * @constant AppFeedbackMockup
+ * @description Ein Mockup-Array von AppFeedback-Objekten, das zu Test- und Entwicklungszwecken verwendet wird.
+ * Jedes Objekt repräsentiert ein simuliertes Benutzer-Feedback zur Anwendung,
+ * einschließlich einer eindeutigen ID, Benutzer-ID, Feedback-Kategorie, Nachricht und Zeitstempel.
+ *
+ * @type {AppFeedback[]}
+ */
 export const AppFeedbackMockup: AppFeedback[] = [
   new AppFeedback(
     "f1a1e3b0-1d3a-4eaf-8e3a-5e2f4f01a2a0",
