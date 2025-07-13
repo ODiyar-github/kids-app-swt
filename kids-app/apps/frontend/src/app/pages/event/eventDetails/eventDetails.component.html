@@ -1,22 +1,15 @@
 <div class="wrapper">
   <div class="viewer" *ngIf="event">
 
-    <!-- Bild & Karte -->
     <div class="topContent">
       <div class="eventImage">
-        <img
-          mat-card-image
-          class="img"
-          [src]="'assets/images/eventImages/' + event.uuid + '.png'"
-          alt="Event Bild"
-        />
+        <img mat-card-image class="img" [src]="'assets/images/eventImages/' + event.uuid + '.png'" alt="Event Bild" />
       </div>
       <div class="maps">
         <app-map-component [event]="event"></app-map-component>
       </div>
     </div>
 
-    <!-- Eventinhalt -->
     <div class="eventContent">
       <mat-card class="leftSide">
         <mat-card-header class="titel">
@@ -26,26 +19,94 @@
 
         <mat-card-content>
           <div class="information">
-            <p><mat-icon>place</mat-icon> {{ event.address }}</p>
-            <p><mat-icon>access_time</mat-icon> {{ event.date }} {{ event.time }}</p>
-
-            <div class="description">
-              <b>Beschreibung:</b>
-              <p>{{ event.description }}</p>
-            </div>
-
-            <div class="priceList">
-              <b>Preisliste:</b>
-              <p>{{ event.priceList }}</p>
-            </div>
-
             <div class="userRating">
               <b>Kundenbewertungen:</b>
-              <div *ngFor="let feedback of event.feedBack">
-                <p>"{{ feedback.message }}" – {{ feedback.userName }}</p>
+              <div *ngIf="event.feedBack.length > 0; else noFeedback">
+                <div class="feedback-list">
+                  <div class="feedback-item" *ngFor="let feedback of event.feedBack">
+                    <div class="feedback-header">
+                      <mat-icon>star</mat-icon>
+                      <span class="feedback-user">
+                        <strong>{{ feedback.userName }}</strong> ({{ getRatingViewValue(feedback.rating) }})
+                      </span>
+                    </div>
+                    <div class="feedback-message">"{{ feedback.message }}"</div>
+                  </div>
+                </div>
               </div>
+              <ng-template #noFeedback>
+                <p class="empty-text">Noch kein Feedback für dieses Event vorhanden.</p>
+              </ng-template>
             </div>
 
+            <div class="event-feedback-section">
+              <mat-divider></mat-divider>
+              <h3>Dein Feedback ist uns wichtig!</h3>
+              <p>Teile uns deine Meinung zu diesem Event mit.</p>
+
+              <ng-container *ngIf="user$ | async as user; else loginForFeedback">
+                <ng-container *ngIf="hasUserBookedEvent(); else notBookedFeedback">
+                  <ng-container *ngIf="!hasUserAlreadyCommented(); else alreadyCommentedFeedback">
+                    <button mat-stroked-button (click)="toggleFeedbackForm()">Feedback geben</button>
+
+                    <div *ngIf="showFeedbackForm" class="feedback-form">
+                      <h3>Feedback Formular</h3>
+                      <form [formGroup]="feedbackForm" (ngSubmit)="onSubmitFeedback()" class="event-feedback-form-content">
+                        <p>Hallo <strong>{{ user.firstName }} {{ user.lastName }}</strong> ({{ user.email }}),</p>
+                        <p>wir freuen uns über deine Bewertung!</p>
+
+                        <mat-form-field appearance="outline" class="form-field">
+                          <mat-label>Deine Bewertung</mat-label>
+                          <mat-select formControlName="rating" required>
+                            <mat-option *ngFor="let option of ratingOptions" [value]="option.value">
+                              {{ option.viewValue }}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="feedbackForm.get('rating')?.hasError('required')">Eine Bewertung ist <strong>erforderlich</strong></mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="form-field">
+                          <mat-label>Deine Nachricht</mat-label>
+                          <textarea matInput formControlName="message" required placeholder="Gib hier dein Feedback ein..."></textarea>
+                          <mat-error *ngIf="feedbackForm.get('message')?.hasError('required')">Eine Nachricht ist <strong>erforderlich</strong></mat-error>
+                        </mat-form-field>
+
+                        <button
+                          mat-stroked-button
+                          type="submit"
+                          [disabled]="feedbackForm.invalid || hasUserAlreadyCommented()"
+                        >
+                          {{ hasUserAlreadyCommented() ? 'Bereits verschickt' : 'Senden' }}
+                        </button>
+                        <button mat-button type="button" (click)="closeFeedbackForm()">Schließen</button>
+                      </form>
+                    </div>
+                  </ng-container>
+                  <ng-template #alreadyCommentedFeedback>
+                    <p class="already-commented-message">
+                      Vielen Dank! Du hast bereits Feedback zu diesem Event hinterlassen.
+                    </p>
+                  </ng-template>
+                </ng-container>
+                <ng-template #notBookedFeedback>
+                  <p class="not-booked-message">
+                    Um Feedback geben zu können, musst du dich zuerst für diese Veranstaltung anmelden.
+                  </p>
+                  <button mat-stroked-button color="primary" disabled>
+                    Feedback geben (Anmeldung erforderlich)
+                  </button>
+                </ng-template>
+              </ng-container>
+
+              <ng-template #loginForFeedback>
+                <p class="login-message">Bitte melde dich an, um Feedback zu diesem Event zu hinterlassen.</p>
+                <button mat-stroked-button (click)="login()">Anmelden</button>
+              </ng-template>
+
+              <p *ngIf="showConfirmation" class="confirmation-message">
+                Vielen Dank! Dein Feedback wurde erfolgreich gesendet!
+              </p>
+            </div>
             <div class="addButton">
               <ng-container *ngIf="user$ | async as user; else showLogin">
                 <ng-container *ngIf="!user.bookedEventIds?.includes(event.uuid); else alreadyBooked">
@@ -69,7 +130,6 @@
           </div>
         </mat-card-content>
 
-        <!-- Empfehlungen -->
         <mat-card class="recommendations-card">
           <mat-card-header>
             <mat-card-title>Empfohlene Veranstaltungen</mat-card-title>
@@ -78,11 +138,8 @@
 
           <ng-container *ngIf="recommendations$ | async as recommendations">
             <div class="dataList">
-              <div
-                class="eachList"
-                *ngFor="let rec of recommendations"
-                [routerLink]="['/', routingEnum.EVENT, rec.uuid]"
-              >
+              <div class="eachList" *ngFor="let rec of recommendations"
+                [routerLink]="['/', routingEnum.EVENT, rec.uuid]">
                 <app-event-preview [data]="rec"></app-event-preview>
               </div>
             </div>
@@ -94,7 +151,6 @@
         </mat-card>
       </mat-card>
 
-      <!-- Rechte Spalte -->
       <mat-card class="rightSide">
         <mat-card-content>
           <div class="weather">

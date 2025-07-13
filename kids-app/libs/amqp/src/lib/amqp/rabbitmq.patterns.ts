@@ -40,7 +40,11 @@ export const RmqPatterns = {
     /**
      * @member {string} EVENTS.GET_BY - Muster zum Abrufen von Events basierend auf bestimmten Kriterien.
      */
-    GET_BY: 'get-by'
+    GET_BY: 'get-by',
+    /**
+     * @member {string} EVENTS.PUT_EVENT - Muster zum Abrufen von Events basierend auf bestimmten Kriterien.
+     */
+    PUT_EVENT: 'update-event-by-id'
   },
   /**
    * @property {object} SENDDATA - Muster für Datensende-Operationen.

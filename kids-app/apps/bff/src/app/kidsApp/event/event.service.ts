@@ -25,7 +25,7 @@ export class EventService {
   constructor(
     @Inject(AmqpBrokerQueues.KIDS_APP_STORAGE_SERVICE_QUEUE)
     private readonly client: ClientProxy
-  ) {}
+  ) { }
 
   /**
    * @method getAllEvents
@@ -48,5 +48,25 @@ export class EventService {
     console.log(`📨 Fordere Event mit ID ${id} an`); // Loggt die Anfrage.
     // Sendet eine Nachricht mit dem GET_BY_ID-Muster und der Event-ID an den ClientProxy.
     return this.client.send(RmqPatterns.EVENTS.GET_BY_ID, { id });
+  }
+
+  /**
+   * @method updateEvent
+   * @brief Aktualisiert ein Event, indem das EventDTO an RabbitMQ gesendet wird.
+   *
+   * <p>Diese Methode nimmt ein vollständiges {@link EventDTO}-Objekt entgegen, welches die zu aktualisierenden Daten
+   * (z.B. neue Kundenbewertungen) enthält. Das EventDTO wird dann über den RabbitMQ-Client
+   * an den entsprechenden Backend-Handler (identifiziert durch {@link RmqPatterns.EVENTS#PUT_EVENT})
+   * gesendet, wo die eigentliche Aktualisierungslogik stattfindet und das Event persistent gespeichert wird.</p>
+   *
+   * @param event Das {@link EventDTO}-Objekt mit den aktualisierten Event-Informationen.
+   * Es sollte die UUID des Events enthalten, um das korrekte Event zu identifizieren.
+   * @return Ein {@link Observable}, das das aktualisierte {@link EventDTO}-Objekt emittiert,
+   * sobald die Aktualisierung im Backend erfolgreich war.
+   */
+  public updateEvent(event: EventDTO): Observable<EventDTO> {
+    console.log('📨 BFF sendet Anfrage: Event aktualisieren');
+    // Sende das EventDTO an RabbitMQ
+    return this.client.send(RmqPatterns.EVENTS.PUT_EVENT, event);
   }
 }

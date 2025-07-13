@@ -7,136 +7,193 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { FormsModule } from '@angular/forms';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { EventDTO, EventMockups, InterestEnum, Logs } from '@kids-app/share';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { EventDTO, InterestEnum, Logs, UserDTO } from '@kids-app/share';
 import { MapComponent } from './mapComponent/map.component';
 import { EventService } from '../../../shared/services/event.service';
 import { LoginService } from '../../../shared/services/login.service';
-import { lastValueFrom, map, Observable, of } from 'rxjs';
-import { UserDTO } from '@kids-app/share';
+import { map, Observable, Subscription } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { WeatherComponent } from './weaterComponent/weather.component';
 import { RoutingEnum } from '../../../shared/enums/routing.enum';
 import { EventPreviewComponent } from '../../dashboard/eventPreview/eventPreview.component';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { RatingEnum } from '@kids-app/share';
+import { EventFeedBackDto } from '@kids-app/share';
+import { MatListModule } from '@angular/material/list';
 
 /**
  * @file eventDetails.component.ts
  * @description Diese Komponente zeigt die detaillierten Informationen eines einzelnen Events an.
  * Sie umfasst Event-Details, eine Karte mit dem Event-Standort, Wettervorhersagen und
- * empfohlene Events basierend auf Interessen. Benutzer können sich für Events anmelden.
+ * empfohlene Events basierend auf Interessen. Benutzer können sich für Events anmelden und Feedback geben.
  */
 
 /**
  * @class EventDetailsComponent
  * @description Eine Angular Standalone-Komponente, die die Detailansicht eines Events darstellt.
  * Sie interagiert mit `LoginService` und `EventService`, um Benutzer- und Event-Daten zu verwalten.
+ * Sie implementiert `OnInit` und `OnDestroy` für Lifecycle-Hooks.
  */
 @Component({
-  /**
-   * @property {boolean} standalone - Gibt an, dass diese Komponente eine Standalone-Komponente ist.
-   */
   standalone: true,
-  /**
-   * @property {string} selector - Der CSS-Selektor für diese Komponente.
-   */
   selector: 'app-event-details-component',
-  /**
-   * @property {string} templateUrl - Der Pfad zur HTML-Template-Datei.
-   */
   templateUrl: './eventDetails.component.html',
-  /**
-   * @property {string} styleUrl - Der Pfad zur CSS-Stylesheet-Datei.
-   */
   styleUrl: './eventDetails.component.css',
-  /**
-   * @property {Array<any>} imports - Module, Komponenten, Direktiven oder Pipes, die diese Komponente benötigt.
-   */
   imports: [
-    CommonModule,          // Stellt allgemeine Direktiven wie ngIf und ngFor bereit.
-    HttpClientModule,      // Ermöglicht die Verwendung des HttpClient in dieser Komponente.
-    FormsModule,           // Ermöglicht die Verwendung von Template-Driven Forms.
-    RouterLink,            // Ermöglicht die Navigation über RouterLink-Direktiven im Template.
-    MapComponent,          // Importiert die MapComponent zur Anzeige des Event-Standorts.
-    WeatherComponent,      // Importiert die WeatherComponent zur Anzeige der Wettervorhersage.
-    EventPreviewComponent, // Importiert die EventPreviewComponent zur Anzeige von Empfehlungen.
-    MatTableModule,        // Angular Material Modul für Tabellen.
-    MatPaginatorModule,    // Angular Material Modul für Paginierung.
-    MatInputModule,        // Angular Material Modul für Eingabefelder.
-    MatIconModule,         // Angular Material Modul für Icons.
-    MatSelectModule,       // Angular Material Modul für Dropdown-Auswahlen.
-    MatCardModule,         // Angular Material Modul für Karten.
-    MatDividerModule,      // Angular Material Modul für Trennlinien.
-    MatButtonModule,       // Angular Material Modul für Buttons.
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterLink,
+    MapComponent,
+    WeatherComponent,
+    EventPreviewComponent,
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatIconModule,
+    MatSelectModule,
+    MatCardModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatListModule
   ],
-  /**
-   * @property {Array<any>} providers - Dienste, die speziell für diese Komponente bereitgestellt werden.
-   */
-  providers: [EventService], // Der EventService wird hier bereitgestellt.
+  providers: [EventService],
 })
-export class EventDetailsComponent implements OnInit {
+export class EventDetailsComponent implements OnInit, OnDestroy {
   /**
-   * @property {typeof RoutingEnum} routingEnum - Eine Referenz auf das RoutingEnum für die Verwendung im Template.
+   * @property routingEnum
+   * @description Stellt die Enum für Routing-Pfade bereit, um Typsicherheit bei der Navigation zu gewährleisten.
    */
   routingEnum = RoutingEnum;
 
   /**
-   * @Input() event
-   * @description Das EventDTO-Objekt, dessen Details in dieser Komponente angezeigt werden.
-   * Dieses Property muss von der übergeordneten Komponente bereitgestellt werden.
-   * @type {EventDTO}
+   * @property event
+   * @description Das EventDTO-Objekt, das die detaillierten Informationen des aktuell angezeigten Events enthält.
+   * Wird als Input von einer übergeordneten Komponente übergeben.
    */
   @Input() event!: EventDTO;
 
   /**
-   * @property {Observable<UserDTO | undefined> | undefined} user$ - Ein Observable, das den aktuellen Benutzerstatus emittiert.
+   * @property user$
+   * @description Ein Observable, das den aktuellen Benutzerstatus emittiert.
+   * Dient dazu, Änderungen am eingeloggten Benutzer zu verfolgen.
    */
   user$: Observable<UserDTO | undefined> | undefined;
 
   /**
-   * @property {Observable<EventDTO[]>} recommendations$ - Ein Observable, das eine Liste von empfohlenen Events emittiert.
+   * @property currentUser
+   * @description Das aktuelle UserDTO-Objekt des eingeloggten Benutzers.
+   * Wird aus dem `user$` Observable abgeleitet.
+   */
+  currentUser: UserDTO | undefined;
+
+  /**
+   * @property recommendations$
+   * @description Ein Observable, das eine Liste von EventDTO-Objekten enthält, die als Empfehlungen
+   * basierend auf den Interessen des aktuell angezeigten Events dienen.
    */
   recommendations$!: Observable<EventDTO[]>;
 
   /**
-   * Erstellt eine Instanz von EventDetailsComponent.
-   * @param {LoginService} loginService - Der Dienst für Benutzerauthentifizierung und -verwaltung.
-   * @param {EventService} eventService - Der Dienst für Event-bezogene Operationen.
-   * @param {Router} router - Der Angular Router für die Navigation.
-   * @param {ChangeDetectorRef} cdr - Der ChangeDetectorRef für die manuelle Änderungsdetektion.
+   * @property showFeedbackForm
+   * @description Ein Boolean-Flag, das steuert, ob das Feedback-Formular sichtbar ist oder nicht.
+   */
+  showFeedbackForm = false;
+
+  /**
+   * @property feedbackForm
+   * @description Die FormGroup für das Feedback-Formular, die die Formularfelder und Validierungsregeln definiert.
+   */
+  feedbackForm: FormGroup;
+
+  /**
+   * @property showConfirmation
+   * @description Ein Boolean-Flag, das steuert, ob die Bestätigungsmeldung nach dem Absenden des Feedbacks sichtbar ist.
+   */
+  showConfirmation = false;
+
+  /**
+   * @property ratingOptions
+   * @description Ein Array von Objekten, das die verfügbaren Bewertungsoptionen für das Feedback-Formular darstellt,
+   * inklusive Wert (RatingEnum) und lesbarem Anzeigetext.
+   */
+  ratingOptions = [
+    { value: RatingEnum.Excellent, viewValue: 'Ausgezeichnet (5 Sterne)' },
+    { value: RatingEnum.Good, viewValue: 'Gut (4 Sterne)' },
+    { value: RatingEnum.Average, viewValue: 'Durchschnittlich (3 Sterne)' },
+    { value: RatingEnum.Bad, viewValue: 'Schlecht (2 Sterne)' },
+    { value: RatingEnum.VeryBad, viewValue: 'Sehr schlecht (1 Stern)' },
+  ];
+
+  /**
+   * @property subscription
+   * @description Verwaltet alle RxJS-Subscriptions, um sicherzustellen, dass sie beim Zerstören der Komponente
+   * ordnungsgemäß abgemeldet werden, um Memory Leaks zu vermeiden.
+   */
+  private subscription = new Subscription();
+
+  /**
+   * @constructor
+   * @description Initialisiert eine neue Instanz der EventDetailsComponent.
+   * Injiziert benötigte Services und initialisiert das Feedback-Formular.
+   * @param loginService Zum Verwalten des Benutzer-Login-Status.
+   * @param eventService Zum Abrufen und Aktualisieren von Event-Daten.
+   * @param router Zum Navigieren zwischen Routen.
+   * @param cdr Zum manuellen Auslösen der Change Detection, wenn nötig.
+   * @param fb Zum Erstellen von FormGroup-Instanzen für reaktive Formulare.
    */
   constructor(
     private readonly loginService: LoginService,
     private readonly eventService: EventService,
     private readonly router: Router,
-    private readonly cdr: ChangeDetectorRef
-  ) {}
+    private readonly cdr: ChangeDetectorRef,
+    private readonly fb: FormBuilder
+  ) {
+    this.feedbackForm = this.fb.group({
+      rating: ['', Validators.required],
+      message: ['', Validators.required],
+    });
+  }
 
   /**
    * @method ngOnInit
-   * @description Lifecycle-Hook, der beim Initialisieren der Komponente aufgerufen wird.
-   * Initialisiert den `user$`-Observable und generiert Event-Empfehlungen.
+   * @description Lifecycle-Hook, der nach der Initialisierung der Komponente aufgerufen wird.
+   * Abonniert den aktuellen Benutzerstatus und lädt Event-Empfehlungen, falls ein Event vorhanden ist.
    */
   ngOnInit(): void {
-    this.user$ = this.loginService.currentUser$; // Abonniert den aktuellen Benutzerstatus.
-    console.log(this.user$); // Loggt den Benutzer-Observable zur Debugging-Zwecken.
+    this.user$ = this.loginService.currentUser$;
+    this.subscription.add(
+      this.user$.subscribe(user => {
+        this.currentUser = user;
+        // Wichtig: Trigger Change Detection, falls sich user oder Feedback-Status ändert
+        this.cdr.detectChanges();
+      })
+    );
+    this.loadRecommendations();
+  }
 
-    // Ruft alle Events ab und filtert sie, um Empfehlungen basierend auf den Interessen des aktuellen Events zu generieren.
+  /**
+   * @method loadRecommendations
+   * @description Lädt Event-Empfehlungen basierend auf den Kategorien des aktuellen Events.
+   * Filtert die Event-Liste, um nur relevante und nicht das aktuelle Event selbst anzuzeigen.
+   */
+  private loadRecommendations(): void {
     this.recommendations$ = this.eventService.getEventList().pipe(
       map((eventList) => {
         return this.getEventsByInterest(this.event.category, eventList);
       })
     );
-
-    this.cdr.detectChanges(); // Erzwingt eine Aktualisierung der UI.
+    this.cdr.detectChanges();
   }
 
   /**
    * @method login
-   * @description Leitet den Benutzer zur Login-Seite um, mit einem Redirect-Parameter,
-   * der nach erfolgreicher Anmeldung zurück zur aktuellen Event-Detailseite führt.
+   * @description Leitet den Benutzer zur Login-Seite weiter.
+   * Nach erfolgreichem Login wird der Benutzer zur Event-Detailseite zurückgeleitet.
    */
   login(): void {
     this.router.navigate(['/', this.routingEnum.LOGIN], {
@@ -146,39 +203,175 @@ export class EventDetailsComponent implements OnInit {
 
   /**
    * @method addEventToUserList
-   * @description Fügt das aktuelle Event zur Liste der gebuchten Events des Benutzers hinzu
-   * und erstellt einen entsprechenden Log-Eintrag. Aktualisiert dann die Benutzerdaten im Backend.
-   * @param {UserDTO} user - Das UserDTO-Objekt des aktuell angemeldeten Benutzers.
+   * @description Fügt das aktuelle Event zur Liste der gebuchten Events des Benutzers hinzu.
+   * Aktualisiert den Benutzerstatus über den LoginService und fügt einen Log-Eintrag hinzu.
+   * @param user Das UserDTO-Objekt des aktuell eingeloggten Benutzers.
    */
   addEventToUserList(user: UserDTO): void {
-    // Prüft, ob das Event bereits gebucht wurde, um Duplikate zu vermeiden.
-    if(user.bookedEventIds.includes(this.event.uuid)){
-      return;
+    if (user.bookedEventIds.includes(this.event.uuid)) {
+      return; // Event wurde bereits gebucht, keine Aktion erforderlich
     }
-    user.bookedEventIds.push(this.event.uuid); // Fügt die Event-UUID zur Liste der gebuchten Events hinzu.
-    // Erstellt einen neuen Log-Eintrag für die Teilnahme am Event.
-    user.logs.push(new Logs(user.firstName + ' ' + user.lastName, new Date().toISOString(), this.event.uuid, 'Teilnahme am '+this.event.title));
-    this.loginService.updateCurrentUser(); // Aktualisiert die Benutzerdaten im Backend.
-    this.cdr.detectChanges(); // Erzwingt eine Aktualisierung der UI.
+    user.bookedEventIds.push(this.event.uuid);
+    user.logs.push(new Logs(user.firstName + ' ' + user.lastName, new Date().toISOString(), this.event.uuid, 'Teilnahme am ' + this.event.title));
+    this.loginService.updateCurrentUser(); // Speichert den aktualisierten Benutzer im lokalen Speicher
+    this.cdr.detectChanges(); // Erzwingt eine UI-Aktualisierung
   }
 
   /**
-   * @private
    * @method getEventsByInterest
-   * @description Filtert eine Liste von Events, um diejenigen zurückzugeben, die gemeinsame Interessen
-   * mit den angegebenen Interessen haben und nicht das aktuelle Event selbst sind.
-   * @param {InterestEnum[]} interests - Eine Liste von Interessen zum Filtern.
-   * @param {EventDTO[]} events - Die vollständige Liste der Events, die gefiltert werden sollen.
-   * @returns {EventDTO[]} Ein Array von EventDTOs, die den Filterkriterien entsprechen.
+   * @description Filtert eine Liste von Events, um diejenigen zurückzugeben, die relevante Interessen teilen.
+   * Schließt das aktuell angezeigte Event aus den Empfehlungen aus.
+   * @param interests Ein Array von InterestEnum, das die Interessenkategorien darstellt.
+   * @param events Ein Array von EventDTO-Objekten, das die vollständige Liste der Events ist.
+   * @returns Ein gefiltertes Array von EventDTO-Objekten.
    */
   private getEventsByInterest(interests: InterestEnum[], events: EventDTO[]): EventDTO[] {
-    // Gibt ein leeres Array zurück, wenn keine Interessen zum Filtern vorhanden sind.
     if (!interests || interests.length === 0) return [];
 
-    // Filtert die Events: Ein Event wird eingeschlossen, wenn es mindestens ein gemeinsames Interesse hat
-    // und nicht das Event ist, dessen Details gerade angezeigt werden.
     return events.filter(
       (event) => interests.some((i) => event.category.includes(i)) && event.uuid !== this.event.uuid
     );
+  }
+
+  /**
+   * @method hasUserAlreadyCommented
+   * @description Prüft, ob der aktuell eingeloggte Benutzer bereits einen Kommentar
+   * für das Event hinterlassen hat. Dies geschieht durch Überprüfung der `feedBack`-Liste
+   * des Events auf die `userId` des aktuellen Benutzers.
+   * @returns {boolean} `true`, wenn der Benutzer bereits kommentiert hat, sonst `false`.
+   */
+  hasUserAlreadyCommented(): boolean {
+    if (!this.currentUser || !this.event || !this.event.feedBack) {
+      return false; // Kein Benutzer, kein Event oder kein Feedback => kann nicht kommentiert haben
+    }
+    // Überprüfe, ob ein Feedback-Eintrag die userId des aktuellen Benutzers hat
+    return this.event.feedBack.some(feedback => feedback.userId === this.currentUser?.userId);
+  }
+
+  /**
+   * @method toggleFeedbackForm
+   * @description Schaltet die Sichtbarkeit des Feedback-Formulars um.
+   * Setzt das Formular zurück, wenn es geöffnet wird.
+   */
+  toggleFeedbackForm(): void {
+    this.showFeedbackForm = !this.showFeedbackForm;
+    if (this.showFeedbackForm) {
+      this.feedbackForm.reset();
+    }
+  }
+
+  /**
+   * @method closeFeedbackForm
+   * @description Schließt das Feedback-Formular und setzt es zurück.
+   */
+  closeFeedbackForm(): void {
+    this.showFeedbackForm = false;
+    this.feedbackForm.reset();
+  }
+
+  /**
+   * @method getRatingViewValue
+   * @description Konvertiert einen numerischen `RatingEnum`-Wert in eine lesbare Zeichenfolge
+   * (z.B. "Ausgezeichnet (5 Sterne)").
+   * @param rating Der `RatingEnum`-Wert, der konvertiert werden soll.
+   * @returns Eine Zeichenfolge, die den lesbaren Wert der Bewertung darstellt, oder 'Unbekannt',
+   * wenn der Wert nicht gefunden wird.
+   */
+  getRatingViewValue(rating: RatingEnum): string {
+    const option = this.ratingOptions.find(opt => opt.value === rating);
+    return option ? option.viewValue : 'Unbekannt';
+  }
+
+  /**
+   * @method onSubmitFeedback
+   * @description Verarbeitet das Absenden des Feedback-Formulars.
+   * Führt Validierungen durch, erstellt ein neues `EventFeedBackDto`, fügt es dem Event hinzu
+   * und sendet das aktualisierte Event an den `EventService`.
+   * Zeigt bei Erfolg eine Bestätigung an und schließt das Formular.
+   */
+  onSubmitFeedback(): void {
+    if (this.feedbackForm.invalid) {
+      this.feedbackForm.markAllAsTouched(); // Markiert alle Felder als berührt, um Validierungsfehler anzuzeigen
+      console.warn('Feedback-Formular ist ungültig.');
+      return;
+    }
+
+    if (!this.currentUser || !this.currentUser.userId || !this.currentUser.firstName) {
+      console.warn('Benutzer nicht angemeldet oder unvollständig. Feedback kann nicht gesendet werden.');
+      this.router.navigate(['/login']); // Leitet zur Login-Seite um
+      return;
+    }
+
+    if (!this.event || !this.event.uuid) {
+      console.error('Kein Event geladen oder Event-UUID fehlt, kann Feedback nicht senden.');
+      return;
+    }
+
+    // Zusätzliche Prüfung: Wenn der Benutzer bereits kommentiert hat, abbrechen.
+    if (this.hasUserAlreadyCommented()) {
+      console.warn('Benutzer hat bereits Feedback für dieses Event hinterlassen.');
+      // Optional: Eine Nachricht an den Benutzer anzeigen, dass er bereits Feedback gegeben hat.
+      return;
+    }
+
+    const formValues = this.feedbackForm.value;
+
+    const newEventFeedback: EventFeedBackDto = new EventFeedBackDto(
+      this.currentUser.userId,
+      `${this.currentUser.firstName} ${this.currentUser.lastName || ''}`.trim(),
+      formValues.rating,
+      formValues.message
+    );
+
+    // Initialisiert das Feedback-Array, falls es noch nicht existiert
+    if (!this.event.feedBack) {
+      this.event.feedBack = [];
+    }
+    // Fügt das neue Feedback lokal zum Event hinzu
+    this.event.feedBack.push(newEventFeedback);
+
+    // Sendet das gesamte aktualisierte Event-Objekt an den Service
+    this.eventService.updateEvent(this.event).subscribe({
+      next: (updatedEvent) => {
+        console.log('Event-Feedback erfolgreich gesendet und Event aktualisiert:', updatedEvent);
+        this.event = updatedEvent; // Aktualisiert das lokale Event mit den Daten vom Backend
+        this.showConfirmation = true;
+        // Wichtig: Sobald Feedback gesendet, Formular schließen und Status aktualisieren
+        this.showFeedbackForm = false;
+        this.feedbackForm.reset(); // Formularfelder zurücksetzen
+        this.cdr.detectChanges(); // UI-Update erzwingen, um hasUserAlreadyCommented zu reevaluieren
+        setTimeout(() => {
+          this.showConfirmation = false;
+          this.cdr.detectChanges(); // Und wieder verstecken
+        }, 5000); // Bestätigungsmeldung für 5 Sekunden anzeigen
+      },
+      error: (err) => {
+        console.error('Fehler beim Senden des Event-Feedbacks:', err);
+        // Hier sollte eine Fehlermeldung für den Benutzer angezeigt werden, z.B. mit MatSnackBar
+      }
+    });
+  }
+
+  /**
+   * @method hasUserBookedEvent
+   * @description Prüft, ob der aktuell eingeloggte Benutzer diese Veranstaltung gebucht hat.
+   * Dies ist eine Voraussetzung dafür, Feedback geben zu können.
+   * @returns {boolean} `true`, wenn das Event vom Benutzer gebucht wurde, sonst `false`.
+   */
+  hasUserBookedEvent(): boolean {
+    if (!this.currentUser || !this.event || !this.currentUser.bookedEventIds) {
+      return false; // Kein Benutzer, kein Event oder keine gebuchten Events => kann nicht gebucht haben
+    }
+    // Überprüft, ob die UUID des aktuellen Events in der Liste der gebuchten Event-IDs des Benutzers enthalten ist
+    return this.currentUser.bookedEventIds.includes(this.event.uuid);
+  }
+
+  /**
+   * @method ngOnDestroy
+   * @description Lifecycle-Hook, der vor dem Zerstören der Komponente aufgerufen wird.
+   * Meldet alle RxJS-Subscriptions ab, um Memory Leaks zu verhindern.
+   */
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
