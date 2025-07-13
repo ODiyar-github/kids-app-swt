@@ -70,9 +70,175 @@
       margin-bottom: 1vh;
     }
   }
+}
 
-  .rightSide{
+.event-feedback-section {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: white; 
+  border-radius: var(--borderRadius);
+  box-shadow: var(--defaultBoxShadow);
+}
 
+.feedback-form {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--borderRadius);
+  background-color: white;
+}
+
+.event-feedback-form .form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.event-feedback-form button {
+  margin-right: 0.5rem;
+}
+
+.confirmation-message {
+  color: green;
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.login-message {
+  color: #555;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.event-feedback-section {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: var(--borderRadius);
+  box-shadow: var(--defaultBoxShadow);
+}
+
+.feedback-form {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--borderRadius);
+  background-color: white;
+}
+
+.event-feedback-form-content .form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.event-feedback-form-content button {
+  margin-right: 0.5rem;
+}
+
+.confirmation-message {
+  color: green;
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.login-message {
+  color: #555;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.empty-text {
+  color: #777;
+  font-style: italic;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.feedback-list {
+  margin-top: 1rem;
+}
+
+.feedback-item {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.feedback-item:last-child {
+  border-bottom: none;
+}
+
+.feedback-item .feedback-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.feedback-item .feedback-header mat-icon {
+  margin-right: 8px;
+  color: gold;
+  font-size: 20px;
+}
+
+.feedback-user {
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.feedback-message {
+  font-style: italic;
+  color: #333;
+  padding-left: 28px;
+}
+
+.already-commented-message {
+  color: #5cb85c;
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: center;
+  padding: 0.8rem;
+  border: 1px solid #d6e9c6;
+  background-color: #f2fdf2;
+  border-radius: var(--borderRadius);
+}
+
+.not-booked-message {
+  color: #f0ad4e;
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: center;
+  padding: 0.8rem;
+  border: 1px solid #fbeed5;
+  background-color: #fff8e8;
+  border-radius: var(--borderRadius);
+}
+
+@media (max-width: 768px) {
+  .topContent {
+    flex-direction: column;
+    height: auto;
+  }
+  .eventContent {
+    flex-direction: column;
+  }
+  .eventContent .leftSide .addButton {
+    margin-left: 0;
+    text-align: center;
   }
 }
 
+.userRating{
+  width: 100%;
+  height: auto;
+  .activities-card{
+    height: 40vh;
+  }
+  .activitiesItems{
+    height: fit-content;
+  }
+  .itemList{
+    height: fit-content;
+  }
+}

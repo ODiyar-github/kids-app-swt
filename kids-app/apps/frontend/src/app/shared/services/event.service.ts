@@ -40,4 +40,16 @@ export class EventService {
   public getEventList(): Observable<EventDTO[]> {
     return this.httpClient.get<EventDTO[]>(`${environment.EVENT.URL}`);
   }
+
+  /**
+   * @method updateEvent
+   * @description Aktualisiert ein Event-Objekt im Backend, z.B. um neues Feedback hinzuzufügen.
+   * @param {EventDTO} event - Das zu aktualisierende Event-Objekt, das das neue Feedback enthält.
+   * @returns {Observable<EventDTO>} Ein Observable, das das aktualisierte EventDTO-Objekt zurückgibt.
+   */
+    public updateEvent(event: EventDTO): Observable<EventDTO> {
+      // Der PUT-Endpunkt im BFF sollte das Event anhand seiner UUID aktualisieren.
+      // Beispiel: PUT /api/events/{uuid}
+      return this.httpClient.put<EventDTO>(`${environment.EVENT.URL}`, event);
+    }
 }

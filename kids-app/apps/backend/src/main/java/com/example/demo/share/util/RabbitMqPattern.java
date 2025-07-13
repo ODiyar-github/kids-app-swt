@@ -26,6 +26,10 @@ public enum RabbitMqPattern {
      * @member EVENTS_GET_BY - Muster zum Abrufen von Events basierend auf bestimmten Kriterien. Erwartet eine Antwort.
      */
     EVENTS_GET_BY("get-by", true),
+    /**
+     * @member PUT_EVENT - Muster zur Aktualisierung eines Events. Die Event-Daten (inkl. ID) werden im Request-Body übermittelt. Erwartet eine Antwort.
+     */
+    PUT_EVENT("update-event-by-id", true),
 
     /**
      * @member SEND_MOCKUP - Muster zum Senden von Mockup-Daten zur Initialisierung. Erwartet eine Antwort.

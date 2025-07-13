@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put } from '@nestjs/common';
 import { EventService } from './event.service';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
@@ -58,5 +58,37 @@ export class EventController {
   getEventById(@Param('id') id: string): Observable<EventDTO> { // Extrahiert die 'id' aus den Pfad-Parametern.
     console.log(`📥 Anfrage: Event mit ID ${id}`); // Loggt die Anfrage.
     return this.eventService.getEventById(id); // Ruft die getEventById-Methode des EventService auf.
+  }
+
+  /**
+   * @method updateEvent
+   * @brief Verarbeitet PUT-Anfragen zur Aktualisierung eines Events.
+   *
+   * <p>Dieser Endpunkt empfängt ein {@link EventDTO}-Objekt im Request-Body.
+   * Er leitet die Aktualisierungsanfrage an den {@link EventService} weiter,
+   * welcher wiederum die Kommunikation mit dem tieferliegenden Microservice (z.B. über RabbitMQ)
+   * zur persistenten Speicherung der Änderungen übernimmt.</p>
+   *
+   * <p>Die UUID des zu aktualisierenden Events muss im übermittelten {@link EventDTO} enthalten sein.
+   * Dieses Design ermöglicht eine flexiblere Handhabung der Event-Aktualisierungen,
+   * beispielsweise um Feedback hinzuzufügen oder andere Event-Details zu modifizieren.</p>
+   *
+   * @param eventDto Das {@link EventDTO}-Objekt, das die vollständigen aktualisierten Event-Daten
+   * sowie die UUID des zu aktualisierenden Events enthält.
+   * @returns Ein {@link Observable}, das das aktualisierte {@link EventDTO}-Objekt emittiert,
+   * sobald die Aktualisierung vom Backend-Service bestätigt wurde.
+   *
+   * @Put() - Definiert diesen Endpunkt als PUT-Methode. Da keine Pfadparameter angegeben sind,
+   * wird der Endpunkt basierend auf dem Controller-Präfix (z.B. `/api/events`) aufgerufen.
+   * @ApiOperation - Beschreibt die Funktion des API-Endpunkts in der Swagger-Dokumentation.
+   * @ApiResponse - Dokumentiert die erwartete HTTP-Antwort bei Erfolg (Status 200) und den Rückgabetyp.
+   */
+  @Put() // Endpunkt für PUT /api/events (falls Controller-Präfix '/api/events' ist)
+  @ApiOperation({ summary: 'Ein Event aktualisieren' })
+  @ApiResponse({ status: 200, description: 'Das aktualisierte Event', type: EventDTO })
+  updateEvent(@Body() eventDto: EventDTO): Observable<EventDTO> {
+    console.log(`📥 Anfrage: Event aktualisieren für UUID: ${eventDto.uuid}`);
+    // Optional: uuid im DTO setzen, falls es im Body fehlt oder abweichen könnte
+    return this.eventService.updateEvent(eventDto); // BFF EventService ruft RabbitMQ auf
   }
 }
