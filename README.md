@@ -1,8 +1,8 @@
-# **Kids App: Eine Community-Plattform für Events**
+# **Herne kids&teens App: Eine Community-Plattform für Events**
 
 ## **📚 Projektübersicht**
 
-Die Kids App ist eine umfassende Community-Plattform, die speziell für Kinder und Jugendliche entwickelt wurde, um lokale Veranstaltungen und Aktivitäten zu entdecken, sich mit Freunden zu vernetzen und Feedback zu teilen. Die Anwendung ist modular aufgebaut und nutzt eine moderne Microservices-Architektur, um Skalierbarkeit und Wartbarkeit zu gewährleisten.
+Die Herne kids&teens App ist eine umfassende Community-Plattform, die speziell für Kinder und Jugendliche entwickelt wurde, um lokale Veranstaltungen und Aktivitäten zu entdecken, sich mit Freunden zu vernetzen und Feedback zu teilen. Die Anwendung ist modular aufgebaut und nutzt eine moderne Microservices-Architektur, um Skalierbarkeit und Wartbarkeit zu gewährleisten.
 
 ## **✨ Funktionen**
 
@@ -16,7 +16,7 @@ Die Kids App ist eine umfassende Community-Plattform, die speziell für Kinder u
 
 ## **🏗️ Architektur**
 
-Die Kids App folgt einer Microservices-Architektur, die aus mehreren unabhängigen Diensten besteht, die über einen Nachrichtenbroker kommunizieren.
+Die Herne kids&teens App folgt einer Microservices-Architektur, die aus mehreren unabhängigen Diensten besteht, die über einen Nachrichtenbroker kommunizieren.
 
 * **Frontend (Angular):** Die Benutzeroberfläche der Anwendung, die im Browser läuft.  
 * **BFF (Backend-for-Frontend, NestJS):** Ein Gateway-Dienst, der als Vermittler zwischen dem Frontend und dem Backend fungiert. Er aggregiert und transformiert Daten, um die spezifischen Anforderungen des Frontends zu erfüllen.  
