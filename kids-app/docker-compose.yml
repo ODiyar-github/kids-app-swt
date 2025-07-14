@@ -81,21 +81,21 @@ services:
         condition: service_started
 
   # Definition des Frontend-Dienstes
-  # frontend:
-  #   # Build-Konfiguration für den Frontend-Dienst
-  #   build:
-  #     dockerfile: ./docker/angular.dockerfile
-  #     args:
-  #       APP: frontend
-  #   # Abhängigkeit: Frontend startet erst, wenn der BFF gestartet ist
-  #   depends_on:
-  #     - bff
-  #   # Umgebungsvariablen für den Frontend-Dienst
-  #   environment:
-  #     - BASE_URL=http://localhost:3000/api
-  #   # Port-Mapping: Host-Port 8080 wird auf Container-Port 8080 gemappt
-  #   ports:
-  #     - "8080:8080"
+  frontend:
+    # Build-Konfiguration für den Frontend-Dienst
+    build:
+      dockerfile: ./docker/angular.dockerfile
+      args:
+        APP: frontend
+    # Abhängigkeit: Frontend startet erst, wenn der BFF gestartet ist
+    depends_on:
+      - bff
+    # Umgebungsvariablen für den Frontend-Dienst
+    environment:
+      - BASE_URL=http://localhost:3000/api
+    # Port-Mapping: Host-Port 8080 wird auf Container-Port 8080 gemappt
+    ports:
+      - "8080:8080"
 
 # Definition der Volumes
 volumes:
